@@ -12,9 +12,9 @@
 
 **投稿邮箱：moon-hotel@hotmail.com**
 
-<img src="./Images/p9999.png" style="zoom:40%;" />
+<img src="./Images/p9999.png" style="zoom:60%;" />
 
 # 目录
 
-- [第零讲：环境安装与配置](./00_Configuration/README.md)
-- [第一讲：线性回归 ](./01_LinearRegression/README.md)
+- [x] [第零讲：环境安装与配置](./00_Configuration/README.md)
+- [ ] 第一讲：线性回归 
