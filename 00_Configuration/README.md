@@ -1,38 +1,27 @@
 # 环境配置与安装
 
-## 1. 本节内容
+## 1. 第一次推送
 
-### 1.1 怎么入门机器学习
+### 1.1 内容
 
-- [如何才能入门机器学习？](https://blog.csdn.net/The_lastest/article/details/105249593)
+- [如何才能入门机器学习？ ](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483718&idx=1&sn=1d0af6a2d01df78181ee68977088a009&chksm=9b0af6b5ac7d7fa3e4a72f65c1c495f64b9baaf351ddfaee107a95a85dd026a9e5f69159b489&token=557820030&lang=zh_CN#rd)
 
-### 1.2 环境配置
+## 2. 第二次推送
 
-- [优雅的安装和使用Anaconda](https://blog.csdn.net/The_lastest/article/details/105273732)
-- [Pycharm安装与使用](https://blog.csdn.net/The_lastest/article/details/105273828)
+### 2.1 内容
 
-## 2. 本节作业
+- [优雅的安装和使用Anaconda](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483755&idx=1&sn=a685a82ff0b91d503d8116fc717fd26a&chksm=9b0af698ac7d7f8e51debfa6eabe1499a8747a50a128691981e36944cf2f9278e8d144d7d007&token=557820030&lang=zh_CN#rd)
+- [Pycharm安装与使用](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483755&idx=2&sn=44b0323db059af09046731bf46af3025&chksm=9b0af698ac7d7f8e48eb3548817d8ff2bfb5f0c277d53ecd12e86adf050fb9ea1be8414e7f89&token=557820030&lang=zh_CN#rd)
 
-### 2.1 学习Python的基本语法
+### 2.2 练习
 
 花两小时左右练习使用常见的Python语法，如列表的使用，函数的基本定义等
 
 - [菜鸟教程](https://www.runoob.com/python/python-basic-syntax.html)
 - [廖雪峰Python教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
-
-### 2.2 学习Numpy的基本使用
-
-不用死记硬背，跟着敲一遍有个影响就行，后面再边用边学。
-
 - [快速上手指南 --- 基础篇](https://www.kesci.com/home/project/59ed832d18ec724555a9a968)
 
-  
 
-</br>
-
-</br>
-
-</br>
 
 ### **[<主页>](../README.md)**    [<下一讲>](../01_LinearRegression/README.md)
 
