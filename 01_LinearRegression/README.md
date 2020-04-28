@@ -15,7 +15,7 @@
 
 ### 2.1 内容
 
-- [线性回归（多变量与多项式回归）]()
+- [线性回归（多变量与多项式回归）](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483848&idx=1&sn=be7383d623cc4af8110d3083c3232180&chksm=9b0af63bac7d7f2de75e2da4698ddb293768418b356adecd6eff35f86c432fd9ccccf135e3ef&token=1309867420&lang=zh_CN#rd)
 
 ### 2.2 练习
 
