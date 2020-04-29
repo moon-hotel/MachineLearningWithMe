@@ -25,7 +25,20 @@
   - [sklearn API（官方）](https://scikit-learn.org/stable/modules/classes.html)
   - [sklearn API （中文社区）](https://sklearn.apachecn.org/)
 
+## 3. 第三次推送
 
+### 3.1 内容
+
+- [线性回归（模型的评估）](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483883&idx=1&sn=763bdd5f990f7d9274f7f0a6a6ca68f5&chksm=9b0af618ac7d7f0edf6611ad6ae95bc60dabb2e9c89e7405ac9fa7c50ecc6c5ad2d4ebdbb97b&token=244392929&lang=zh_CN#rd)
+- [线性回归（梯度下降）](https://mp.weixin.qq.com/s?__biz=MzAwNjU0NjA3Ng==&mid=2247483883&idx=2&sn=305d24b937340e0b1650b9e7f4649b30&chksm=9b0af618ac7d7f0e57e48ae87c254016cd5e9e5bb65bd72e6ae3d5a86d22721c057358b3a636&token=244392929&lang=zh_CN#rd)
+
+### 3.2 练习
+
+- 完成示例代码的运行并**理解**
+
+  - [示例1](./301_visualization.py)，[示例2](302_metrics.py)，[示例3](401_visualization.py)，[示例4](402_init_weight.py)，[示例5](./403_gradient_descent.py)
+
+    
 
 
 
