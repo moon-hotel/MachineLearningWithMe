@@ -17,4 +17,4 @@
 # 目录
 
 - [x] [第零讲：环境安装与配置](./00_Configuration/README.md)
-- [ ] 第一讲：线性回归 
+- [ ] [第一讲：线性回归 ](./01_LinearRegression/README.md)
