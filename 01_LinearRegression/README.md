@@ -42,8 +42,8 @@
 
 ### 4.1 内容
 
-- [神说，要有正态分布，于是就有了正态分布]
-- [线性回归（目标函数的推导）]
+- [神说，要有正态分布，于是就有了正态分布](https://mp.weixin.qq.com/s/1DiBXYGRCXZgmmEADsLI-w)
+- [线性回归（目标函数的推导）](https://mp.weixin.qq.com/s/gzMEjhRNCHRekg7BY3VoXA)
 
 ### 4.2 练习
 
