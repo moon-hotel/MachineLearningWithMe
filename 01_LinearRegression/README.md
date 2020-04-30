@@ -38,7 +38,22 @@
 
   - [示例1](./301_visualization.py)，[示例2](302_metrics.py)，[示例3](401_visualization.py)，[示例4](402_init_weight.py)，[示例5](./403_gradient_descent.py)
 
+## 4. 第四次推送
+
+### 4.1 内容
+
+- [神说，要有正态分布，于是就有了正态分布]
+- [线性回归（目标函数的推导）]
+
+### 4.2 练习
+
+- 完成示例代码的运行
+  
+  - [示例1](./405_normal_distribution.py)，[示例2](./406_boston_house_prediction.py)
+  
     
+
+### **[<主页>](../README.md)**    [<下一讲>](../02_LogisticRegression/README.md)
 
 
 
