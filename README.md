@@ -12,7 +12,7 @@
 
 **投稿邮箱：moon-hotel@hotmail.com**
 
-<img src="./Images/p9999.png" style="zoom:60%;" />
+<img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000007.png" style="zoom:60%;" />
 
 # 目录
 
