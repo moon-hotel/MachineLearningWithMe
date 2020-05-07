@@ -18,4 +18,5 @@
 
 - [x] [第零讲：环境安装与配置](./00_Configuration/README.md)
 - [x] [第一讲：线性回归 ](./01_LinearRegression/README.md)
-- [ ] [第二讲：逻辑回归](./02_LogisticRegression/README.md)
+- [x] [第二讲：逻辑回归](./02_LogisticRegression/README.md)
+- [ ] [第三讲：模型的改善与泛化](./03_ModelOptimization/README.md)
