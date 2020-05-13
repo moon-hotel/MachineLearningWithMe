@@ -10,7 +10,7 @@
 
 欢迎关注并投稿！
 
-**投稿邮箱：moon-hotel@hotmail.com**
+**邮箱：moon-hotel@hotmail.com  ** **微信：**nulls8
 
 <img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000007.png" style="zoom:60%;" />
 
