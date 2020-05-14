@@ -40,11 +40,11 @@
 
 ### 4.1 内容
 
-- [模型的改善与泛化（正则化）](https://mp.weixin.qq.com/s/rvmdb16QTDi4euyanoC2-w)
+- [模型的改善与泛化（偏差方差与交叉验证）](https://mp.weixin.qq.com/s/REYf_FcHvNSASCuybeSenQ)
 
 ### 4.2 练习
 
 - 完成示例代码的运行并理解
 
-  - [示例1](./401_visualization_regular_2D.py)，[示例2](./402_visualization_regular_contour.py)，[示例3](./403_model_space.py)，[示例4](
+  - [示例1](./501_bias_variance.py)，[示例2](./502_visualization_grad_convex.py)，[示例3](./503_visualization_grad_nonconvex.py)
 
