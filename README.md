@@ -19,4 +19,5 @@
 - [x] [第零讲：环境安装与配置](./00_Configuration/README.md)
 - [x] [第一讲：线性回归 ](./01_LinearRegression/README.md)
 - [x] [第二讲：逻辑回归](./02_LogisticRegression/README.md)
-- [ ] [第三讲：模型的改善与泛化](./03_ModelOptimization/README.md)
+- [x] [第三讲：模型的改善与泛化](./03_ModelOptimization/README.md)
+- [ ] [第四讲：K最近邻与朴素贝叶斯](./04_KNNAndNaiveBayes/README.md)
