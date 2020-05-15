@@ -48,3 +48,17 @@
 
   - [示例1](./501_bias_variance.py)，[示例2](./502_visualization_grad_convex.py)，[示例3](./503_visualization_grad_nonconvex.py)
 
+## 5 第五次推送
+
+### 5.1 内容
+
+- [模型的改善与泛化（手写体识别）](https://mp.weixin.qq.com/s/Hx0EmnvJqShuaCckIiYvew)
+- [第二次问题交流（为什么线性回归中误差是服从均值为0方差为](https://mp.weixin.qq.com/s/4EOX9oRZonyzESOmXbz8JQ)
+
+### 5.2 练习
+
+- 完成示例代码的运行并**理解**
+
+  - [示例1](./601_digits_classification.py)
+
+### [<主页>](../README.md)    [<下一讲>](../04_KNNAndNaiveBayes/README.md)
