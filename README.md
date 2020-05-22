@@ -10,7 +10,7 @@
 
 欢迎关注并投稿！
 
-**邮箱：moon-hotel@hotmail.com  ** **微信：**nulls8
+**邮箱：moon-hotel@hotmail.com  微信：nulls8**
 
 <img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000007.png" style="zoom:60%;" />
 
@@ -20,4 +20,5 @@
 - [x] [第一讲：线性回归 ](./01_LinearRegression/README.md)
 - [x] [第二讲：逻辑回归](./02_LogisticRegression/README.md)
 - [x] [第三讲：模型的改善与泛化](./03_ModelOptimization/README.md)
-- [ ] [第四讲：K最近邻与朴素贝叶斯](./04_KNNAndNaiveBayes/README.md)
+- [x] [第四讲：K最近邻与朴素贝叶斯](./04_KNNAndNaiveBayes/README.md)
+- [ ] [第五讲：决策树](./05_DecisionTree/README.md)
