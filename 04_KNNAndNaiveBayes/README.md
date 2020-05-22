@@ -29,3 +29,34 @@
 - 完成示例代码的运行并理解
   - [示例1](./201_cut_words.py)，[示例2](./202_vectorization.py)
 
+## 4 第四次推送
+
+### 4.1 内容
+
+- [基于词袋模型的垃圾邮件分类](https://mp.weixin.qq.com/s/6J5vZSb53rEJ-ToPcMpYKQ)
+- [聚类与分类的区别是什么](https://mp.weixin.qq.com/s/l8jQHLjRj-1-c-_1GHcxiQ)
+
+### 4.2 练习
+
+- 完成示例代码的运行并理解
+
+  - [示例1](./301_bag_of_word.py)，[示例2](./302_bag_of_word_cla.py)
+
+## 5 第五次推送
+
+### 5.1 内容
+
+- [TF-IDF文本表示方法与词云图](https://mp.weixin.qq.com/s/ULyWHF2hJq3IMQrBCR7FzQ)
+
+### 5.2 练习
+
+- 完成示例代码的运行并理解
+
+  - [示例1](./401_TFIDF.py)，[示例2](./402_word_cloud.py)
+
+### 5.3 任务二
+
+- [任务二（基于贝叶斯算法的新闻分类））](https://mp.weixin.qq.com/s/S4X2anVmhL4-CwP2Mo-T0Q)
+  - [参考代码](./402_task2_new_classification.py)
+
+### [<主页>](../README.md)    [<下一讲>](../05_DecisionTree/README.md)
