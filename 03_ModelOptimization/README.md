@@ -1,6 +1,8 @@
 # 模型的改善与泛化
 
-## 1 第一次推送
+<img src="../Images/0082.png" style="zoom:80%;" />
+
+## 1 第一部分
 
 ### 1.1 内容
 
@@ -13,7 +15,7 @@
   - [示例1](./101_visualization_projection.py)，[示例2](102_visualization_contour.py)，[示例3](./103_visualization_gradietn.py)，[示例4](./104_standarlization_reg.py)，[示例5](./105_standarlization_cla.py)
   - [示例6](./106_visualization_nonlinear.py)，[示例7](./107_visualization_pol_reg.py)，[示例8](./108_visualization_pol_cla.py)，[示例9](./201_visualization_grad_contour.py)，[示例10](./202_visualization_grad.py)
 
-## 2 第二次推送
+## 2 第二部分
 
 ### 2.1 内容
 
@@ -24,7 +26,7 @@
 - 完成示例代码的运行并理解
   - [示例1](./301_visualization_overfitting_reg.py)，[示例2](./302_visualization_overgitting_cla.py)
 
-## 3 第三次推送
+## 3 第三部分
 
 ### 3.1 内容
 
@@ -36,7 +38,7 @@
 
   - [示例1](./401_visualization_regular_2D.py)，[示例2](./402_visualization_regular_contour.py)，[示例3](./403_model_space.py)，[示例4](./404_regularized_regression.py)
 
-## 4 第四次推送
+## 4 第四部分
 
 ### 4.1 内容
 
@@ -48,7 +50,7 @@
 
   - [示例1](./501_bias_variance.py)，[示例2](./502_visualization_grad_convex.py)，[示例3](./503_visualization_grad_nonconvex.py)
 
-## 5 第五次推送
+## 5 第五部分
 
 ### 5.1 内容
 
