@@ -21,5 +21,5 @@
 - [泰坦尼克号沉船生还预测](https://mp.weixin.qq.com/s/K2i54YjoUGNWxgwJqSTQwg)
   - [示例1](./601_titanic.py)
 
-### [<主页>](../README.md)    [<下一讲>](../07_SupportVectorMachine/README.md)
+### [<主页>](../README.md)    [<下一讲>](../06_SupportVectorMachine/README.md)
 
