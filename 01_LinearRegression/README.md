@@ -30,7 +30,7 @@
 
 - [线性回归（梯度下降）](https://mp.weixin.qq.com/s/6Z4vcs_CtQYZxrU_JmSzqQ)
 
-  - [示例1](401_visualization.py)，[示例2](402_init_weight.py)，[示例5](./403_gradient_descent.py)
+  - [示例1](401_visualization.py)，[示例2](402_init_weight.py)，[示例3](./403_gradient_descent.py)
 
 ### 2.2 练习
 
