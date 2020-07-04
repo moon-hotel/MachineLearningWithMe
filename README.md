@@ -21,7 +21,7 @@
 
 - [x] ##### [知识点索引](./KnowledgeIndex.md)
 
-<img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000000.png" style="zoom:80%;" />
+<img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000000.png" style="zoom:50%;" />
 
 **邮箱：moon-hotel@hotmail.com  微信：nulls8**
 
