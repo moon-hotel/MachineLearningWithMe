@@ -22,9 +22,8 @@
 
 ### [知识点索引](./KnowledgeIndex.md)
 
-<div align=center>
-    <img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000000.png" width="400" />
-</div>
+<img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/000000.png" width="400" />
+
 
 
 
