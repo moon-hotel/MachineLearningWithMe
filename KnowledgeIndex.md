@@ -124,6 +124,8 @@
   - 缺失值补充
   - 特征值转换
   - `GridSearchCV`的使用 [示例1](05_DecisionTree/601_titanic.py)
+- [多分类下的召回率与F值](https://mp.weixin.qq.com/s/pB7RX0Wnr2iLN7X-iAQgHg)
+  - 准确率、精确率、召回率与F值
 
 ## [6 支持向量机](./06_SupportVectorMachine/README.md)
 
