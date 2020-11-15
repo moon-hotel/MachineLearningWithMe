@@ -2,8 +2,10 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
+from sklearn.externals import joblib
 import jieba
 import re
+import os
 
 
 def clean_str(string, sep=" "):
@@ -54,14 +56,35 @@ def get_dataset(top_k_words=1000):
 def train(X_train, X_test, y_train, y_test):
     model = MultinomialNB()
     model.fit(X_train, y_train)
+    save_model(model)
     y_pre = model.predict(X_test)
-
     r = classification_report(y_test, y_pre)
     print(r)
+
+
+def save_model(model, dir='MODEL'):
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+    joblib.dump(model, os.path.join(dir, 'model.pkl'))
+
+
+def load_model(dir='MODEL'):
+    path = os.path.join(dir, 'model.pkl')
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path} 模型不存在，请先训练模型！")
+    model = joblib.load(path)
+    return model
+
+
+def predict(X):
+    model = load_model()
+    y_pred = model.predict(X)
+    print(y_pred)
 
 
 if __name__ == '__main__':
     # x = load_data_and_cut()
     # print(x[:2])
     X_train, X_test, y_train, y_test = get_dataset()
-    train(X_train, X_test, y_train, y_test)
+    # train(X_train, X_test, y_train, y_test)
+    predict(X_test)
