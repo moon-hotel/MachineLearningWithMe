@@ -16,7 +16,7 @@ def visualization_normal_dis():
     x, y = normal_distribution(mu=0, sigma2=5)
     plt.plot(x, y, label=r'$\mu=0,\sigma^2=5$')
     x, y = normal_distribution(mu=-2, sigma2=0.5)
-    plt.plot(x, y, label=r'$\mu=0,\sigma^2=0.5$')
+    plt.plot(x, y, label=r'$\mu=-2,\sigma^2=0.5$')
 
     plt.vlines(0, -0.10, 0.9, color='r',linestyles='--')
     plt.xlabel('x', fontsize=15)
