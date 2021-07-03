@@ -11,9 +11,10 @@ def make_data():
                       cluster_std=0.2, random_state=np.random.seed(10))
     index_pos, index_neg = (y == 1), (y == 0)
     x_pos, x_neg = x[index_pos], x[index_neg]
-    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='positive')
-    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='negative')
-    plt.legend(fontsize=15)
+    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='s', c='r')
+    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='o', c='orange')
+    plt.xticks([])
+    plt.yticks([])
     return x, y
 
 
