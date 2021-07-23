@@ -78,23 +78,22 @@
   - 距离的度量方式
   - 网格搜索与并行搜索
   - `GridSearch`
-- kd树
+- [kd树的搜索过程到底是怎么进行的？](https://www.ylkz.life/machinelearning/mlwm/p12644929/)
+  - kd树的构建
+  - kd树的最近邻和K近邻搜索
 - [朴素贝叶斯算法](https://mp.weixin.qq.com/s/QOWBh77f_Dv0Fmj_mAk-Cw)
   - 朴素贝叶斯原理
   - 先验概率与后验概率
   - 拉普拉斯平滑
   - 贝叶斯估计
-
 - [文本特征提取之词袋模型](https://mp.weixin.qq.com/s/oCql-n_B1zrjC5RCi0Vpew)
   - 词袋模型原理
   - 分词与词频统计
   - `jieba`与`Counter`
-
 - [基于词袋模型的垃圾邮件分类](https://mp.weixin.qq.com/s/6J5vZSb53rEJ-ToPcMpYKQ)
   - `CountVectorizer`与文本数据预处理
   - 朴素贝叶斯分类示例 [示例1](04_KNNAndNaiveBayes/302_bag_of_word_cla.py)
   - `classification_report`
-
 - [TF-IDF文本表示方法与词云图](https://mp.weixin.qq.com/s/ULyWHF2hJq3IMQrBCR7FzQ)
   - TFIDF原理与计算示例
   - `TfidfVectorizer`与停用词
