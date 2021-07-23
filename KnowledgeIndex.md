@@ -3,8 +3,11 @@
 ## [0 环境配置](./00_Configuration/README.md)
 
 - [如何才能入门机器学习？ ](https://mp.weixin.qq.com/s/fhWdDOmJWRb0_cUhR8NU0A)
+  - 一个合适的方法往往能够事半功倍
 - [优雅的安装和使用Anaconda](https://mp.weixin.qq.com/s/KOFvW5UpAzqJKchCkfv7JA)
+  - Windows和Linux下安装Anaconda
   - 使用`Conda`来进行环境的创建与管理
+  - 源替换与导出Python列表
 - [Pycharm安装与使用](https://mp.weixin.qq.com/s/MY0B6tIF9jcONmc0puARig)
   - 配置运行环境
 
@@ -14,7 +17,7 @@
   - 什么是线性回归
   - 模型的误差之目标函数
   - `pip install`命令的使用
-  - sklearn建模房价预测 [示例1](01_LinearRegression/102_train.py)
+  - `sklearn`建模房价预测 [示例1](01_LinearRegression/102_train.py)
 - [线性回归（多变量与多项式回归）](https://mp.weixin.qq.com/s/QqjCzRIRkOydlwAsvWWLyQ)
   - 多变量回归 [示例1](01_LinearRegression/201_train.py)
   - 多项式回归与`PolynomialFeatuires`用法 [示例1](01_LinearRegression/202_train_pol.py)
@@ -32,15 +35,14 @@
 - [逻辑回归（模型的建立与求解）](https://mp.weixin.qq.com/s/QNds12K8v9tuHnOFcY-0ag)
   - 逻辑回归原理
   - 决策边界[示例1](02_LogisticRegression/102_decision_boundary.py)
-
 - [逻辑回归（混淆矩阵与评估指标）](https://mp.weixin.qq.com/s/COz9WNXSIBij2x1-dtEoJA)
-  - 混淆矩阵与多分类思想 [示例1](02_LogisticRegression/202_one_vs_all.py)，[示例2](02_LogisticRegression/203_one_vs_all_train.py)
-- sklearn建模患癌预测 [示例1](02_LogisticRegression/201_metrics.py)
-  
+  - 混淆矩阵与`classification_report` [示例1](02_LogisticRegression/202_one_vs_all.py)，[示例2](02_LogisticRegression/203_one_vs_all_train.py)
+  - One-vs-all与多分类思想
+  - `sklearn`建模患癌预测
+- `sklearn`建模患癌预测 [示例1](02_LogisticRegression/201_metrics.py)
 - [逻辑回归（目标函数推导与实现）](https://mp.weixin.qq.com/s/g6x2o_FN3Ndi_RhDpxCJWg)
   - 目标函数与梯度推导
   - 动手实现二分类与多分类 [示例1](02_LogisticRegression/302_implementation.py)，[示例2](02_LogisticRegression/303_implementation_multi_class.py)
-
 - [任务一（利用逻辑回归完成学生是否能被录取的二分类任务）](https://mp.weixin.qq.com/s/VTCAMZhuxhtwM-pl59c9oA)
   - `Pandas`读取数据集[示例1](02_LogisticRegression/304_task1.py)
 
@@ -76,7 +78,7 @@
   - 距离的度量方式
   - 网格搜索与并行搜索
   - `GridSearch`
-
+- kd树
 - [朴素贝叶斯算法](https://mp.weixin.qq.com/s/QOWBh77f_Dv0Fmj_mAk-Cw)
   - 朴素贝叶斯原理
   - 先验概率与后验概率
@@ -156,7 +158,7 @@
   - Kmeans目标函数
 - [聚类与分类的区别是什么](https://mp.weixin.qq.com/s/l8jQHLjRj-1-c-_1GHcxiQ)
 - [Kmeans聚类算法的优缺点以及改进方法](https://mp.weixin.qq.com/s/TuXkQPKjtUixrSdMMNHKww)
-- [几种常见的聚类评估指标](https://mp.weixin.qq.com/s/4a9eqOp4v1iRlB4edV09AA)
+- [几种常见的聚类评估指标](https://mp.weixin.qq.com/s/A2HLa8ei2Ob84zVZq9CXmA)
   - Acc、F-score、ARI与NMI [示例1](07_Clustering/402_metrics.py)
 
 - [Kmeans聚类算法求解与实现](https://mp.weixin.qq.com/s/luC4s4ZFLL2bLFc2u29vmA)
