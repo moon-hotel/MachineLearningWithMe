@@ -13,9 +13,12 @@ def make_data():
 
 
 def visualization(x, y):
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.xlabel('面积', fontsize=15)
     plt.ylabel('房价', fontsize=15)
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.tight_layout()  # 调整子图间距
     plt.scatter(x, y,c='black')
     x1, y1 = [50, 78], [253, 467]

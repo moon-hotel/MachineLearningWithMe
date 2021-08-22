@@ -68,8 +68,11 @@ if __name__ == '__main__':
     x, y = load_data()
     train_by_sklearn(x, y)
     costs = train(x, y)
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.plot(range(len(costs)), costs, label='损失值',c='black')
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.legend(fontsize=15)
     plt.xlabel('迭代次数',fontsize=15)
     plt.tight_layout()  # 调整子图间距
