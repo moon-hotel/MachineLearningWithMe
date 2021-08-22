@@ -8,6 +8,9 @@ def visualization():
     size = 50
     centers = [[1, 1], [2, 2]]  # 指定中心
     x, y = make_blobs(n_samples=num_points, centers=centers, cluster_std=0.2, random_state=np.random.seed(10))
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     for i in range(num_points):
         color = 'black' if y[i] == 0 else 'black'
         mark = 'o' if y[i] == 0 else 's'  # 形状

@@ -102,8 +102,11 @@ if __name__ == '__main__':
     x, y = load_data()
     costs = train(x, y)
     train_by_sklearn(x, y)
-    plt.plot(range(len(costs)), costs, label='损失值',c='black')
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.plot(range(len(costs)), costs, label='损失值', c='black')
     plt.legend(fontsize=15)
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()  # 调整子图间距
     plt.show()

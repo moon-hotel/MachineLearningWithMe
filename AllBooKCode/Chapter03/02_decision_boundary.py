@@ -10,11 +10,14 @@ def make_data():
     x, y = make_blobs(n_samples=num_points, centers=centers,
                       cluster_std=0.2, random_state=np.random.seed(10))
     index_pos, index_neg = (y == 1), (y == 0)
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     x_pos, x_neg = x[index_pos], x[index_neg]
-    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本',c='black',s=50)
-    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本',c='black',s=50)
+    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本', c='black', s=50)
+    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本', c='black', s=50)
 
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=15)
     plt.tight_layout()
     plt.show()
@@ -32,6 +35,9 @@ def decision_boundary(x, y):
     ###########  绘制决策面
     x_min, x_max = x[:, 0].min() - .5, x[:, 0].max() + .5
     y_min, y_max = x[:, 1].min() - .5, x[:, 1].max() + .5
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     h = .02  # step size in the mesh
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
     x_new = np.hstack([xx.reshape(-1, 1), yy.reshape(-1, 1)])
@@ -42,10 +48,10 @@ def decision_boundary(x, y):
     ###########  绘制原始样本点
     index_pos, index_neg = (y == 1), (y == 0)
     x_pos, x_neg = x[index_pos], x[index_neg]
-    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本',c='black',s=50)
-    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本',c='black',s=50)
+    plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本', c='black', s=50)
+    plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本', c='black', s=50)
 
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=15)
     plt.tight_layout()
     plt.show()
