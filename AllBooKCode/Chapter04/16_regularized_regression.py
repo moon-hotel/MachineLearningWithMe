@@ -59,22 +59,25 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test = make_data()
     iterations = 200
     plt.figure(figsize=(8, 4))
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 1)
     costs_train, costs_test = train(x_train, x_test, y_train, y_test, ite=iterations, alpha=0.12, lam=0)
-    plt.plot(range(iterations), costs_train, label='训练误差')
-    plt.plot(range(iterations), costs_test, label='测试误差', linestyle='--')
+    plt.plot(range(iterations), costs_train, label='训练误差',c='black')
+    plt.plot(range(iterations), costs_test, label='测试误差', linestyle='--',c='black')
     plt.legend(fontsize=15)
     plt.ylim(-1, 30)
     plt.xlabel('迭代次数', fontsize=15)
 
     plt.subplot(1, 2, 2)
     costs_train, costs_test = train(x_train, x_test, y_train, y_test, ite=iterations, alpha=0.12, lam=20)
-    plt.plot(range(iterations), costs_train, label='训练误差')
-    plt.plot(range(iterations), costs_test, label='测试误差', linestyle='--')
+    plt.plot(range(iterations), costs_train, label='训练误差',c='black')
+    plt.plot(range(iterations), costs_test, label='测试误差', linestyle='--',c='black')
 
     plt.legend(fontsize=15)
     plt.ylim(-1, 30)
     plt.xlabel('迭代次数', fontsize=15)
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()
     plt.show()

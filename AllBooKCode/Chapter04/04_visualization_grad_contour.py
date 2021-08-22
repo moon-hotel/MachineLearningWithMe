@@ -24,7 +24,9 @@ def visualization():
     x = np.linspace(1, 3, 200)
     y = f(x)
     plt.figure(figsize=(7, 3.5))
-    plt.plot(x, y, label=r'$(x-2)^2+y^2=1$',c='black')
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.plot(x, y, label=r'$(x-2)^2+y^2=1$', c='black')
     plt.scatter(2.5, f(2.5), c='black')
     line1 = kx_plus_b(2.5, f(2.5), f_prime(2.5), 0.5, 0.5)
     line2 = kx_plus_b(2.5, f(2.5), -1 / f_prime(2.5), 0.2, 0)

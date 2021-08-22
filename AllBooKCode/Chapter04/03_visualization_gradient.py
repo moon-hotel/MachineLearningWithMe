@@ -23,9 +23,12 @@ def plot_countour():
     W2 = np.arange(-4, 4, 0.25)
     W1, W2 = np.meshgrid(W1, W2)
     plt.figure(figsize=(10, 5), dpi=80)
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 1)
     J = W1 ** 2 + W2 ** 2
-    CS = plt.contour(W1, W2, J, 10)
+    CS = plt.contour(W1, W2, J, 10,colors = 'black')
     plt.clabel(CS, inline=2, fontsize=12)
     plt.scatter(0, 0, s=80, c='black')
     plt.xlabel(r'$w_1$', fontsize=15)
@@ -36,12 +39,14 @@ def plot_countour():
     for i in range(8):  # 梯度反方向，最速下降曲线
         q = f_grad1(p[0], p[1])
         print("P{}:{}".format(i, p))
-        plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, fc='r', ec='r')
+        plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, fc='black', ec='black')
         p += q  # 上一次的位置加上本次的梯度
-
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 2)
     J = (1 / 6) * W1 ** 2 + W2 ** 2
-    CS = plt.contour(W1, W2, J, 16)
+    CS = plt.contour(W1, W2, J, 16,colors='black')
     plt.clabel(CS, inline=2, fontsize=10)
     plt.scatter(0, 0, s=80, c='black')
     plt.xlabel(r'$w_1$', fontsize=15)
@@ -52,7 +57,7 @@ def plot_countour():
     for i in range(40):  # 梯度反方向，最速下降曲线
         q = f_grad2(p[0], p[1])
         print("P{}:{}".format(i, p))
-        plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, fc='r', ec='r')
+        plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, fc='black', ec='black')
         p += q  # 上一次的位置加上本次的梯度
 
     plt.tight_layout()  # 调整子图间距

@@ -18,10 +18,13 @@ def make_data():
 
 
 def visualization(x_test, y_test, x_train, y_train):
-    plt.plot(x_test, y_test, label='Real Data')
-    plt.scatter(x_train, y_train, c='black', label='Train Data')
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.plot(x_test, y_test, label='真实数据',c='black')
+    plt.scatter(x_train, y_train, c='black', label='训练数据')
     plt.tight_layout()  # 调整子图间距
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=13)
     plt.show()
 
@@ -43,13 +46,15 @@ def prediction(x_test, y_test, x_train, y_train):
     y_pre_1, r2_1 = polynomial_regression(x_train, y_train, x_test, y_test, degree=1)
     y_pre_5, r2_5 = polynomial_regression(x_train, y_train, x_test, y_test, degree=5)
     y_pre_10, r2_10 = polynomial_regression(x_train, y_train, x_test, y_test, degree=10)
-
-    plt.scatter(x_train, y_train, c='black', label='Train Data')
-    plt.plot(x_test, y_pre_1, linestyle='--', label=r'$degree = 1, R^2 = {}$'.format(round(r2_1, 2)))
-    plt.plot(x_test, y_pre_5, label=r'$degree = 5, R^2 = {}$'.format(round(r2_5, 2)))
-    plt.plot(x_test, y_pre_10, linestyle='dashdot', label=r'$degree = 10, R^2 = {}$'.format(round(r2_10, 2)))
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.scatter(x_train, y_train, c='black', label='训练数据')
+    plt.plot(x_test, y_pre_1, linestyle='--', label=r'$degree = 1, R^2 = {}$'.format(round(r2_1, 2)),c='black')
+    plt.plot(x_test, y_pre_5, label=r'$degree = 5, R^2 = {}$'.format(round(r2_5, 2)),c='black')
+    plt.plot(x_test, y_pre_10, linestyle='dashdot', label=r'$degree = 10, R^2 = {}$'.format(round(r2_10, 2)),c='black')
     plt.tight_layout()  # 调整子图间距
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=13)
     plt.show()
 
@@ -59,13 +64,13 @@ def train(x_train, y_train):
     y_pre_5, score_5 = polynomial_regression(x_train, y_train, x_train, y_train, degree=5)
     y_pre_10, score_10 = polynomial_regression(x_train, y_train, x_train, y_train, degree=10)
 
-    plt.scatter(x_train, y_train, label='Train Data')
-    plt.plot(x_train, y_pre_1, linestyle='--', label=r'$degree = 1, R^2 = {}$'.format(round(score_1, 2)))
-    plt.plot(x_train, y_pre_5, label=r'$degree = 5, R^2 = {}$'.format(round(score_5, 2)))
+    plt.scatter(x_train, y_train, label='训练数据',c='black')
+    plt.plot(x_train, y_pre_1, linestyle='--', label=r'$degree = 1, R^2 = {}$'.format(round(score_1, 2)),c='black')
+    plt.plot(x_train, y_pre_5, label=r'$degree = 5, R^2 = {}$'.format(round(score_5, 2)),c='black')
     plt.plot(x_train, y_pre_10, linestyle='dashdot',
-             label=r'$degree = 10, R^2 = {}$'.format(round(score_10, 2)))
+             label=r'$degree = 10, R^2 = {}$'.format(round(score_10, 2)),c='black')
     plt.tight_layout()  # 调整子图间距
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=13)
     plt.show()
 

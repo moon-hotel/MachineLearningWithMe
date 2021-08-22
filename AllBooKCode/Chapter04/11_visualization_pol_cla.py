@@ -32,7 +32,10 @@ def decision_boundary(x, y, pol):
 
     Z = Z.reshape(xx.shape)
     plt.figure(1, figsize=(6, 5))
-    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired)
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1)
 
     neg, pos = [], []
     for i in range(len(x)):

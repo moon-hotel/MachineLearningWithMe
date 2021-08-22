@@ -7,8 +7,11 @@ def plot_countour():
     W2 = np.arange(-4, 4, 0.25)
     W1, W2 = np.meshgrid(W1, W2)
     J = W1 ** 2 + W2 ** 2 + 5
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     fig, ax = plt.subplots()
-    CS = ax.contour(W1, W2, J, 10)
+    CS = ax.contour(W1, W2, J, 10, colors='black')
     ax.clabel(CS, inline=2, fontsize=10)
     # ax.set_title('Simplest default with labels')
     # ax.set_xlim(-5, 5)

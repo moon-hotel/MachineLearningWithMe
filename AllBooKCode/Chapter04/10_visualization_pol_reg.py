@@ -63,9 +63,12 @@ if __name__ == '__main__':
     x_pol = poly.fit_transform(x)
     y_pre = train(x_pol, y)
     plt.figure(1, figsize=(6, 5))
-    plt.scatter(x, y,label='training data')
-    plt.plot(x, y_pre, c='red',linewidth=2, label='fitted curve')
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体 # windows
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.scatter(x, y, label='训练数据', c='black')
+    plt.plot(x, y_pre, linewidth=2, label='拟合曲线')
+    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体 # windows
     plt.legend(fontsize=15)
     plt.tight_layout()  # 调整子图间距
     plt.show()
