@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 
 
 def f_grad2(W1, W2, descent=True):
-    grad = -np.array([2. * W1 - W2 - 1, 3 * W2 + W1 + 2.])
+    grad = -np.array([2. * W1 - W2 - 1, 9 * W2 - W1 + 4.])
     if descent:
         grad *= -1
-    learning_rate = 0.06
+    learning_rate = 0.05
     return learning_rate * grad
 
 
@@ -38,23 +38,23 @@ def plot_countour():
         plt.arrow(p[0], p[1], q[0] - p[0], 0., head_width=0.1, head_length=0.1, )
         p[0] = q[0]
 
-        q[1] = - (1 / 3.) * (p[0] + 2)
+        q[1] = (1 / 9.) * (p[0] -4.)
         plt.arrow(p[0], p[1], 0., q[1] - p[1], head_width=0.1, head_length=0.1, )
         p[1] = q[1]
 
-        print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
+        # print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
     #
     # # ------------  梯度下降算法
     p = np.array([-3.8, 2.])  # 起始位置
     plt.scatter(p[0], p[1])
     for i in range(50):  #
         q = f_grad2(p[0], p[1], descent=False)
-
         plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, )
         p += q  # 上一次的位置加上本次的梯度
-        # print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
+        print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
     plt.show()
 
 
 if __name__ == '__main__':
     plot_countour()
+    print(cost(5/17,-7/17))
