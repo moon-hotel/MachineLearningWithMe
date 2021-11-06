@@ -7,8 +7,8 @@ Python版本为3.6，各个Python包版本见`requirements.txt`，使用如下�
 ```python
 pip install -r requirements.txt
 ```
-### [第二章：从零认识线性回归](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)　　[代码](./AllBooKCode/Chapter02)
-### [第三章：从零认识逻辑回归](https://mp.weixin.qq.com/s/o01H0JGXEXoIwiCLPqizZw)　　[代码](./AllBooKCode/Chapter03)
+### [第二章：从零认识线性回归](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)　　[代码](AllBooKCode/Chapter02/README.md)
+### [第三章：从零认识逻辑回归](https://mp.weixin.qq.com/s/o01H0JGXEXoIwiCLPqizZw)　　[代码](AllBooKCode/Chapter03/README.md)
 ### 第四章：模型的改善与泛化
 ### 第五章：K近邻算法
 ### 第六章：朴素贝叶斯算法
