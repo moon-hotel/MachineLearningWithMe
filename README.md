@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ```
 ### [第二章：从零认识线性回归](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)　　[代码](AllBooKCode/Chapter02/README.md)
 ### [第三章：从零认识逻辑回归](https://mp.weixin.qq.com/s/o01H0JGXEXoIwiCLPqizZw)　　[代码](AllBooKCode/Chapter03/README.md)
-### 第四章：模型的改善与泛化
+### [第四章：模型的改善与泛化](https://mp.weixin.qq.com/s/-RuiLiM7V1qDZ2V-rG0wBg)　　[代码](AllBooKCode/Chapter04/README.md)
 ### 第五章：K近邻算法
 ### 第六章：朴素贝叶斯算法
 ### 第七章：文本特征提取与模型复用
