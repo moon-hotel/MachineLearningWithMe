@@ -2,14 +2,14 @@
 
 # 目录
 ## 2021年
-### [第一章：机器学习环境安装](https://mp.weixin.qq.com/s/L-3bXzYFFdNx_mL7eu2-kw)
+### [第一章：机器学习环境安装](https://mp.weixin.qq.com/s/L-3bXzYFFdNx_mL7eu2-kw)　　[PDF内容](AllBooKCode/Chapter01)
 Python版本为3.6，各个Python包版本见`requirements.txt`，使用如下命令即可安装：
 ```python
 pip install -r requirements.txt
 ```
-### [第二章：从零认识线性回归](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)　　[代码](AllBooKCode/Chapter02/README.md)
-### [第三章：从零认识逻辑回归](https://mp.weixin.qq.com/s/o01H0JGXEXoIwiCLPqizZw)　　[代码](AllBooKCode/Chapter03/README.md)
-### [第四章：模型的改善与泛化](https://mp.weixin.qq.com/s/-RuiLiM7V1qDZ2V-rG0wBg)　　[代码](AllBooKCode/Chapter04/README.md)
+### [第二章：从零认识线性回归](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)　　[代码](AllBooKCode/Chapter02/README.md)　　[PDF内容](AllBooKCode/Chapter02)
+### [第三章：从零认识逻辑回归](https://mp.weixin.qq.com/s/o01H0JGXEXoIwiCLPqizZw)　　[代码](AllBooKCode/Chapter03/README.md)　　[PDF内容](AllBooKCode/Chapter03)
+### [第四章：模型的改善与泛化](https://mp.weixin.qq.com/s/-RuiLiM7V1qDZ2V-rG0wBg)　　[代码](AllBooKCode/Chapter04/README.md)　　[PDF内容](AllBooKCode/Chapter04)
 ### 第五章：K近邻算法
 ### 第六章：朴素贝叶斯算法
 ### 第七章：文本特征提取与模型复用
