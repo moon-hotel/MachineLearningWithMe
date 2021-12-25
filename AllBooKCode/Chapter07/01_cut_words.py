@@ -27,7 +27,7 @@ def wordsCount(s):
     for (k, v) in c.most_common(5):  # 输出词频最高的前5个词
         print("%s:%d" % (k, v))
         vocab.append(k)
-    print("词表：",vocab)
+    print("词表：", vocab)
 
 
 if __name__ == '__main__':

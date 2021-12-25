@@ -5,7 +5,7 @@ from collections import Counter
 def vetorization(s):
     cut_words = ""
     x_text = []
-    #---------分词处理------------------
+    # ---------分词处理------------------
     for item in s:
         seg_list = jieba.cut(item, cut_all=False)
         tmp = " ".join(seg_list)
@@ -23,14 +23,15 @@ def vetorization(s):
     # ---------向量化------------------
     x_vec = []
     for item in x_text:
-        tmp = [0]*len(vocab)
-        for i,w in enumerate(vocab):
+        tmp = [0] * len(vocab)
+        for i, w in enumerate(vocab):
             if w in item:
                 tmp[i] = 1
         x_vec.append(tmp)
-    print("词表：",vocab)
-    print("文本：",x_text)
+    print("词表：", vocab)
+    print("文本：", x_text)
     print(x_vec)
+
 
 if __name__ == '__main__':
     s = ['文本分词工具可用于对文本进行分词处理', '常见的用于处理文本的分词处理工具有很多']
