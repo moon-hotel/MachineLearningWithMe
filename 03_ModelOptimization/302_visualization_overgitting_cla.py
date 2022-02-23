@@ -32,7 +32,7 @@ def decision_boundary(x, y, pol):
 
     Z = Z.reshape(xx.shape)
     plt.figure(1, figsize=(6, 5))
-    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired)
+    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired, shading='auto')
     plt.scatter(x[:, 0], x[:, 1], c=y, alpha=0.83)  # alpha 控制透明度
     plt.show()
 

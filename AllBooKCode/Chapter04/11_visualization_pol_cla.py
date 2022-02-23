@@ -35,7 +35,7 @@ def decision_boundary(x, y, pol):
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1)
+    plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1,shading='auto')
 
     neg, pos = [], []
     for i in range(len(x)):

@@ -43,7 +43,7 @@ def decision_boundary(x, y):
     x_new = np.hstack([xx.reshape(-1, 1), yy.reshape(-1, 1)])
     Z = model.predict(x_new)
     Z = Z.reshape(xx.shape)
-    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired)
+    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.Paired, shading='auto')
 
     ###########  绘制原始样本点
     index_pos, index_neg = (y == 1), (y == 0)
