@@ -233,6 +233,40 @@ class MyKDTree(object):
         return k_nearest_nodes
 
 
+class KNN(object):
+    def __init__(self, n_neighbors):
+        self.n_neighbors = n_neighbors
+
+    def fit(self, x, y):
+        self._y = y
+        self.kd_tree = MyKDTree(x)
+        return self
+
+    @staticmethod
+    def get_pred_labels(query_label):
+        """
+        根据query_label返回每个样本对应的标签
+        :param query_label: 二维数组， query_label[i] 表示离第i个样本最近的k-1个样本点对应的正确标签
+        :return:
+        """
+        y_pred = [0] * len(query_label)
+        for i, label in enumerate(query_label):
+            max_freq = 0
+            count_dict = {}
+            for l in label:
+                count_dict[l] = count_dict.setdefault(l, 0) + 1
+                if count_dict[l] > max_freq:
+                    max_freq = count_dict[l]
+                    y_pred[i] = l
+        return np.array(y_pred)
+
+    def predict(self, x):
+        k_best_nodes, ind = self.kd_tree.k_nearest_search(x, k=self.n_neighbors)
+        query_label = self._y[ind]
+        y_pred = self.get_pred_labels(query_label)
+        return y_pred
+
+
 def test_kd_tree_build(points):
     logging.debug("MyKDTree 运行结果：")
     logging.debug("构建KD树")
@@ -283,3 +317,16 @@ if __name__ == '__main__':
     # test_kd_tree_build(points)
     # test_kd_nearest_search(points)
     # test_kd_k_nearest_search(points)
+
+    # 测试KNN
+    x_train, x_test, y_train, y_test = load_data()
+    k = 5
+    model = KNeighborsClassifier(n_neighbors=k)
+    model.fit(x_train, y_train)
+    y_pred = model.predict(x_test)
+    logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
+
+    my_model = KNN(n_neighbors=k)
+    my_model.fit(x_train, y_train)
+    y_pred = my_model.predict(x_test)
+    logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
