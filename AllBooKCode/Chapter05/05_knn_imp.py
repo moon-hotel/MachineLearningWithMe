@@ -109,10 +109,10 @@ class MyKDTree(object):
             res.append(tmp)
         logging.debug("\n层次遍历结果为：")
         for i, r in enumerate(res):
-            logging.debug(f"第{i + 1}层的节点为：", end="")
+            logging.debug(f"第{i + 1}层的节点为：")
             for node in r:
-                logging.debug(f"<p({node.data}), idx({int(node.index)})>", end='   ')
-            logging.debug()
+                logging.debug(f"<p({node.data}), idx({int(node.index)})>")
+            logging.debug("\n")
 
     def nearest_search(self, point):
         """
@@ -167,9 +167,9 @@ class MyKDTree(object):
         k_nearest_nodes.append(curr_node)
         k_nearest_nodes = sorted(k_nearest_nodes,
                                  key=lambda x: distance(x.data, point))
-        logging.debug(f"        当前K近邻中的节点为（已按距离排序）：")
+        logging.debug(f"\t\t当前K近邻中的节点为（已按距离排序）：")
         for item in k_nearest_nodes:
-            logging.debug(f"{item} \t")
+            logging.debug(f"\t\t\t{item}", )
         logging.debug("\n")
         return k_nearest_nodes
 
@@ -233,7 +233,7 @@ class MyKDTree(object):
         return k_nearest_nodes
 
 
-class KNN(object):
+class KNN():
     def __init__(self, n_neighbors):
         self.n_neighbors = n_neighbors
 
@@ -246,7 +246,7 @@ class KNN(object):
     def get_pred_labels(query_label):
         """
         根据query_label返回每个样本对应的标签
-        :param query_label: 二维数组， query_label[i] 表示离第i个样本最近的k-1个样本点对应的正确标签
+        :param query_label: 二维数组， query_label[i] 表示离第i个样本最近的k个样本点对应的正确标签
         :return:
         """
         y_pred = [0] * len(query_label)
@@ -278,7 +278,7 @@ def test_kd_tree_build(points):
 
 def test_kd_nearest_search(points):
     tree = MyKDTree(points)
-    p = np.array([[8.9, 4]])
+    p = np.array([[5.9, 3]])
     best_node, best_dist = tree.nearest_search(p)
     logging.debug("MyKDTree 运行结果：")
     logging.debug(f"离样本点{p}最近的节点是：{best_node},距离为：{round(best_dist, 3)}")
@@ -306,14 +306,14 @@ def test_kd_k_nearest_search(points):
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,
-                        format=formatter,
+    logging.basicConfig(level=logging.INFO, # 如果需要查看详细信息可将该参数改为logging.DEBUG
+                        format=formatter,   # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
-    #  测试 MyKDTree
+    # 测试 MyKDTree
     # points = np.array(
-    #     [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
+    #     [[2, 5], [1, 4], [3, 3], [6, 5], [10, 2.], [7, 3], [8, 13], [8, 9], [1, 2]])
     # test_kd_tree_build(points)
     # test_kd_nearest_search(points)
     # test_kd_k_nearest_search(points)
