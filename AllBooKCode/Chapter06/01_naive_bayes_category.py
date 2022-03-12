@@ -15,7 +15,7 @@ def load_simple_data():
     x = np.array([[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
                   [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
                   [2, 1, 1, 2, 2, 2, 0, 2, 2, 0, 0, 2, 2, 1, 1]]).transpose()
-    y = np.array([1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1]).reshape(-1, 1)
+    y = np.array([1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1])
     return x, y
 
 
@@ -39,27 +39,6 @@ class MyBayes(object):
         self.alpha = alpha
         self._ALPHA_MIN = 1e-10
 
-    def fit(self, X, y):
-        """
-        Parameters
-        ----------
-        X : shape: (n,m)
-        y : shape (n_samples,)
-        """
-        self.n_features_ = X.shape[1]
-        labelbin = LabelBinarizer()  # 将标签转化为one-hot形式
-        Y = labelbin.fit_transform(y)  # one-hot 形式标签 shape: [n,num_classes]
-        self.classes_ = labelbin.classes_  # 原始标签类别 shape: [num_classes,]
-        if Y.shape[1] == 1:  # 当数据集为二分类时fit_transform处理后的结果并不是one-hot形式
-            Y = np.concatenate((1 - Y, Y), axis=1)  # 改变为one-hot形式
-        self.n_classes = Y.shape[1]  # 数据集的类别数量
-        self._init_counters()  # 初始化计数器
-        self._count(X, Y)  # 对各个特征的取值情况进行计数，以计算条件概率等
-        self._check_alpha()  # 检查平滑项
-        self._update_feature_prob()
-        self._update_class_prior()
-        return self
-
     def _check_alpha(self):
         """
         检查 alpha的取值
@@ -74,31 +53,31 @@ class MyBayes(object):
         :return:
         """
         self.class_count_ = np.zeros(self.n_classes, dtype=np.float64)
-        # shape: [num_classes, ] 后续用来记录每个类别下的样本数
+        # shape: [n_classes, ] 后续用来记录每个类别下的样本数
         # 每个维度表示每个类别的样本数量，e.g. [2,2,3] 表示0,1,2这三个类别的样本数分别是2,2,3
         # 其作用是后续用来计算每个类别的先验概率
         self.category_count_ = [np.zeros((self.n_classes, 0))
                                 for _ in range(self.n_features_)]
-        # n_features_个元素（array()），目前每个元素的shape是[num_classes,0]
-        # 后续每个元素的shape将会更新为[num_classes,len(X_i)], len(X_i)表示X_i这个特征的取值情况数量
+        # n_features_个元素（array()），目前每个元素的shape是[n_classes,0]
+        # 后续每个元素的shape将会更新为[n_classes,len(X_i)], len(X_i)表示X_i这个特征的取值情况数量
         # 目的是用来记录在各个类别下每个特征变量中各种取值情况的数量
-        # 例如category_count_[i][j][k]为10 表示含义就是特征i个在类别j下特征取值为k的样本数量为10
+        # 例如category_count_[i][j][k]为10 表示含义就是特征i在类别j下特征取值为k的样本数量为10
 
     def _count(self, X, Y):
         """
         对数据集每个特征维度下的取值情况进行统计
-        :param X:
-        :param Y:
+        :param X: shape [n_samples,n_features]
+        :param Y: shape [n_samples,]
         :return:
         """
 
         def _update_cat_count(X_feature, Y, cat_count, n_classes):
             """
             对每一列特征进行统计处理
-            :param X_feature:  模型输入的某一列特征X_i, shape: [n,]
-            :param Y:    one-hot 形式标签 shape: [n,num_classes]
-            :param cat_count:   shape: [num_classes,len(X_i)], len(X_i)表示X_i这个特征的取值情况数量
-            :param n_classes:   num_classes,数据集的类别数量
+            :param X_feature:  模型输入的某一列特征X_i, shape: [n_samples,]
+            :param Y:    one-hot 形式标签 shape: [n_samples,n_classes]
+            :param cat_count:   shape: [n_classes,len(X_i)], len(X_i)表示X_i这个特征的取值情况数量
+            :param n_classes:   n_classes,数据集的类别数量
             :return:
             """
             for j in range(n_classes):  # 遍历每个类别
@@ -112,23 +91,23 @@ class MyBayes(object):
                 cat_count[j, indices] += counts[indices]
                 # cat_count[i,k]表示第i个类别下，特征X_feature第k个取值情况的数量
 
-        self.class_count_ += Y.sum(axis=0)  # Y: shape(n,num_classes)   Y.sum(): shape(num_classes,)
-        # self.class_count_的shape是(num_classes,)  每个维度表示每个类别的样本数量
+        self.class_count_ += Y.sum(axis=0)  # Y: shape(n,n_classes)   Y.sum(): shape(n_classes,)
+        # self.class_count_的shape是(n_classes,)  每个维度表示每个类别的样本数量
         # e.g. [2,2,3] 表示0,1,2这三个类别的样本数分别是2,2,3
         logging.debug(f"数据集X为:\n{X}")
         logging.debug(f"标签Y为:\n{Y}")
-        logging.debug(f"每个类别下的样本数class_count_(num_classes,): {self.class_count_}")
+        logging.debug(f"每个类别下的样本数class_count_(n_classes,): {self.class_count_}")
         self.n_categories_ = X.max(axis=0) + 1
         # 统计每个特征维度的 取值数量（因为特征取值是从0开始的所以后面加了1）,e.g.  [3 3 3 3]，表示四个维度的取值均有3中情况
         logging.debug(f"每个特征的取值种数n_categories_:{self.n_categories_}")
 
         for i in range(self.n_features_):  # 遍历每个特征
             X_feature = X[:, i]  # 取每一列的特征
-            diff = self.n_categories_[i] - self.category_count_[i].shape[1]
-            self.category_count_[i] = np.pad(self.category_count_[i], [(0, 0), (0, diff)],
-                                             'constant')  # shape: [num_classes,diff]
+            self.category_count_[i] = np.pad(self.category_count_[i],
+                                             [(0, 0), (0, self.n_categories_[i])],
+                                             'constant')  # shape: [n_classes,diff]
             # 在原始category_count_[i]的基础上，追加diff列全为0的值，
-            # 因为category_count_[i]初始化式时的shape为[num_classes,0]
+            # 因为category_count_[i]初始化式时的shape为[n_classes,0]
             _update_cat_count(X_feature, Y,
                               self.category_count_[i],
                               self.n_classes)
@@ -137,6 +116,10 @@ class MyBayes(object):
         logging.debug(f"各个特征每个取值的数量分布（未平滑处理） category_count_:\n {self.category_count_}")
 
     def _update_feature_prob(self):
+        """
+        计算条件概率
+        :return:
+        """
         feature_prob = []
         for i in range(self.n_features_):  # 遍历 每一个特征
 
@@ -166,6 +149,11 @@ class MyBayes(object):
         logging.debug(f"计算每个类别的先验概率class_prior_:{self.class_prior_}")
 
     def _joint_likelihood(self, X):
+        """
+        计算后验概率
+        :param X: shape: [n_samples,n_features]
+        :return:
+        """
 
         if not X.shape[1] == self.n_features_:
             raise ValueError("Expected input with %d features, got %d instead"
@@ -174,7 +162,8 @@ class MyBayes(object):
         for i in range(self.n_features_):
             indices = X[:, i]  # 取对应的每一列特征
             if self.feature_prob_[i].shape[1] <= indices.max():
-                raise IndexError(f"测试集中的第{i}个特征维度的取值情况 {indices.max()} 超出了训练集中该维度的取值情况！")
+                raise IndexError(f"测试集中的第{i}个特征维度的取值情况"
+                                 f" {indices.max()} 超出了训练集中该维度的取值情况！")
             jll *= self.feature_prob_[i][:, indices].T  # 取每个特征取值下对应的条件概率，并进行累乘
             # feature_prob_[i][:, indices]  表示第i个特征下，取对应特征取值对应的条件概率
             # feature_prob_[i]的shape为 (n_classes,特征取值数),
@@ -182,9 +171,33 @@ class MyBayes(object):
         total_ll = jll * self.class_prior_  # 条件概率乘以先验概率即得到后验概率
         return total_ll
 
+    def fit(self, X, y):
+        """
+        Parameters
+        ----------
+        X : shape: [n_samples,n_features]
+        y : shape [n_samples,]
+        """
+        self.n_features_ = X.shape[1]
+        labelbin = LabelBinarizer()  # 将标签转化为one-hot形式
+        Y = labelbin.fit_transform(y)  # one-hot 形式标签 shape: [n,n_classes]
+        self.classes_ = labelbin.classes_  # 原始标签类别 shape: [n_classes,]
+        if Y.shape[1] == 1:  # 当数据集为二分类时fit_transform处理后的结果并不是one-hot形式
+            Y = np.concatenate((1 - Y, Y), axis=1)  # 改变为one-hot形式
+        self.n_classes = Y.shape[1]  # 数据集的类别数量
+        self._init_counters()  # 初始化计数器
+        self._count(X, Y)  # 对各个特征的取值情况进行计数，以计算条件概率等
+        self._check_alpha()  # 检查平滑
+        self._update_class_prior()
+        self._update_feature_prob()
+        return self
+
     def predict(self, X, with_prob=False):
         """
-
+        极大化概率进行预测
+        Parameters
+        ----------
+        X : shape: [n_samples,n_features]
         """
         from scipy.special import softmax
         jll = self._joint_likelihood(X)
@@ -198,9 +211,15 @@ class MyBayes(object):
 
 def test_naive_bayes():
     x, y = load_simple_data()
-    model = MyBayes(alpha=1.0)
+    logging.info(f"My Bayes 运行结果：")
+    model = MyBayes(alpha=0)
     model.fit(x, y)
-    print(model.predict(np.array([[0, 1, 0]]), with_prob=True))
+    logging.info(model.predict(np.array([[0, 1, 0]]), with_prob=True))
+    logging.info(f"CategoricalNB 运行结果：")
+    model = CategoricalNB()
+    model.fit(x, y)
+    logging.info(model.predict(np.array([[0, 1, 0]])))
+    logging.info(model.predict_proba(np.array([[0, 1, 0]])))
 
 
 def test_spam_classification():
@@ -225,4 +244,4 @@ if __name__ == '__main__':
                         )
 
     test_naive_bayes()
-    # test_spam_classification()
+    test_spam_classification()
