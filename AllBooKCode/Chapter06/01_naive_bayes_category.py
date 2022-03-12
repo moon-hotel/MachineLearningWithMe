@@ -216,7 +216,7 @@ def test_naive_bayes():
     model.fit(x, y)
     logging.info(model.predict(np.array([[0, 1, 0]]), with_prob=True))
     logging.info(f"CategoricalNB 运行结果：")
-    model = CategoricalNB()
+    model = CategoricalNB(alpha=0)
     model.fit(x, y)
     logging.info(model.predict(np.array([[0, 1, 0]])))
     logging.info(model.predict_proba(np.array([[0, 1, 0]])))
@@ -224,14 +224,16 @@ def test_naive_bayes():
 
 def test_spam_classification():
     x_train, x_test, y_train, y_test = load_data()
-    model = MyBayes(alpha=0)
+    model = MyBayes(alpha=1.0)
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
+    logging.info(f"My Bayes 运行结果：")
     logging.info(classification_report(y_test, y_pred))
 
     model = CategoricalNB()
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
+    logging.info(f"CategoricalNB 运行结果：")
     logging.info(classification_report(y_test, y_pred))
 
 
@@ -243,5 +245,5 @@ if __name__ == '__main__':
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
 
-    test_naive_bayes()
+    # test_naive_bayes()
     test_spam_classification()
