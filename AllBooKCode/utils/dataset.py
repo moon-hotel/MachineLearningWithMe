@@ -1,5 +1,6 @@
 import os
 import re
+import jieba
 
 data_home = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 
@@ -36,3 +37,17 @@ def load_spam():
     y_pos, y_neg = [1] * len(x_pos), [0] * len(x_neg)
     x, y = x_pos + x_neg, y_pos + y_neg
     return x, y
+
+
+def load_cut_spam():
+    """
+    :return: ['中信   国际   电子科技 有限公司 推出 新 产品   升职 步步高',
+             '搜索 文件   看 是否 不 小心 拖 到 某个 地方 了',....]
+    """
+    x, y = load_spam()
+    x_cut = []
+    for text in x:
+        seg_list = jieba.cut(text, cut_all=False)
+        tmp = " ".join(seg_list)
+        x_cut.append(tmp)
+    return x_cut, y
