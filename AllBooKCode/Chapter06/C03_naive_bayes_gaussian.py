@@ -18,8 +18,8 @@ class MyGaussianNB(object):
     Gaussian Naive Bayes 实现
     """
 
-    def __init__(self, ):
-        pass
+    def __init__(self, var_smoothing=1e-9):
+        self.var_smoothing = var_smoothing
 
     def _init_counters(self, X, y):
         self.classes_ = np.sort(np.unique(y))  # 排序是为了后面依次遍历每个类别
@@ -42,11 +42,13 @@ class MyGaussianNB(object):
             Target values.
         """
         self._init_counters(X, y)
+        self.epsilon_ = self.var_smoothing * np.var(X, axis=0).max()
         for i, y_i in enumerate(self.classes_):  # 遍历每一个类别
             X_i = X[y == y_i, :]  # 取类别y_i对应的所有样本
             self.mu_[i, :] = np.mean(X_i, axis=0)  # 计算期望
             self.sigma2_[i, :] = np.var(X_i, axis=0)  # 计算方差
             self.class_count_[i] += X_i.shape[0]  # 类别y_i对应的样本数量
+        self.sigma2_ += self.epsilon_
         self.class_prior_ = self.class_count_ / self.class_count_.sum()
         logging.debug(f"\n期望mu = {self.mu_}")
         logging.debug(f"\n方差sigma = {self.sigma2_}")
