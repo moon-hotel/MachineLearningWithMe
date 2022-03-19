@@ -22,6 +22,11 @@ def clean_str(string, sep=" "):
 
 
 def load_spam():
+    """
+    载入原始文本
+    :return: x为一个list，每个元素为一个样本
+             y为一个list，每个元素为样本对应的标签
+    """
     data_spam_dir = os.path.join(data_home, 'spam')
 
     def load_spam_data(file_path=None):
