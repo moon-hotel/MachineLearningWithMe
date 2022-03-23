@@ -20,6 +20,7 @@ class Node(object):
         self.label = None  # 保存当前节点对应的类别标签（叶子节点才有）
         self.n_samples = 0  # 保存当前节点对应的样本数量
         self.children = {}  # 保存当前节点对应的孩子节点
+        self.criterion_value = 0.
 
     def __str__(self):
         """
@@ -30,6 +31,7 @@ class Node(object):
                f"当前节点所有样本的索引({self.sample_index})\n" \
                f"当前节点的样本数量({self.n_samples})\n" \
                f"当前节点每个类别的样本数({self.values})\n" \
+               f"当前节点对应的信息增益（比）({round(self.criterion_value,3)})\n" \
                f"当前节点状态时特征集中剩余特征({self.features})\n" \
                f"当前节点状态时划分特征ID({self.feature_id})\n" \
                f"当前节点对应的类别标签为({self.label})\n" \
@@ -145,6 +147,7 @@ class DecisionTree(object):
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
             return node
         ety = self._compute_entropy(labels)  # 计算当前节点所有样本对应的信息熵
+        node.criterion_value = ety
         logging.debug(f"当前节点中的样本信息熵为 {ety}")
         max_criterion = 0
         best_feature_id = -1
@@ -176,6 +179,7 @@ class DecisionTree(object):
         层次遍历
         :return:
         """
+        logging.debug("\n\n正在进行层次遍历……")
         root = self.root
         if not root:
             return []
@@ -241,6 +245,7 @@ def test_decision_tree():
     x, y = load_simple_data()
     dt = DecisionTree(criterion='c45')
     dt.fit(x, y)
+    dt.level_order()
     y_pred = dt.predict(np.array([['0', '0', 'T'],
                                   ['0', '1', 'S'],
                                   ['0', '1', 'D'],
@@ -277,5 +282,5 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_decision_tree()
-    test_spam_classification()  # Accuracy:  id3:0.9753  c45 0.975
+    test_decision_tree()
+    # test_spam_classification()  # Accuracy:  id3:0.9753  c45 0.975
