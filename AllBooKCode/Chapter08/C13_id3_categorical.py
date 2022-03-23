@@ -26,7 +26,6 @@ class Node(object):
         打印节点信息
         :return:
         """
-
         return f"<======================>\n" \
                f"当前节点所有样本的索引({self.sample_index})\n" \
                f"当前节点的样本数量({self.n_samples})\n" \
@@ -37,27 +36,20 @@ class Node(object):
                f"当前节点对应的孩子为({self.children.keys()})"
 
 
-def compute_information_gain(ety, c_ety):
-    return ety - c_ety
-
-
-def split_criterion(ety, c_ety, alg='entropy'):
-    if alg == 'entropy':
-        return compute_information_gain(ety, c_ety)
-
-
 class DecisionTree(object):
     def __init__(self, min_samples_split=2,
                  criterion='entropy',
                  epsilon=1e-5):
         self.root = None
-        self.min_samples_split = min_samples_split
-        self.epsilon = epsilon
-        self.criterion = criterion
+        self.min_samples_split = min_samples_split  # 用来控制是否停止分裂
+        self.epsilon = epsilon  # 用来控制是否停止分裂
+        self.criterion = criterion  # 划分标注，ID3还是C4.5
+        # criterion = "id3" 表示使用ID3进行决策树构建
+        # criterion = "c45" 表示使用C4.5进行决策树
 
     def _compute_entropy(self, y_class):
         """
-        计算信息熵
+        计算信息熵（主要用于ID3中计算样本的信息熵，以及C4.5中特征的信息熵）
         :param y_class:  np.array   [n,]
         :return:
         """
@@ -87,11 +79,18 @@ class DecisionTree(object):
         return result
 
     def fit(self, X, y):
+        """
+        输入的数据集X特征必须为categorical类型
+        :param X: shape: [n_samples, n_features]
+        :param y: shape: [n_samples,]
+        :return:
+        """
         self._y = np.array(y).reshape(-1)
-        self.n_classes = len(np.bincount(y))
-        feature_ids = [i for i in range(X.shape[1])]
+        self.n_classes = len(np.bincount(y))  # 得到当前数据集的类别数量
+        feature_ids = [i for i in range(X.shape[1])]  # 得到特征的序号
         self._X = np.hstack(([X, np.arange(len(X)).reshape(-1, 1)]))
-        self._build_tree(self._X, feature_ids)
+        # 将训练集中每个样本的序号加入到X的最后一列
+        self._build_tree(self._X, feature_ids)  # 递归构建决策树
 
     @staticmethod
     def _get_label(labels):
@@ -106,9 +105,21 @@ class DecisionTree(object):
             r[labels[i]] = r.setdefault(labels[i], 0) + 1
         return sorted(r.items(), key=lambda x: x[1])[-1][0]
 
+    def _split_criterion(self, ety, X_feature, y_class):
+        c_ety = self._compute_condition_entropy(X_feature, y_class)  # 计算每个特征下的条件熵
+        logging.debug(f"当前节点下特征对应的条件熵为 {c_ety}")
+        info_gains = ety - c_ety  # 计算信息增益
+        if self.criterion == "id3":
+            return info_gains
+        elif self.criterion == "c45":
+            f_ety = self._compute_entropy(X_feature)
+            logging.debug(f"当前节点下特征对应的信息熵为 {f_ety}")
+            return info_gains / f_ety
+        else:
+            raise ValueError(f"划分标准 self.criterion = {self.criterion}只能是 id3 和 c45 其中之一！")
+
     def _build_tree(self, data, f_ids):
         """
-
         :param x_ids: np.array() [n,] 样本索引，用于在节点中保存每个样本的索引，以及根据索引取到对应样本
         :param f_ids: list 特征序号，用于在当前节点中保存特征集中还剩余哪些特征
         :return:
@@ -138,13 +149,12 @@ class DecisionTree(object):
         max_criterion = 0
         best_feature_id = -1
         for id in f_ids:  # 根据划分标准（如信息增益）选择最佳特征
-            c_ety = self._compute_condition_entropy(data[:, id], labels)  # 计算每个特征下的条件熵
-            logging.debug(f"当前节点下第{id}个特征对应的条件熵为 {c_ety}")
-            criterion = split_criterion(ety, c_ety, self.criterion)
-            if criterion > max_criterion:
+            criterion = self._split_criterion(ety, data[:, id], labels)
+            logging.debug(f"当前节点第{id}个特征在标准{self.criterion}下对应的划分指标为{criterion}")
+            if criterion > max_criterion:  # 遍历选择最大指标（信息增益或信息增益比）
                 max_criterion = criterion
                 best_feature_id = id
-        if max_criterion < self.epsilon:
+        if max_criterion < self.epsilon:  # 最大指标小于设定阈值
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
             return node
         node.feature_id = best_feature_id
@@ -198,9 +208,9 @@ class DecisionTree(object):
             current_feature = x[current_feature_id]
             if len(current_node.children) < 1 or \
                     current_feature not in current_node.children:
-                # 当前节点为叶子节点，或者由于数据集不充分当前节点的孩子节点不存在下一个划分节点的某一个取值
-                # 例如根据测试数据集load_simple_data（）构造得到的id3树，对于特征['0','1','D']来说，
-                # 在遍历最后一个特征维度时，取值'D'就不存在于孩子节点中
+                # ① 当前节点为叶子节点，或者由于数据集不充分当前节点的孩子节点不存在下一个划分节点的某一个取值
+                # ② 例如根据测试数据集load_simple_data（）构造得到的id3树，对于特征['0','1','D']来说，
+                # ③ 在遍历最后一个特征维度时，取值'D'就不存在于孩子节点中
                 return current_node.values
 
             current_node = current_node.children[current_feature]
@@ -214,7 +224,7 @@ class DecisionTree(object):
         for x in X:
             results.append(self._predict_one_sample(x))
         results = np.array(results)
-        print(results)
+        logging.debug(f"原始预测结果为:\n{results}")
         y_pred = np.argmax(results, axis=1)
         return y_pred
 
@@ -229,7 +239,7 @@ def load_simple_data():
 
 def test_decision_tree():
     x, y = load_simple_data()
-    dt = DecisionTree(criterion='entropy')
+    dt = DecisionTree(criterion='c45')
     dt.fit(x, y)
     y_pred = dt.predict(np.array([['0', '0', 'T'],
                                   ['0', '1', 'S'],
@@ -250,7 +260,7 @@ def load_data():
 
 def test_spam_classification():
     x_train, x_test, y_train, y_test = load_data()
-    dt = DecisionTree(criterion='entropy')
+    dt = DecisionTree(criterion="id3")
     dt.fit(x_train, y_train)
     y_pred = dt.predict(x_test)
     logging.info(f"DecisionTree 准确率：{accuracy_score(y_test, y_pred)}")
@@ -263,9 +273,9 @@ def test_spam_classification():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    test_decision_tree()
-    # test_spam_classification()
+    # test_decision_tree()
+    test_spam_classification()  # Accuracy:  id3:0.9753  c45 0.975
