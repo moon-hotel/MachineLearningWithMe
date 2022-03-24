@@ -31,7 +31,7 @@ class Node(object):
                f"当前节点所有样本的索引({self.sample_index})\n" \
                f"当前节点的样本数量({self.n_samples})\n" \
                f"当前节点每个类别的样本数({self.values})\n" \
-               f"当前节点对应的信息增益（比）({round(self.criterion_value,3)})\n" \
+               f"当前节点对应的信息增益（比）({round(self.criterion_value, 3)})\n" \
                f"当前节点状态时特征集中剩余特征({self.features})\n" \
                f"当前节点状态时划分特征ID({self.feature_id})\n" \
                f"当前节点对应的类别标签为({self.label})\n" \
@@ -41,11 +41,13 @@ class Node(object):
 class DecisionTree(object):
     def __init__(self, min_samples_split=2,
                  criterion='entropy',
-                 epsilon=1e-5):
+                 epsilon=1e-5,
+                 alpha=0.):
         self.root = None
         self.min_samples_split = min_samples_split  # 用来控制是否停止分裂
         self.epsilon = epsilon  # 用来控制是否停止分裂
         self.criterion = criterion  # 划分标注，ID3还是C4.5
+        self.alpha = alpha
         # criterion = "id3" 表示使用ID3进行决策树构建
         # criterion = "c45" 表示使用C4.5进行决策树
 
@@ -174,7 +176,7 @@ class DecisionTree(object):
             node.children[f] = self._build_tree(data[index], candidate_ids)
         return node
 
-    def level_order(self):
+    def level_order(self, return_node=False):
         """
         层次遍历
         :return:
@@ -193,6 +195,9 @@ class DecisionTree(object):
                 for k, v in node.children.items():
                     queue.append(v)
             res.append(tmp)
+        if return_node:
+            return res  # 按层次遍历的顺序返回各层节点的地址
+            # [[root], [level2 node1, level2_node2], [level3,...] [level4,...],...[],]
         logging.debug("\n层次遍历结果为：")
         for i, r in enumerate(res):
             logging.debug(f"第{i + 1}层的节点为：")
@@ -216,7 +221,6 @@ class DecisionTree(object):
                 # ② 例如根据测试数据集load_simple_data（）构造得到的id3树，对于特征['0','1','D']来说，
                 # ③ 在遍历最后一个特征维度时，取值'D'就不存在于孩子节点中
                 return current_node.values
-
             current_node = current_node.children[current_feature]
 
     def predict(self, X):
@@ -232,6 +236,41 @@ class DecisionTree(object):
         y_pred = np.argmax(results, axis=1)
         return y_pred
 
+    def _is_pruning_leaf(self, node):
+        """
+        判断是否对当前节点进行剪枝
+        :return:
+        """
+
+        def _compute_cost_in_leaf(labels):
+            """
+            计算节点的损失  c = -\sum_{k=1}^KN_{tk}\log{\frac{N_{tk}}{N_t}}
+            :param labels:
+            :return:
+            e.g. y_labels = np.array([1, 1, 1, 0])
+            _compute_cost_in_leaf(y_labels)   3.24511
+            """
+            y_count = np.bincount(labels)
+            n_samples = len(labels)
+            cost = 0
+            for i in range(len(y_count)):
+                if y_count[i] == 0:
+                    continue
+                cost += y_count[i] * np.log2(y_count[i] / n_samples)
+            return -cost
+
+        if len(node.children) < 1:
+            return False
+        parent_cost = _compute_cost_in_leaf(self._y[node.sample_index])
+        children_cost = 0
+        for (_, leaf_node) in node.children.items():
+            children_cost += _compute_cost_in_leaf(self._y[leaf_node.sample_index])
+        logging.debug(f"当前节点的损失为：{parent_cost} + {self.alpha}")
+        logging.debug(f"当前节点的孩子节点损失和为：{children_cost} + {self.alpha} * {len(node.children)}")
+        if children_cost + self.alpha * len(node.children) > parent_cost + self.alpha:
+            return True
+        return False
+
 
 def load_simple_data():
     x = np.array([['0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1'],
@@ -245,7 +284,6 @@ def test_decision_tree():
     x, y = load_simple_data()
     dt = DecisionTree(criterion='c45')
     dt.fit(x, y)
-    dt.level_order()
     y_pred = dt.predict(np.array([['0', '0', 'T'],
                                   ['0', '1', 'S'],
                                   ['0', '1', 'D'],
