@@ -40,7 +40,7 @@ class Node(object):
 
 class DecisionTree(object):
     def __init__(self, min_samples_split=2,
-                 criterion='entropy',
+                 criterion='id3',
                  epsilon=1e-5,
                  alpha=0.):
         self.root = None
@@ -95,6 +95,7 @@ class DecisionTree(object):
         self._X = np.hstack(([X, np.arange(len(X)).reshape(-1, 1)]))
         # 将训练集中每个样本的序号加入到X的最后一列
         self._build_tree(self._X, feature_ids)  # 递归构建决策树
+        self._pruning_leaf()
 
     @staticmethod
     def _get_label(labels):
@@ -328,14 +329,16 @@ def test_spam_classification():
 
 def test_decision_tree_pruning():
     x, y = load_simple_data()
-    dt = DecisionTree(criterion='id3', alpha=1.25)
+    dt = DecisionTree(criterion='id3', alpha=0.)
     dt.fit(x, y)
     x_test = np.array([['0', '1', 'S'],
                        ['0', '1', 'T']])
     logging.debug(f"剪枝前的层次遍历结果")
     # dt.level_order()
     logging.info(f"剪枝前的预测类别：{dt.predict(x_test)}")
-    dt._pruning_leaf()
+
+    dt = DecisionTree(criterion='id3', alpha=1.25)
+    dt.fit(x, y)
     logging.debug(f"剪枝后的层次遍历结果")
     # dt.level_order()
     logging.info(f"剪枝后的预测类别：{dt.predict(x_test)}")
