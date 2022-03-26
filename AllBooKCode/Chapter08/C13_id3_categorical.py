@@ -236,6 +236,17 @@ class DecisionTree(object):
         y_pred = np.argmax(results, axis=1)
         return y_pred
 
+    def _pruning_leaf(self):
+        level_order_nodes = self.level_order(return_node=True)
+        # 获取得到层次遍历的所有结果
+        for i in range(len(level_order_nodes) - 1, -1, -1):
+            # 从下往上依次遍历每一层节点
+            current_level_nodes = level_order_nodes[i]  # 取第i层的所有节点
+            for j in range(len(current_level_nodes)):
+                current_node = current_level_nodes[j]  # 取第i层的第j个节点
+                if self._is_pruning_leaf(current_node):
+                    current_node.children = {}
+
     def _is_pruning_leaf(self, node):
         """
         判断是否对当前节点进行剪枝
@@ -268,6 +279,7 @@ class DecisionTree(object):
         logging.debug(f"当前节点的损失为：{parent_cost} + {self.alpha}")
         logging.debug(f"当前节点的孩子节点损失和为：{children_cost} + {self.alpha} * {len(node.children)}")
         if children_cost + self.alpha * len(node.children) > parent_cost + self.alpha:
+            #  当剪枝前的损失  >  剪枝后的损失， 则表示当前节点可以进行剪枝（减掉其所有孩子）
             return True
         return False
 
@@ -314,11 +326,27 @@ def test_spam_classification():
     logging.info(f"DecisionTreeClassifier 准确率：{accuracy_score(y_test, y_pred)}")
 
 
+def test_decision_tree_pruning():
+    x, y = load_simple_data()
+    dt = DecisionTree(criterion='id3', alpha=1.25)
+    dt.fit(x, y)
+    x_test = np.array([['0', '1', 'S'],
+                       ['0', '1', 'T']])
+    logging.debug(f"剪枝前的层次遍历结果")
+    # dt.level_order()
+    logging.info(f"剪枝前的预测类别：{dt.predict(x_test)}")
+    dt._pruning_leaf()
+    logging.debug(f"剪枝后的层次遍历结果")
+    # dt.level_order()
+    logging.info(f"剪枝后的预测类别：{dt.predict(x_test)}")
+
+
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    test_decision_tree()
+    # test_decision_tree()
     # test_spam_classification()  # Accuracy:  id3:0.9753  c45 0.975
+    test_decision_tree_pruning()
