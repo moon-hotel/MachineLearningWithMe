@@ -297,6 +297,7 @@ def test_decision_tree():
     x, y = load_simple_data()
     dt = DecisionTree(criterion='c45')
     dt.fit(x, y)
+    dt.level_order()
     y_pred = dt.predict(np.array([['0', '0', 'T'],
                                   ['0', '1', 'S'],
                                   ['0', '1', 'D'],
@@ -346,7 +347,7 @@ def test_decision_tree_pruning():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
