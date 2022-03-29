@@ -146,7 +146,7 @@ class DecisionTree(object):
 
         y_unique = np.unique(labels)  # 当前节点一种存在的类别数量
         if y_unique.shape[0] == 1 or len(f_ids) < 1 \
-                or node.n_samples <= self.min_samples_split:  # 只有一个类别或特征集为空或样本数量少于3
+                or node.n_samples <= self.min_samples_split:  # 只有一个类别或特征集为空或样本数量少于min_samples_split
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
             return node
         ety = self._compute_entropy(labels)  # 计算当前节点所有样本对应的信息熵
@@ -172,7 +172,7 @@ class DecisionTree(object):
 
         for f in feature_values:  # 依次遍历每个取值情况
             logging.debug(f"正在遍历最佳特征（第{best_feature_id}个）的取值 {f}")
-            c = data[:, best_feature_id] == f  # 根据当前特征维度的取值，来取对应的特征维度
+            c = data[:, best_feature_id] == f  # 根据当前特征维度的取值，来判断对应的样本
             index = np.array([i for i in range(len(c)) if c[i] == True])  # 获取对应的索引
             node.children[f] = self._build_tree(data[index], candidate_ids)
         return node
