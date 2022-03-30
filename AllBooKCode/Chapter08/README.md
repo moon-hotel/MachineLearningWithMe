@@ -12,5 +12,7 @@
 - [随机森林特征重要性评估 代码](10_feature_importance_comp.py)
 - [随机森林泰坦尼克号分类 代码](11_titanic.py)
 - [决策树可视化 代码](12_visiualization_dt.py)
+- [从零实现ID3与C4.5算法](C13_id3_categorical.py)
+- [从零实现ID3与C4.5算法（连续型特征变量）](C14_id3_categorical.py)
 
 ### [返回主页](../../README.md)
