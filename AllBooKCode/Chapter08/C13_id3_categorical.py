@@ -96,6 +96,7 @@ class DecisionTree(object):
         # 将训练集中每个样本的序号加入到X的最后一列
         self._build_tree(self._X, feature_ids)  # 递归构建决策树
         self._pruning_leaf()
+        return self
 
     @staticmethod
     def _get_label(labels):
