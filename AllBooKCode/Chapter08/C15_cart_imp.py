@@ -2,6 +2,10 @@ import numpy as np
 import logging
 import sys
 import copy
+from sklearn.datasets import load_iris
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 
 
 class Node(object):
@@ -26,7 +30,7 @@ class Node(object):
         return f"当前节点所有样本的索引({self.sample_index})\n" \
                f"当前节点的样本数量({self.n_samples})\n" \
                f"当前节点每个类别的样本数({self.values})\n" \
-               f"当前节点对应的信息增益（比）({round(self.criterion_value, 3)})\n" \
+               f"当前节点对应的基尼指数为({round(self.criterion_value, 3)})\n" \
                f"当前节点状态时特征集中剩余特征({self.features})\n" \
                f"当前节点状态时划分特征ID({self.feature_id})\n" \
                f"当前节点状态时划分特征离散化区间为 {self.split_range}\n"
@@ -184,8 +188,10 @@ class CART(object):
         right_data = data[~split_sample_idx]
         candidate_ids = copy.copy(f_ids)
         candidate_ids.remove(best_feature_id)  # 当前节点划分后的剩余特征集
-        node.left_child = self._build_tree(left_data, candidate_ids)  # 递归构建决策树
-        node.right_child = self._build_tree(right_data, candidate_ids)
+        if len(left_data) > 0:
+            node.left_child = self._build_tree(left_data, candidate_ids)  # 递归构建决策树
+        if len(right_data) > 0:
+            node.right_child = self._build_tree(right_data, candidate_ids)
         return node
 
     def fit(self, X, y):
@@ -234,6 +240,52 @@ class CART(object):
                 logging.debug(node)
             logging.debug("\n")
 
+    def _predict_one_sample(self, x):
+        """
+        预测单一样本
+        :param x: [n_features,]
+        :return:
+        """
+        current_node = self.root
+        while True:
+            if current_node.split_range is None:
+                # ① 当前节点为叶子节点
+                return current_node.values
+            current_feature_id = current_node.feature_id
+            current_feature = x[current_feature_id]
+            split_range = current_node.split_range
+            if split_range[0] <= current_feature <= split_range[1]:
+                current_node = current_node.left_child
+            else:
+                current_node = current_node.right_child
+
+            #
+            # exist_child = False
+            # for i in range(len(current_feature_values) - 1):
+            #     if current_feature_values[i] <= current_feature <= current_feature_values[i + 1]:
+            #         exist_child = True
+            #         if str(current_feature_values[i + 1]) not in current_node.children:
+            #             # 由于数据集不充分当前节点的孩子节点不存在下一个划分节点的某一个取值
+            #             # 例如根据测试数据集load_simple_data（）构造得到的id3树，对于特征[0,1,0]来说，
+            #             # 在遍历最后一个特征维度时，取值0就不存在于孩子节点中
+            #             return current_node.values
+            #         current_node = current_node.children[str(current_feature_values[i + 1])]
+            # if not exist_child:
+            #     return current_node.values
+
+    def predict(self, X):
+        """
+        :param X: shape [n_samples,n_features]
+        :return:
+        """
+        results = []
+        for x in X:
+            results.append(self._predict_one_sample(x))
+        results = np.array(results)
+        logging.debug(f"原始预测结果为:\n{results}")
+        y_pred = np.argmax(results, axis=1)
+        return y_pred
+
 
 def load_simple_data():
     x = np.array([[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -251,15 +303,30 @@ def test_gini():
 
 def test_cart():
     x, y = load_simple_data()
-    dt = CART(min_samples_split=2)
+    dt = CART(min_samples_split=1)
     dt.fit(x, y)
     dt.level_order()
-    # print("========")
-    # print(dt.root)
-    # print(dt.root.left_child)
+    y_pred = dt.predict(np.array([[0, 0, 2],
+                                  [0, 1, 1],
+                                  [0, 1, 0],
+                                  [0, 1, 2]]))
+    logging.info(f"CART 预测结果为：{y_pred}")
 
 
-#
+def test_iris_classification():
+    x, y = load_iris(return_X_y=True)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=2022)
+    dt = CART(min_samples_split=2)
+    dt.fit(x_train, y_train)
+    y_pred = dt.predict(x_test)
+    logging.info(f"CART 准确率：{accuracy_score(y_test, y_pred)}")
+
+    model = DecisionTreeClassifier(criterion='gini')
+    model.fit(x_train, y_train)
+    y_pred = model.predict(x_test)
+    logging.info(f"DecisionTreeClassifier 准确率：{accuracy_score(y_test, y_pred)}")
+
+
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
     logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
@@ -267,4 +334,5 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
     # test_gini()
-    test_cart()
+    # test_cart()
+    test_iris_classification()
