@@ -19,6 +19,8 @@ class Node(object):
         self.n_samples = 0  # 保存当前节点对应的样本数量
         self.children = {}  # 保存当前节点对应的孩子节点
         self.criterion_value = 0.
+        self.n_leaf = 0  # 以当前节点为根节点时其叶子节点的个数
+        self.leaf_costs = 0.  # 以当前节点为根节点时其所有叶子节点的损失和
 
     def __str__(self):
         """
@@ -32,6 +34,8 @@ class Node(object):
                f"当前节点状态时特征集中剩余特征({self.features})\n" \
                f"当前节点状态时划分特征ID({self.feature_id})\n" \
                f"当前节点对应的类别标签为({self.label})\n" \
+               f"当前节点为根节点对应孩子节点数为({self.n_leaf})\n" \
+               f"当前节点为根节点对应孩子节点损失为({self.leaf_costs})\n" \
                f"当前节点对应的孩子为({self.children.keys()})"
 
 
@@ -253,13 +257,20 @@ class DecisionTree(object):
     def _pruning_leaf(self):
         level_order_nodes = self.level_order(return_node=True)
         # 获取得到层次遍历的所有结果
+        logging.debug(f"正在进行剪枝操作……")
         for i in range(len(level_order_nodes) - 1, -1, -1):
             # 从下往上依次遍历每一层节点
             current_level_nodes = level_order_nodes[i]  # 取第i层的所有节点
             for j in range(len(current_level_nodes)):
                 current_node = current_level_nodes[j]  # 取第i层的第j个节点
+                if len(current_node.children) == 0:  # 当前节点为叶子节点时
+                    current_node.n_leaf = 1  # 令其叶节点个数为1
+                else:
+                    for _, leaf_node in current_node.children.items():
+                        current_node.n_leaf += leaf_node.n_leaf  # 统计以当前节点为根节点时的叶子节点数量
                 if self._is_pruning_leaf(current_node):
                     current_node.children = {}
+                    current_node.n_leaf = 1
 
     def _is_pruning_leaf(self, node):
         """
@@ -284,15 +295,15 @@ class DecisionTree(object):
                 cost += y_count[i] * np.log2(y_count[i] / n_samples)
             return -cost
 
-        if len(node.children) < 1:
+        if len(node.children) < 1:  # 当前节点为叶子节点时，计算叶子节点对应的损失
+            node.leaf_costs = _compute_cost_in_leaf(self._y[node.sample_index])
             return False
-        parent_cost = _compute_cost_in_leaf(self._y[node.sample_index])
-        children_cost = 0
-        for (_, leaf_node) in node.children.items():
-            children_cost += _compute_cost_in_leaf(self._y[leaf_node.sample_index])
-        logging.debug(f"当前节点（剪枝后）的损失为：{parent_cost} + {self.alpha}")
-        logging.debug(f"当前节点的孩子节点（剪枝前）损失为：{children_cost} + {self.alpha} * {len(node.children)}")
-        if children_cost + self.alpha * len(node.children) > parent_cost + self.alpha:
+        parent_cost = _compute_cost_in_leaf(self._y[node.sample_index])  # 剪枝后的损失
+        for (_, leaf_node) in node.children.items():  # 剪枝前累加所有叶子节点的损失
+            node.leaf_costs += leaf_node.leaf_costs
+        logging.debug(f"当前节点的损失为：{parent_cost} + {self.alpha}")
+        logging.debug(f"当前节点的孩子节点损失和为：{node.leaf_costs} + {self.alpha} * {node.n_leaf}")
+        if node.leaf_costs + self.alpha * node.n_leaf > parent_cost + self.alpha:
             #  当剪枝前的损失  >  剪枝后的损失， 则表示当前节点可以进行剪枝（减掉其所有孩子）
             return True
         return False
@@ -365,7 +376,7 @@ def test_decision_tree():
 def test_iris_classification():
     x, y = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=2022)
-    dt = DecisionTree(criterion='id3')
+    dt = DecisionTree(criterion='id3', alpha=1.6)
     dt.fit(x_train, y_train)
     y_pred = dt.predict(x_test)
     logging.info(f"DecisionTree 准确率：{accuracy_score(y_test, y_pred)}")
