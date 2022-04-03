@@ -290,8 +290,8 @@ class DecisionTree(object):
         children_cost = 0
         for (_, leaf_node) in node.children.items():
             children_cost += _compute_cost_in_leaf(self._y[leaf_node.sample_index])
-        logging.debug(f"当前节点的损失为：{parent_cost} + {self.alpha}")
-        logging.debug(f"当前节点的孩子节点损失和为：{children_cost} + {self.alpha} * {len(node.children)}")
+        logging.debug(f"当前节点（剪枝后）的损失为：{parent_cost} + {self.alpha}")
+        logging.debug(f"当前节点的孩子节点（剪枝前）损失为：{children_cost} + {self.alpha} * {len(node.children)}")
         if children_cost + self.alpha * len(node.children) > parent_cost + self.alpha:
             #  当剪枝前的损失  >  剪枝后的损失， 则表示当前节点可以进行剪枝（减掉其所有孩子）
             return True
