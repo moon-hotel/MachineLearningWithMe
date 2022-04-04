@@ -1,7 +1,7 @@
 import numpy as np
 import logging
 import sys
-import copy
+from copy import deepcopy
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -21,6 +21,8 @@ class Node(object):
         self.split_range = None  # 预测样本划分节点时，选择左右孩子的的特征判断区间
         # e.g. [0.5,1] 如果当前样本的划分维度对应的特征取值属于区间[0.5,1]那么则进入到当前节点的左孩子中
         #              如果当前样本的划分维度对应的特征取值不属于区间[0.5,1]那么则进入到当前节点的右孩子中
+        self.n_leaf = 0  # 以当前节点为根节点时其叶子节点的个数
+        self.leaf_costs = 0.  # 以当前节点为根节点时其所有叶子节点的损失和
 
     def __str__(self):
         """
@@ -33,7 +35,9 @@ class Node(object):
                f"当前节点对应的基尼指数为({round(self.criterion_value, 3)})\n" \
                f"当前节点状态时特征集中剩余特征({self.features})\n" \
                f"当前节点状态时划分特征ID({self.feature_id})\n" \
-               f"当前节点状态时划分特征离散化区间为 {self.split_range}\n"
+               f"当前节点状态时划分特征离散化区间为 {self.split_range}\n" \
+               f"当前节点的孩子节点数量为 {self.n_leaf}\n" \
+               f"当前节点的孩子节点的损失为 {self.leaf_costs}\n"
 
 
 class CART(object):
@@ -186,7 +190,7 @@ class CART(object):
                       f"最小基尼指数为 {min_gini}***】")
         left_data = data[split_sample_idx]
         right_data = data[~split_sample_idx]
-        candidate_ids = copy.copy(f_ids)
+        candidate_ids = deepcopy(f_ids)
         candidate_ids.remove(best_feature_id)  # 当前节点划分后的剩余特征集
         if len(left_data) > 0:
             node.left_child = self._build_tree(left_data, candidate_ids)  # 递归构建决策树
@@ -214,7 +218,8 @@ class CART(object):
         层次遍历
         :return:
         """
-        logging.debug("\n\n正在进行层次遍历……")
+        logging.debug("===============================")
+        logging.debug("正在进行层次遍历……")
         root = self.root
         if not root:
             return []
@@ -231,9 +236,10 @@ class CART(object):
                     queue.append(node.right_child)
             res.append(tmp)
         if return_node:
+            logging.debug("并返回层次遍历的所有结果！")
             return res  # 按层次遍历的顺序返回各层节点的地址
             # [[root], [level2 node1, level2_node2], [level3,...] [level4,...],...[],]
-        logging.debug("\n层次遍历结果为：")
+        logging.debug("层次遍历结果为：")
         for i, r in enumerate(res):
             logging.debug(f"第{i + 1}层的节点为：")
             for node in r:
@@ -248,8 +254,11 @@ class CART(object):
         """
         current_node = self.root
         while True:
-            if current_node.split_range is None:
-                # ① 当前节点为叶子节点
+            # 有些情况下倒数第二层的节点只有一个孩子节点
+            if not current_node.left_child or \
+                    not current_node.right_child or \
+                    current_node.split_range is None:
+                # 当前节点为叶子节点
                 return current_node.values
             current_feature_id = current_node.feature_id
             current_feature = x[current_feature_id]
@@ -258,20 +267,6 @@ class CART(object):
                 current_node = current_node.left_child
             else:
                 current_node = current_node.right_child
-
-            #
-            # exist_child = False
-            # for i in range(len(current_feature_values) - 1):
-            #     if current_feature_values[i] <= current_feature <= current_feature_values[i + 1]:
-            #         exist_child = True
-            #         if str(current_feature_values[i + 1]) not in current_node.children:
-            #             # 由于数据集不充分当前节点的孩子节点不存在下一个划分节点的某一个取值
-            #             # 例如根据测试数据集load_simple_data（）构造得到的id3树，对于特征[0,1,0]来说，
-            #             # 在遍历最后一个特征维度时，取值0就不存在于孩子节点中
-            #             return current_node.values
-            #         current_node = current_node.children[str(current_feature_values[i + 1])]
-            # if not exist_child:
-            #     return current_node.values
 
     def predict(self, X):
         """
@@ -285,6 +280,80 @@ class CART(object):
         logging.debug(f"原始预测结果为:\n{results}")
         y_pred = np.argmax(results, axis=1)
         return y_pred
+
+    def _get_pruning_gt(self, node):
+        """
+        计算对当前节点剪枝前和剪枝后对应的gt值
+        :return:
+        """
+
+        def _compute_cost_in_leaf(labels):
+            """
+            计算节点的损失  c = -\sum_{k=1}^KN_{tk}\log{\frac{N_{tk}}{N_t}}
+            :param labels:
+            :return:
+            e.g. y_labels = np.array([1, 1, 1, 0])
+            _compute_cost_in_leaf(y_labels)   3.24511
+            """
+            y_count = np.bincount(labels)
+            n_samples = len(labels)
+            cost = 0
+            for i in range(len(y_count)):
+                if y_count[i] == 0:
+                    continue
+                cost += y_count[i] * np.log2(y_count[i] / n_samples)
+            return -cost
+
+        if not node.left_child and not node.right_child:
+            node.leaf_costs = _compute_cost_in_leaf(self._y[node.sample_index])
+            # 如果当前节点是叶子节点，则计算该叶子节点对应的损失值
+            return 99999., None
+        parent_cost = _compute_cost_in_leaf(self._y[node.sample_index])  # 计算以当前节点为根节点剪枝后的损失
+        if node.left_child:
+            node.leaf_costs += node.left_child.leaf_costs  # 以当前节点为根节点累计剪枝前所有叶子节点的损失
+        if node.right_child:
+            node.leaf_costs += node.right_child.leaf_costs
+        g_t = (parent_cost - node.leaf_costs) / (node.n_leaf - 1 + 1e-5)  # 计算gt，其中1e-5为平滑项
+        logging.debug(f"------------------")
+        logging.debug(f"当前节点gt为:{g_t}")
+        logging.debug(f"当前节点（剪枝后）的损失为：{parent_cost}")
+        logging.debug(f"当前节点的孩子节点（剪枝前）损失为：{node.leaf_costs}")
+        return g_t, node
+
+    def _get_subtree_sequence(self):
+        subtrees = []
+        logging.debug("\n\n")
+        logging.debug(f"正在获取子序列T0,T1,T2,T3...")
+        stop = False
+        while not stop:
+            if not self.root.right_child and not self.root.left_child:
+                stop = True
+            # while self.root.right_child and self.root.left_child:
+            level_order_nodes = self.level_order(return_node=True)
+            best_gt = 99999.
+            best_pruning_node = None
+            for i in range(len(level_order_nodes) - 1, -1, -1):  # 从对底层向上遍历
+                current_level_nodes = level_order_nodes[i]  # 取第i层的所有节点
+                for j in range(len(current_level_nodes)):  # 从左向右遍历
+                    current_node = current_level_nodes[j]  # 取第i层的第j个节点
+                    current_node.n_leaf = 0  # 对于每一颗子树来说，重置计数，因为原始值中包含有上一课子树的计数信息
+                    current_node.leaf_costs = 0.  # 因为需要在每一颗子树中保存相关信息
+                    if current_node.left_child is not None:
+                        current_node.n_leaf += current_node.left_child.n_leaf  # 计算以当前节点为根节点的叶子节点数
+                    if current_node.right_child is not None:
+                        current_node.n_leaf += current_node.right_child.n_leaf
+                    elif not current_node.left_child and not current_node.right_child:
+                        current_node.n_leaf = 1  # 当前节点为叶子节点，则其对应的叶子节点数为1
+                    gt, pruning_node = self._get_pruning_gt(current_node)
+                    if gt < best_gt:
+                        best_gt = gt
+                        best_pruning_node = pruning_node
+            logging.debug(f"本轮结束，最小的gt为 {best_gt} #######")
+            subtrees.append(deepcopy(self.root))
+            if not stop:
+                best_pruning_node.left_child = None
+                best_pruning_node.right_child = None  # 剪枝
+        return subtrees
 
 
 def load_simple_data():
@@ -308,6 +377,7 @@ def test_cart():
     dt.level_order()
     y_pred = dt.predict(np.array([[0, 0, 2],
                                   [0, 1, 1],
+                                  [1, 1, 1],
                                   [0, 1, 0],
                                   [0, 1, 2]]))
     logging.info(f"CART 预测结果为：{y_pred}")
@@ -327,6 +397,37 @@ def test_iris_classification():
     logging.info(f"DecisionTreeClassifier 准确率：{accuracy_score(y_test, y_pred)}")
 
 
+def count_children():
+    x, y = load_simple_data()
+    dt = CART(min_samples_split=2)
+    dt.fit(x, y)
+    level_order_nodes = dt.level_order(return_node=True)
+    for i in range(len(level_order_nodes) - 1, -1, -1):
+        current_level_nodes = level_order_nodes[i]  # 取第i层的所有节点
+        for j in range(len(current_level_nodes)):
+            current_node = current_level_nodes[j]  # 取第i层的第j个节点
+            if current_node.left_child is not None:
+                current_node.n_leaf += (current_node.left_child.n_leaf)
+            if current_node.right_child is not None:
+                current_node.n_leaf += (current_node.right_child.n_leaf)
+            if not current_node.left_child and not current_node.right_child:
+                current_node.n_leaf = 1
+
+    dt.level_order()
+
+
+def test_get_subtree():
+    x, y = load_simple_data()
+    dt = CART(min_samples_split=1)
+    dt.fit(x, y)
+    subtrees = dt._get_subtree_sequence()
+    logging.debug(f"生成子树个数为：{len(subtrees)}")
+    for i, tree in enumerate(subtrees):
+        logging.debug(f"-----正在层次遍历第 {i} 颗子树-----")
+        dt.root = tree
+        dt.level_order()
+
+
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
     logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
@@ -335,4 +436,5 @@ if __name__ == '__main__':
                         handlers=[logging.StreamHandler(sys.stdout)])
     # test_gini()
     # test_cart()
-    test_iris_classification()
+    # test_iris_classification()
+    test_get_subtree()
