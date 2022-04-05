@@ -2,7 +2,7 @@ import numpy as np
 import logging
 import sys
 from copy import deepcopy
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_wine
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -42,10 +42,14 @@ class Node(object):
 
 class CART(object):
     def __init__(self, min_samples_split=2,
-                 epsilon=1e-5):
+                 epsilon=1e-5,
+                 pruning=False,
+                 random_state=2022):
         self.root = None
         self.min_samples_split = min_samples_split  # 用来控制是否停止分裂
         self.epsilon = epsilon  # 停止标准
+        self.pruning = pruning  # 是否需要进行剪枝
+        self.random_state = random_state
 
     def _compute_gini(self, y_class):
         """
@@ -205,6 +209,10 @@ class CART(object):
         :param y: shape: [n_samples,]
         :return:
         """
+        if self.pruning:  # 如果剪枝则划分一部分数据作为测试集
+            X, self.x_test, y, self.y_test = train_test_split(X, y,
+                                                              test_size=0.1,
+                                                              random_state=self.random_state)
         self._y = np.array(y).reshape(-1)
         self.n_classes = len(np.bincount(y))  # 得到当前数据集的类别数量
         feature_ids = [i for i in range(X.shape[1])]  # 得到特征的序号
@@ -212,6 +220,8 @@ class CART(object):
         self._X = np.hstack(([X, np.arange(len(X)).reshape(-1, 1)]))
         # 将训练集中每个样本的序号加入到X的最后一列
         self._build_tree(self._X, feature_ids)  # 递归构建决策树
+        if self.pruning:  # 进行剪枝
+            self._pruning_leaf()
 
     def level_order(self, return_node=False):
         """
@@ -355,6 +365,18 @@ class CART(object):
                 best_pruning_node.right_child = None  # 剪枝
         return subtrees
 
+    def _pruning_leaf(self):
+        subtrees = self._get_subtree_sequence()  # 得到所有子树序列T0,T1,T2,...,Tn
+        best_tree = None
+        max_acc = 0.
+        for tree in subtrees:  # 在测试集上对所有子树进行测试，
+            self.root = tree  # 选择准确率最高的子树作为最终的决策树
+            acc = accuracy_score(self.predict(self.x_test), self.y_test)
+            if acc > max_acc:
+                max_acc = acc
+                best_tree = tree
+        self.root = best_tree
+
 
 def load_simple_data():
     x = np.array([[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -383,10 +405,10 @@ def test_cart():
     logging.info(f"CART 预测结果为：{y_pred}")
 
 
-def test_iris_classification():
-    x, y = load_iris(return_X_y=True)
+def test_wine_classification():
+    x, y = load_wine(return_X_y=True)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=2022)
-    dt = CART(min_samples_split=2)
+    dt = CART(min_samples_split=2, pruning=True)
     dt.fit(x_train, y_train)
     y_pred = dt.predict(x_test)
     logging.info(f"CART 准确率：{accuracy_score(y_test, y_pred)}")
@@ -430,11 +452,11 @@ def test_get_subtree():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.INFO,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
     # test_gini()
     # test_cart()
-    # test_iris_classification()
-    test_get_subtree()
+    # test_get_subtree()
+    test_wine_classification()
