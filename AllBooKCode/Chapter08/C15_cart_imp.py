@@ -44,7 +44,7 @@ class CART(object):
     def __init__(self, min_samples_split=2,
                  epsilon=1e-5,
                  pruning=False,
-                 random_state=2022):
+                 random_state=None):
         self.root = None
         self.min_samples_split = min_samples_split  # 用来控制是否停止分裂
         self.epsilon = epsilon  # 停止标准
@@ -99,9 +99,9 @@ class CART(object):
         min_gini = 99999.
         split_id = None
         split_sample_idx = None
-        for i in range(len(feature_values) - 1):  # 遍历当前特征维度中，用每个特征取值将样本划分为两个部分时的基尼指数
+        for i in range(len(feature_values) - 1):  # 遍历当前特征维度中，离散化特征的每个取值区间
             index = (feature_values[i] <= x_feature) & \
-                    (x_feature <= feature_values[i + 1])  # 根据当前特征维度的取值，来取对应的特征维度
+                    (x_feature <= feature_values[i + 1])
             # 判断特征的取值是否存在于某个离散区间中，并以此将当前节点中的样本划分为左右两个部分
             if np.sum(index) < 1.:  # 如果当前特征取值范围没有样本，则继续
                 continue
@@ -171,11 +171,13 @@ class CART(object):
             return node
         gini = self._compute_gini(labels)  # 计算当前节点对应的基尼指数
         node.criterion_value = gini
+        if gini < self.epsilon:
+            return node
         logging.debug(f"当前节点中的样本基尼指数为 {gini}")
         min_gini = 99999
         split_id = None  # 保存所有可用划分特征中，能够值得基尼指数最小的特征 对应特征离散区间的起始索引
         split_sample_idx = None  # 最小基尼指数下对应的样本划分索引
-        best_feature_id = -1  # 保存所有可用划分特征中，能够值得基尼指数最小的特征 对应的特征ID
+        best_feature_id = -1  # 保存所有可用划分特征中，能够使得基尼指数最小的特征 对应的特征ID
         for f_id in f_ids:  # 遍历每个特征
             # 遍历特征下的每种取值方式的基尼指数，并返回最小的
             m_gini, s_id, s_s_idx = self._compute_gini_da(f_id, data)
@@ -184,8 +186,6 @@ class CART(object):
                 split_id = s_id
                 split_sample_idx = s_s_idx
                 best_feature_id = f_id
-        if min_gini < self.epsilon:
-            return node
         node.feature_id = best_feature_id
         feature_values = self.feature_values[best_feature_id]
         node.split_range = [feature_values[split_id], feature_values[split_id + 1]]
@@ -204,7 +204,6 @@ class CART(object):
 
     def fit(self, X, y):
         """
-        输入的数据集X特征必须为categorical类型
         :param X: shape: [n_samples, n_features]
         :param y: shape: [n_samples,]
         :return:
@@ -264,7 +263,7 @@ class CART(object):
         """
         current_node = self.root
         while True:
-            # 有些情况下倒数第二层的节点只有一个孩子节点
+            # 有些情况下叶子节点没有兄弟节点
             if not current_node.left_child or \
                     not current_node.right_child or \
                     current_node.split_range is None:
@@ -317,7 +316,7 @@ class CART(object):
         if not node.left_child and not node.right_child:
             node.leaf_costs = _compute_cost_in_leaf(self._y[node.sample_index])
             # 如果当前节点是叶子节点，则计算该叶子节点对应的损失值
-            return 99999., None
+            return 99999.
         parent_cost = _compute_cost_in_leaf(self._y[node.sample_index])  # 计算以当前节点为根节点剪枝后的损失
         if node.left_child:
             node.leaf_costs += node.left_child.leaf_costs  # 以当前节点为根节点累计剪枝前所有叶子节点的损失
@@ -328,7 +327,7 @@ class CART(object):
         logging.debug(f"当前节点gt为:{g_t}")
         logging.debug(f"当前节点（剪枝后）的损失为：{parent_cost}")
         logging.debug(f"当前节点的孩子节点（剪枝前）损失为：{node.leaf_costs}")
-        return g_t, node
+        return g_t
 
     def _get_subtree_sequence(self):
         subtrees = []
@@ -354,10 +353,10 @@ class CART(object):
                         current_node.n_leaf += current_node.right_child.n_leaf
                     elif not current_node.left_child and not current_node.right_child:
                         current_node.n_leaf = 1  # 当前节点为叶子节点，则其对应的叶子节点数为1
-                    gt, pruning_node = self._get_pruning_gt(current_node)
+                    gt = self._get_pruning_gt(current_node)
                     if gt < best_gt:
                         best_gt = gt
-                        best_pruning_node = pruning_node
+                        best_pruning_node = current_node
             logging.debug(f"本轮结束，最小的gt为 {best_gt} #######")
             subtrees.append(deepcopy(self.root))
             if not stop:
@@ -408,7 +407,7 @@ def test_cart():
 def test_wine_classification():
     x, y = load_wine(return_X_y=True)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=2022)
-    dt = CART(min_samples_split=2, pruning=True)
+    dt = CART(min_samples_split=2, pruning=True, random_state=16)
     dt.fit(x_train, y_train)
     y_pred = dt.predict(x_test)
     logging.info(f"CART 准确率：{accuracy_score(y_test, y_pred)}")
@@ -456,7 +455,62 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_gini()
-    # test_cart()
+    test_gini()
+
+    test_cart()
+    # - DEBUG: ========>
+    # - DEBUG: 当前节点所有样本的索引 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+    # - DEBUG: 当前节点的样本数量 15
+    # - DEBUG: 当前节点每个类别的样本数 [ 5 10]
+    # - DEBUG: 当前节点状态时特征集中剩余特征 [0, 1, 2]
+    # - DEBUG: 当前节点中的样本基尼指数为 0.4444444444444444
+    # - DEBUG: ----------
+    # - DEBUG: 所有特征维度对应的离散化特征取值为 {0: [0, 0.5, 1], 1: [0, 0.5, 1], 2: [0, 0.5, 1.5, 2]}
+    # - DEBUG: 当前特征维度<0>对应的离散化特征取值为 [0, 0.5, 1]
+    # - DEBUG: 当前样本对应的标签值为[1 1 1 0 0 0 0 1 1 1 1 1 1 0 1]
+    # - DEBUG: 当前特征维度在不同特征取值下的基尼指数为 0.3452380952380953
+    # - DEBUG: 当前特征维度下的最小基尼指数为 0.3452380952380953; 此时对应的离散化特征取值范围为 [0,0.5]
+    # - DEBUG: ----------
+    # - DEBUG: 所有特征维度对应的离散化特征取值为 {0: [0, 0.5, 1], 1: [0, 0.5, 1], 2: [0, 0.5, 1.5, 2]}
+    # - DEBUG: 当前特征维度<1>对应的离散化特征取值为 [0, 0.5, 1]
+    # - DEBUG: 当前样本对应的标签值为[1 1 1 0 0 0 0 1 1 1 1 1 1 0 1]
+    # - DEBUG: 当前特征维度在不同特征取值下的基尼指数为 0.380952380952381
+    # - DEBUG: 当前特征维度下的最小基尼指数为 0.380952380952381; 此时对应的离散化特征取值范围为 [0,0.5]
+    # - DEBUG: ----------
+    # - DEBUG: 所有特征维度对应的离散化特征取值为 {0: [0, 0.5, 1], 1: [0, 0.5, 1], 2: [0, 0.5, 1.5, 2]}
+    # - DEBUG: 当前特征维度<2>对应的离散化特征取值为 [0, 0.5, 1.5, 2]
+    # - DEBUG: 当前样本对应的标签值为[1 1 1 0 0 0 0 1 1 1 1 1 1 0 1]
+    # - DEBUG: 当前特征维度在不同特征取值下的基尼指数为 0.4444444444444445
+    # - DEBUG: 当前特征维度在不同特征取值下的基尼指数为 0.43939393939393934
+    # - DEBUG: 当前特征维度在不同特征取值下的基尼指数为 0.44047619047619047
+    # - DEBUG: 当前特征维度下的最小基尼指数为 0.43939393939393934; 此时对应的离散化特征取值范围为 [0.5,1.5]
+    # - DEBUG: 【***此时选择第0个特征进行样本划分，此时第0个特征对应的离散化特征取值范围为 [0, 0.5]，最小基尼指数为 0.3452380952380953***】
+    # ................
+    #  DEBUG: 正在进行层次遍历……
+    # - DEBUG: 层次遍历结果为：
+    # - DEBUG: 第1层的节点为：
+    # - DEBUG: 当前节点所有样本的索引([ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14])
+    # 当前节点的样本数量(15)
+    # 当前节点每个类别的样本数([ 5 10])
+    # 当前节点对应的基尼指数为(0.444)
+    # 当前节点状态时特征集中剩余特征([0, 1, 2])
+    # 当前节点状态时划分特征ID(0)
+    # 当前节点状态时划分特征离散化区间为 [0, 0.5]
+    # 当前节点的孩子节点数量为 0
+    # 当前节点的孩子节点的损失为 0.0
+    #
+    # - DEBUG:
+    #
+    # - DEBUG: 第2层的节点为：
+    # - DEBUG: 当前节点所有样本的索引([0 1 2 3 4 5 6])
+    # 当前节点的样本数量(7)
+    # 当前节点每个类别的样本数([4 3])
+    # 当前节点对应的基尼指数为(0.49)
+    # 当前节点状态时特征集中剩余特征([1, 2])
+    # 当前节点状态时划分特征ID(1)
+    # 当前节点状态时划分特征离散化区间为 [0, 0.5]
+    # 当前节点的孩子节点数量为 0
+    # 当前节点的孩子节点的损失为 0.0
+
     # test_get_subtree()
-    test_wine_classification()
+    # test_wine_classification()
