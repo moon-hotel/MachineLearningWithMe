@@ -1,5 +1,5 @@
 ## 代码索引
-
+### [模型的改善与泛化 讲解](https://mp.weixin.qq.com/s/-RuiLiM7V1qDZ2V-rG0wBg)
 - [等高线三维投影图 代码](01_visualization_projection.py)
 - [等高线二维图 代码](02_visualization_contour.py)
 - [特征标准化前后梯度下降过程 代码](03_visualization_gradient.py)

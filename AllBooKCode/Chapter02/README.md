@@ -1,5 +1,5 @@
 ## 代码索引
-
+### [从零认识线性回归 讲解](https://mp.weixin.qq.com/s/zYFZyWj7mCeRyOX5sI-slw)
 - [模拟房屋价格可视化 代码](01_house_price.py)
 - [模拟房屋价格训练 代码](02_house_price_train.py)
 - [波士顿房价预测 代码](03_boston_price_train.py)

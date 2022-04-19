@@ -1,5 +1,5 @@
 ## 代码索引
-
+### [决策树与集成模型 讲解](https://mp.weixin.qq.com/s/UZsKvsdbSD6OT3oMhWT1Dw)
 - [二分类信息熵可视化 代码](01_visualization.py)
 - [CART特征重要性评估 代码](02_decision_tree_gini.py)
 - [集成学习Bagging 代码](03_ensemble_bagging_knn.py)
