@@ -21,4 +21,10 @@
 - [非凸函数优化过程可视化图 代码](19_visualization_grad_nonconvex.py)
 - [K折交叉验证手写体识别示例 代码](20_digits_classification.py)
 
+### [机器学习中的精确率召回率与PR曲线 讲解](https://mp.weixin.qq.com/s/VrIC1jUHFaci__aTP6_7cw)
+- [可视化AUC结果 代码](21_auc_plot.py)
+- [实现pr曲线计算过程 代码](22_pr_curve.py)
+- [实现pr曲线在二分类中展示 代码](23_pr_curve_for_binary.py)
+- [实现pr曲线在多分类中展示 代码](24_pr_curve_for_multi.py)
+
 ### [返回主页](../../README.md)
