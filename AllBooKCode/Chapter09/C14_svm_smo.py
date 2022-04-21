@@ -1,16 +1,14 @@
 import numpy as np
 
 
-
-
-def compute_w(data_x,data_y,alphas):
-    p1 = data_y.reshape(-1,1)*data_x
-    p2 = alphas.reshape(-1,1)*p1
-    return np.sum(p2,axis=0)
-
+def compute_w(data_x, data_y, alphas):
+    p1 = data_y.reshape(-1, 1) * data_x
+    p2 = alphas.reshape(-1, 1) * p1
+    return np.sum(p2, axis=0)
 
     # r = np.sum(data_x*alphas*data_y,axis=0)
     # return r
+
 
 def kernel(x1, x2):
     return np.dot(x1, x2)
@@ -133,13 +131,11 @@ def smo(C, tol, max_passes, data_x, data_y):
     return alphas, b
 
 
-data_x = np.array([[5, 1], [0, 2], [1, 5], [3., 2], [1, 2], [3, 5], [1.5, 6], [4.5, 6], [0, 7]])
-data_y = np.array([1, 1, 1, 1, 1, -1, -1, -1, -1])
-alphas, b = smo(C=.2, tol=0.001, max_passes=200, data_x=data_x, data_y=data_y)
-print(alphas) #[0.   0.   0.2   0.142   0.   0.2   0.142   0.   0.]
-print(b)# 2.66
-w = compute_w(data_x,data_y,alphas)
-print(w)# [-0.186,  -0.569]
-
-
-
+if __name__ == '__main__':
+    data_x = np.array([[5, 1], [0, 2], [1, 5], [3., 2], [1, 2], [3, 5], [1.5, 6], [4.5, 6], [0, 7]])
+    data_y = np.array([1, 1, 1, 1, 1, -1, -1, -1, -1])
+    alphas, b = smo(C=.2, tol=0.001, max_passes=200, data_x=data_x, data_y=data_y)
+    print(alphas)  # [0.   0.   0.2   0.142   0.   0.2   0.142   0.   0.]
+    print(b)  # 2.66
+    w = compute_w(data_x, data_y, alphas)
+    print(w)  # [-0.186,  -0.569]
