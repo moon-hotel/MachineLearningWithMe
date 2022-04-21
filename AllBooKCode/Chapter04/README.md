@@ -27,4 +27,4 @@
 - [实现pr曲线在二分类中展示 代码](23_pr_curve_for_binary.py)
 - [实现pr曲线在多分类中展示 代码](24_pr_curve_for_multi.py)
 
-### [返回主页](../../README.md)
+### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)

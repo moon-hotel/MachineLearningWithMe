@@ -9,4 +9,4 @@
 - [从零实现二分类逻辑回归 代码](07_implementation.py)
 - [从零实现多分类逻辑回归 代码](08_implementation_multi_class.py)
 
-### [返回主页](../../README.md)
+### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)

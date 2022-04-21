@@ -16,6 +16,7 @@ pip install -r requirements.txt
 ### [第八章：决策树与集成模型](AllBooKCode/Chapter07/README.md)
 ### 第九章：支持向量机
 ### 第十章：聚类算法
+### [知识点索引](AllBooKCode/Index.md)
 
 ---
 

@@ -16,4 +16,4 @@
 - [从零实现ID3与C4.5算法（连续型特征变量）](C14_id3_continuous.py)
 - [从零实现CART决策树算法](C15_cart_imp.py)
 
-### [返回主页](../../README.md)
+### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
