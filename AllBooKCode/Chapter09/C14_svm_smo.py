@@ -6,9 +6,6 @@ def compute_w(data_x, data_y, alphas):
     p2 = alphas.reshape(-1, 1) * p1
     return np.sum(p2, axis=0)
 
-    # r = np.sum(data_x*alphas*data_y,axis=0)
-    # return r
-
 
 def kernel(x1, x2):
     return np.dot(x1, x2)
