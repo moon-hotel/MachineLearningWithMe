@@ -266,11 +266,10 @@ def test_simple_binary_classification():
 
 def test_iris_classification():
     x_train, x_test, y_train, y_test = load_data()
-    model = SVM(C=1., tol=0.001, max_passes=20, kernel='linear')
+    model = SVM(C=1., tol=0.001, max_passes=20, kernel='rbf')
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     print("手动实现准确率：", accuracy_score(y_pred, y_test))
-    print(model.alphas.shape)
 
     model = SVC()
     model.fit(x_train, y_train)
