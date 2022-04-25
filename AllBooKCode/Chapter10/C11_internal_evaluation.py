@@ -2,7 +2,8 @@ import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.datasets import load_iris
 from sklearn.metrics import silhouette_score
-from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import calinski_harabasz_score
+from sklearn.metrics import davies_bouldin_score
 
 
 def get_silhouette_coefficient(X, labels):
@@ -37,10 +38,14 @@ def get_silhouette_coefficient(X, labels):
     return np.mean(s)
 
 
-if __name__ == '__main__':
+def test_silhouette_score():
     x, y = load_iris(return_X_y=True)
     model = KMeans(n_clusters=3)
     model.fit(x)
     y_pred = model.predict(x)
     print(f"轮廓系数 by sklearn: {silhouette_score(x, y_pred)}")
     print(f"轮廓系数 by ours: {get_silhouette_coefficient(x, y_pred)}")
+
+
+if __name__ == '__main__':
+    test_silhouette_score()
