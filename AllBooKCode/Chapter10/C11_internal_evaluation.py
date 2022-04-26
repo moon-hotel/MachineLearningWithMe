@@ -4,6 +4,7 @@ from sklearn.datasets import load_iris
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import calinski_harabasz_score
 from sklearn.metrics import davies_bouldin_score
+from sklearn.metrics import pairwise_distances
 
 
 def get_silhouette_coefficient(X, labels):
@@ -38,6 +39,25 @@ def get_silhouette_coefficient(X, labels):
     return np.mean(s)
 
 
+def get_calinski_harabasz(X, labels):
+    n_samples = X.shape[0]
+    n_clusters = np.unique(labels).shape[0]
+    betw_disp = 0.  # 所有的簇间距离和
+    within_disp = 0.  # 所有的簇内距离和
+    global_centroid = np.mean(X, axis=0)  # 全局簇中心
+    for k in range(n_clusters):  # 遍历每一个簇
+        x_in_cluster = X[labels == k]  # 取当前簇中的所有样本
+        centroid = np.mean(x_in_cluster, axis=0)  # 计算当前簇的簇中心
+        # 计算所有样本点到其对应簇中心的距离和（平方）
+        within_disp += np.sum((x_in_cluster - centroid) ** 2)
+        # 计算每个簇中心到全局簇中心的距离和（平方）* 当前簇的样本数
+        betw_disp += len(x_in_cluster) * np.sum((centroid - global_centroid) ** 2)
+
+    return (1. if within_disp == 0. else
+            betw_disp * (n_samples - n_clusters) /
+            (within_disp * (n_clusters - 1.)))
+
+
 def test_silhouette_score():
     x, y = load_iris(return_X_y=True)
     model = KMeans(n_clusters=3)
@@ -47,5 +67,15 @@ def test_silhouette_score():
     print(f"轮廓系数 by ours: {get_silhouette_coefficient(x, y_pred)}")
 
 
+def test_calinski_harabasz_score():
+    x, y = load_iris(return_X_y=True)
+    model = KMeans(n_clusters=3)
+    model.fit(x)
+    y_pred = model.predict(x)
+    print(f"方差比 by sklearn: {calinski_harabasz_score(x, y_pred)}")
+    print(f"方差比 by ours: {get_calinski_harabasz(x, y_pred)}")
+
+
 if __name__ == '__main__':
     test_silhouette_score()
+    test_calinski_harabasz_score()
