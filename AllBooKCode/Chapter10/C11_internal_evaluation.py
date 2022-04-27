@@ -58,6 +58,21 @@ def get_calinski_harabasz(X, labels):
             (within_disp * (n_clusters - 1.)))
 
 
+def get_davies_bouldin(X, labels):
+    n_clusters = np.unique(labels).shape[0]
+    centroids = np.zeros((n_clusters, len(X[0])), dtype=float)
+    s_i = np.zeros(n_clusters)
+    for k in range(n_clusters):  # 遍历每一个簇
+        x_in_cluster = X[labels == k]  # 取当前簇中的所有样本
+        centroids[k] = np.mean(x_in_cluster, axis=0)  # 计算当前簇的簇中心
+        s_i[k] = pairwise_distances(x_in_cluster, [centroids[k]]).mean()  #
+    centroid_distances = pairwise_distances(centroids)  # [K,K]
+    combined_s_i_j = s_i[:, None] + s_i  # [K,k]
+    centroid_distances[centroid_distances == 0] = np.inf
+    scores = np.max(combined_s_i_j / centroid_distances, axis=1)
+    return np.mean(scores)
+
+
 def test_silhouette_score():
     x, y = load_iris(return_X_y=True)
     model = KMeans(n_clusters=3)
@@ -76,6 +91,16 @@ def test_calinski_harabasz_score():
     print(f"方差比 by ours: {get_calinski_harabasz(x, y_pred)}")
 
 
+def test_davies_bouldin_score():
+    x, y = load_iris(return_X_y=True)
+    model = KMeans(n_clusters=3)
+    model.fit(x)
+    y_pred = model.predict(x)
+    print(f"db_score by sklearn: {davies_bouldin_score(x, y_pred)}")
+    print(f"db_score by ours: {get_davies_bouldin(x, y_pred)}")
+
+
 if __name__ == '__main__':
     test_silhouette_score()
     test_calinski_harabasz_score()
+    test_davies_bouldin_score()
