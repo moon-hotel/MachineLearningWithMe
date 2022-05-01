@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_blobs
+import matplotlib.font_manager as fm
 
 
 def visualization():
@@ -21,7 +22,8 @@ def visualization():
                  xytext=(0.4, 1.5), arrowprops=dict(arrowstyle="<-", connectionstyle="arc3"))
     plt.xticks([])
     plt.yticks([])
-    # plt.rcParams['font.sans-serif'] = ['SimSun']  # 用来  正常显示中文标签
+    fm.fontManager.addfont('../data/SimHei.ttf')
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来  正常显示中文标签
     plt.legend(fontsize=15)
     plt.tight_layout()  # 调整子图间距
     plt.show()
