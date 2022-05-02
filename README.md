@@ -1,5 +1,7 @@
 # MachineLearningWithMe
 
+## [掌柜谈如何入门机器学习（必读）！](MachingLearningGuide.md)
+
 # 目录
 ## 2021年
 ### [第一章：机器学习环境安装](https://mp.weixin.qq.com/s/L-3bXzYFFdNx_mL7eu2-kw)
