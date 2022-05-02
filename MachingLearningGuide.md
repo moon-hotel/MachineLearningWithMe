@@ -56,9 +56,9 @@
 
 
 <div align=center>
-<img src="./Images/moon.jpg" width="17%">
+<img src="./Images/moon.jpg" width="15%">
 </div>
 
 <div align=center>
-扫码即可关注@月来客栈公众号！
+扫码关注@月来客栈公众号获得更多优质内容！
 </div>
