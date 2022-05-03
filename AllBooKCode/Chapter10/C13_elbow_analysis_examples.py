@@ -24,6 +24,7 @@ def elbow_analysis(X, range_n_clusters, all_cluster_labels, all_centers):
         plt.annotate(f"k = {range_n_clusters[i]}",
                      xy=(range_n_clusters[i], all_dist[i]), fontsize=12,
                      xytext=(range_n_clusters[i] + 0.1, all_dist[i]))
+        plt.hlines(all_dist[i], xmin=0, xmax=range_n_clusters[i], color="red", linestyle="--")
     plt.xlim(range_n_clusters[0] - 0.5, range_n_clusters[-1] + 0.8)
     plt.ylim(all_dist[-1] * 0.9, all_dist[0] + all_dist[-1] * 0.1)
     plt.yticks([])
