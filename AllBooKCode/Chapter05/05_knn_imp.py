@@ -50,12 +50,14 @@ class MyKDTree(object):
     定义MyKDTree
     Parameters:
         points: 构造KD树用到的样本点，必须为np.array()类型，形状为 [n,m]
-        dim: 样本点的维度
+        p: p=2时为欧式距离
     """
 
-    def __init__(self, points):
+    def __init__(self, points, p=2):
         self.root = None
+        self.p = p
         self.dim = points.shape[1]
+        # 在原始样本的最后一列加入一列索引，表示每个样本点的序号
         points = np.hstack(([points, np.arange(0, len(points)).reshape(-1, 1)]))
         self.insert(points, order=0)  # 递归构建KD树
 
@@ -137,7 +139,7 @@ class MyKDTree(object):
             visited.append(curr_node)
             if curr_node is None:
                 return None
-            dist = distance(curr_node.data, point)
+            dist = distance(curr_node.data, point, self.p)
             logging.debug(f"当前访问节点到被搜索点的距离为：{round(dist, 3)},"
                           f"全局最佳距离为：{round(best_dist, 3)}, 全局最佳点为：{best_node}\n")
             if dist < best_dist:
@@ -155,8 +157,7 @@ class MyKDTree(object):
         nearest_node_search(point, self.root, 0)
         return best_node, best_dist
 
-    @staticmethod
-    def append(k_nearest_nodes, curr_node, point):
+    def append(self, k_nearest_nodes, curr_node, point):
         """
         将当前节点加入到k_nearest_nodes中并按每个节点到被搜索点的距离升序排列
         :param k_nearest_nodes: list，用来保存到目前位置距离被搜索点最近的K个点
@@ -166,7 +167,7 @@ class MyKDTree(object):
         """
         k_nearest_nodes.append(curr_node)
         k_nearest_nodes = sorted(k_nearest_nodes,
-                                 key=lambda x: distance(x.data, point))
+                                 key=lambda x: distance(x.data, point, self.p))
         logging.debug(f"\t\t当前K近邻中的节点为（已按距离排序）：")
         for item in k_nearest_nodes:
             logging.debug(f"\t\t\t{item}", )
@@ -215,7 +216,8 @@ class MyKDTree(object):
                 n += 1
                 k_nearest_nodes = self.append(k_nearest_nodes, curr_node, point)
             else:  # 已经找到k个局部最优点，开始进行筛选
-                dist = (distance(curr_node.data, point) < distance(point, k_nearest_nodes[-1].data))
+                dist = (distance(curr_node.data, point, self.p)
+                        < distance(point, k_nearest_nodes[-1].data, self.p))
                 if dist:
                     k_nearest_nodes.pop()  # 移除最后一个
                     k_nearest_nodes = self.append(k_nearest_nodes, curr_node, point)  # 加入新的点并进行排序
@@ -224,8 +226,8 @@ class MyKDTree(object):
                 k_nearest_node_search(point, curr_node.left_child, order + 1)
             else:
                 k_nearest_node_search(point, curr_node.right_child, order + 1)
-            if n < k or np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < distance(point,
-                                                                                    k_nearest_nodes[-1].data):
+            if n < k or np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < \
+                    distance(point, k_nearest_nodes[-1].data, self.p):
                 child = curr_node.left_child if curr_node.left_child not in visited else curr_node.right_child
                 k_nearest_node_search(point, child, order + 1)
 
@@ -234,12 +236,17 @@ class MyKDTree(object):
 
 
 class KNN():
-    def __init__(self, n_neighbors):
+    def __init__(self, n_neighbors, p=2):
+        """
+        :param n_neighbors:
+        :param p: 当p=2时表示欧氏距离
+        """
         self.n_neighbors = n_neighbors
+        self.p = p
 
     def fit(self, x, y):
         self._y = y
-        self.kd_tree = MyKDTree(x)
+        self.kd_tree = MyKDTree(x, self.p)
         return self
 
     @staticmethod
@@ -306,8 +313,8 @@ def test_kd_k_nearest_search(points):
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO, # 如果需要查看详细信息可将该参数改为logging.DEBUG
-                        format=formatter,   # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
+    logging.basicConfig(level=logging.INFO,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
+                        format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
