@@ -12,11 +12,12 @@
 - [4种常见聚类外部评价指标实现 代码](08_metrics.py)
 - [WKmeans聚类算法原理可视化 代码](09_visualization_wkmeans.py)
 - [WKmeans聚类算法从零实现 代码](10_wkmeans.py)
-  
+
 ### 聚类外部评价指标与K值分析
+
 - [3种常见聚类内部评价指标实现 代码](C11_internal_evaluation.py)
 - [elbow方法分析K值 代码](C12_elbow_analysis.py)
-
-
+- [elbow方法失效图可视化 代码](C13_elbow_analysis_examples.py)
+- [silhouette方法分析K值 代码](C14_silhouette_analysis.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
