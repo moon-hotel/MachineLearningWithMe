@@ -6,6 +6,6 @@
   
 ### [从零实现K近邻算法 讲解](https://mp.weixin.qq.com/s/WQK3Xcy-HXQ-5_FObFcDMw)
 - [借助Sklearn中的KDTree实现KNN 代码](04_knn_imp.py)
-- [从零实现KNN 代码](05_knn_imp.py)
+- [从零实现KNN 代码](C05_knn_imp.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
