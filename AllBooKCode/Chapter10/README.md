@@ -20,5 +20,6 @@
 - [elbow方法失效图可视化 代码](C13_elbow_analysis_examples.py)
 - [silhouette方法分析K值 代码](C14_silhouette_analysis.py)
 - [elbow和silhouette发综合分析 代码](C15_elbow_sihouette_analysis.py)
+- [类Kmeans聚类算法弊端可视化 代码](C16_kmeans_disadvantage.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
