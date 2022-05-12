@@ -79,14 +79,14 @@ def single_linkage(X, n_clusters, metric="euclidean"):
         new_d = np.delete(np.delete(new_d, merge_dims, axis=0), merge_dims, axis=1)
         new_d = np.pad(new_d, [1, 0])  # 在new_d最第一行和最第一列padding 0
         old_d_dims = [i for i in range(len(old_d)) if i not in merge_dims]  # 得到上一个d去掉合并维度后剩下的维度
-        new_d_dims = [i for i in range(1, len(new_d))]
+        new_d_dims = [i for i in range(1, len(new_d))]  # 第一个位置是新插入的簇节点，所以从1开始
         logging.debug(f"第{n_merge}次合并后 old_d_dims: {old_d_dims}")
         logging.debug(f"第{n_merge}次合并后 merge_dims: {merge_dims}")
         for i, j in zip(new_d_dims, old_d_dims):
             value = np.inf
             for k in merge_dims:
-                value = np.min([old_d[k][j], value])
-            new_d[0][i] = new_d[i][0] = value
+                value = np.min([old_d[k][j], value])  # 寻找最小距离
+            new_d[0][i] = new_d[i][0] = value  # 更新 new_d
         old_d = new_d
         logging.debug(f"第{n_merge}次合并后 new D:\n {new_d}")
         logging.debug(f" ======= 第{n_merge}次合并结束 "
@@ -95,6 +95,15 @@ def single_linkage(X, n_clusters, metric="euclidean"):
 
 
 class HierarchicalClustering(object):
+    """
+    Parameters:
+        n_clusters: 簇数量
+        linkage: 指定层次聚类的策略
+        metric: 指定距离计算方式['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan'].
+    Attributes:
+        labels_:  shape (n_samples,), 聚类后的簇标签
+    """
+
     def __init__(self, n_clusters=3, linkage="single", metric='euclidean'):
         self.linkage = linkage
         self.metric = metric
@@ -118,20 +127,22 @@ def test_single():
     # n_clusters = 3
     # X, y = load_iris(return_X_y=True)
     X = StandardScaler().fit_transform(X)
-    model = HierarchicalClustering(n_clusters=n_clusters)
-    model.fit(X)
-    logging.info(f"HierarchicalClustering 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
-
-    plt.figure(figsize=(8, 4))
-    plt.subplot(1, 2, 1)
-    plt.scatter(X[:, 0], X[:, 1], c=y)
-    plt.subplot(1, 2, 2)
-    plt.scatter(X[:, 0], X[:, 1], c=model.labels_)
-    plt.show()
-
+    my_single = HierarchicalClustering(n_clusters=n_clusters)
+    my_single.fit(X)
+    logging.info(f"HierarchicalClustering 聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
     model = AgglomerativeClustering(n_clusters=n_clusters, linkage="single")
     model.fit(X)
     logging.info(f"AgglomerativeClustering 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
+
+    plt.figure(figsize=(8, 4))
+    plt.subplot(1, 2, 1)
+    plt.title("True Distribution")
+    plt.scatter(X[:, 0], X[:, 1], c=y)
+    plt.subplot(1, 2, 2)
+    plt.title("Clustered by MySingle")
+    plt.scatter(X[:, 0], X[:, 1], c=my_single.labels_)
+    plt.tight_layout()
+    plt.show()
 
 
 if __name__ == '__main__':
