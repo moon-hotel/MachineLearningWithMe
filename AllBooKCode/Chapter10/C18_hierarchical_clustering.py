@@ -94,6 +94,50 @@ def single_linkage(X, n_clusters, metric="euclidean"):
     return cluster_nodes
 
 
+def ward_linkage(X, n_clusters, metric="euclidean"):
+    """
+    single linkage 实现部分
+    :param X: 训练集, shape: [n_samples, n_features]
+    :param n_clusters: 簇的数量
+    :param metric: 字符串 ['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan'].
+    :return:
+    """
+    # 初始化每个样本点为一个簇节点，并同时初始化该簇对应的簇中心
+    cluster_nodes = [ClusterNode(i, X[i]) for i in range(len(X))]
+    n_merge = 0
+    while len(cluster_nodes) > n_clusters:
+        centroids, n_samples = [], []
+        for node in cluster_nodes:
+            centroids.append(node.centroid)  # 得到所有簇的簇中心
+            n_samples.append(node.n_samples)  # 得到每个簇对应的样本数量
+        n_samples = np.array(n_samples)
+        weight = (n_samples[:, None] * n_samples) / (n_samples[:, None] + n_samples)  # 计算权重
+        d = weight * pairwise_distances(centroids, metric=metric)
+        # [n_samples,n_samples] 对称矩阵，计算簇与簇之间的距离
+        n_merge += 1
+        merge_dims = None
+        all_locations = np.where(np.abs(d - np.sort(d.ravel())[len(d)]) < 1e-6)  # 顺序
+        # 用来寻找簇与簇之间最短距离的索引， 由于距离是浮点型，所以通过作差来进行判断
+        # 注意，这里np.sort()排序后的结果一定要为顺序
+        for locs in zip(*all_locations):  # 去掉样本重复时，距离为0的错误索引情况
+            if locs[0] == locs[1]:  # 去掉矩阵d中 对角线上的情况
+                continue
+            merge_dims = [locs[0], locs[1]]
+            break
+
+        logging.debug(f"第{n_merge}次合并前 D:\n {d}")
+        logging.debug(f"第{n_merge}次合并前 当前簇个数为: {len(cluster_nodes)}")
+
+        del_nodes = [cluster_nodes.pop(dim) for dim in merge_dims[::-1]]  # 遍历所有需要合并的节点
+        del_nodes[0].merge(del_nodes[1])  #
+        del_nodes[0].centroid = np.mean(X[del_nodes[0].samples], axis=0)
+        logging.debug(f"第{n_merge}次合并前 合并节点的信息:({del_nodes[0]})")
+        cluster_nodes.insert(0, del_nodes[0])  # 将合并后的节点插入到最前面的位置
+        logging.debug(f" ======= 第{n_merge}次合并结束 "
+                      f" 此时各个簇中样本分布情况为{[node.n_samples for node in cluster_nodes]}=======")
+    return cluster_nodes
+
+
 class HierarchicalClustering(object):
     """
     Parameters:
@@ -113,6 +157,10 @@ class HierarchicalClustering(object):
         cluster_nodes = None
         if self.linkage == "single":
             cluster_nodes = single_linkage(X, self.n_clusters, self.metric)
+        elif self.linkage == "ward":
+            cluster_nodes = ward_linkage(X, self.n_clusters, self.metric)
+        else:
+            raise ValueError(f"self.linkage == {self.linkage} 不存在该方法！")
         labels_ = [-1] * len(X)
         for cluster_id, node in enumerate(cluster_nodes):
             for sample in node.samples:
@@ -145,6 +193,31 @@ def test_single():
     plt.show()
 
 
+def test_ward():
+    # n_clusters = 2
+    # X, y = make_moons(n_samples=500, noise=0.05, random_state=2020)
+
+    n_clusters = 3
+    X, y = load_iris(return_X_y=True)
+    X = StandardScaler().fit_transform(X)
+    my_ward = HierarchicalClustering(n_clusters=n_clusters, linkage="ward")
+    my_ward.fit(X)
+    logging.info(f"HierarchicalClustering 聚类结果兰德系数为: {adjusted_rand_score(y, my_ward.labels_)}")
+    model = AgglomerativeClustering(n_clusters=n_clusters, linkage="ward")
+    model.fit(X)
+    logging.info(f"AgglomerativeClustering 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
+
+    plt.figure(figsize=(8, 4))
+    plt.subplot(1, 2, 1)
+    plt.title("True Distribution")
+    plt.scatter(X[:, 0], X[:, 1], c=y)
+    plt.subplot(1, 2, 2)
+    plt.title("Clustered by MyWard")
+    plt.scatter(X[:, 0], X[:, 1], c=my_ward.labels_)
+    plt.tight_layout()
+    plt.show()
+
+
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
     logging.basicConfig(level=logging.INFO,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
@@ -152,3 +225,4 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
     test_single()
+    test_ward()
