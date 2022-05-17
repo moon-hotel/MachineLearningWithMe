@@ -41,12 +41,13 @@ class ClusterNode(object):
         return f"样本索引为: {self.samples}  样本数量为: {self.n_samples}"
 
 
-def single_linkage(X, n_clusters, metric="euclidean"):
+def single_complete_linkage(X, n_clusters, metric="euclidean", link_type='single'):
     """
     single linkage 实现部分
     :param X: 训练集, shape: [n_samples, n_features]
     :param n_clusters: 簇的数量
     :param metric: 字符串 ['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan'].
+    :param link_type: 用于指定使用single linkage 或者 是 complete linkage
     :return:
     """
     cluster_nodes = [ClusterNode(i) for i in range(len(X))]  # 初始化每个样本点为一个簇节点
@@ -84,8 +85,15 @@ def single_linkage(X, n_clusters, metric="euclidean"):
         logging.debug(f"第{n_merge}次合并后 merge_dims: {merge_dims}")
         for i, j in zip(new_d_dims, old_d_dims):
             value = np.inf
+            if link_type == "complete":
+                value *= -1
             for k in merge_dims:
-                value = np.min([old_d[k][j], value])  # 寻找最小距离
+                if link_type == "single":
+                    value = np.min([old_d[k][j], value])  # 寻找最近距离
+                elif link_type == "complete":
+                    value = np.max([old_d[k][j], value])  # 寻找最远距离
+                else:
+                    raise ValueError(f"link_type = {link_type} 不属于['single','complete']其中之一。")
             new_d[0][i] = new_d[i][0] = value  # 更新 new_d
         old_d = new_d
         logging.debug(f"第{n_merge}次合并后 new D:\n {new_d}")
@@ -156,7 +164,9 @@ class HierarchicalClustering(object):
 
     def fit(self, X):
         if self.linkage == "single":
-            cluster_nodes = single_linkage(X, self.n_clusters, self.metric)
+            cluster_nodes = single_complete_linkage(X, self.n_clusters, self.metric, 'single')
+        elif self.linkage == "complete":
+            cluster_nodes = single_complete_linkage(X, self.n_clusters, self.metric, 'complete')
         elif self.linkage == "ward":
             cluster_nodes = ward_linkage(X, self.n_clusters, self.metric)
         else:
@@ -176,12 +186,12 @@ def test_single():
     n_clusters = 3
     X, y = load_iris(return_X_y=True)
     X = StandardScaler().fit_transform(X)
-    my_single = HierarchicalClustering(n_clusters=n_clusters)
+    my_single = HierarchicalClustering(n_clusters=n_clusters, linkage="single")
     my_single.fit(X)
-    logging.info(f"HierarchicalClustering 聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
+    logging.info(f"HierarchicalClustering(Single) 聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
     model = AgglomerativeClustering(n_clusters=n_clusters, linkage="single")
     model.fit(X)
-    logging.info(f"AgglomerativeClustering 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
+    logging.info(f"AgglomerativeClustering(Single) 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
 
     plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
@@ -192,6 +202,21 @@ def test_single():
     plt.scatter(X[:, 0], X[:, 1], c=my_single.labels_)
     plt.tight_layout()
     plt.show()
+
+
+def test_complete():
+    n_clusters = 2
+    X, y = make_moons(n_samples=500, noise=0.05, random_state=2020)
+
+    n_clusters = 3
+    X, y = load_iris(return_X_y=True)
+    X = StandardScaler().fit_transform(X)
+    my_single = HierarchicalClustering(n_clusters=n_clusters, linkage="complete")
+    my_single.fit(X)
+    logging.info(f"HierarchicalClustering(Complete) 聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
+    model = AgglomerativeClustering(n_clusters=n_clusters, linkage="complete")
+    model.fit(X)
+    logging.info(f"AgglomerativeClustering(Complete) 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
 
 
 def test_ward():
@@ -226,4 +251,5 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
     test_single()
+    test_complete()
     test_ward()
