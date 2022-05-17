@@ -18,7 +18,7 @@ class ClusterNode(object):
         samples = []
         if idx is not None:
             samples = [idx]
-        self.samples = samples  # 保存当前节点中存在所有数据集样本在原始数据集中的索引
+        self.samples = samples  # 保存当前簇结构中所有样本在原始数据集中的索引
         self.n_samples = len(self.samples)  # 保存当前节点对应的样本数量
         self.children = {}  # 保存当前节点对应的孩子节点，这个参数也可以不用
         self.centroid = centroid
@@ -30,8 +30,7 @@ class ClusterNode(object):
         :return:
         """
         self.samples += node.samples
-        for k, v in node.children.items():
-            self.children[k] = v
+        self.children[id(node)] = node
         self.n_samples = len(self.samples)
 
     def __str__(self):
@@ -59,26 +58,27 @@ def single_linkage(X, n_clusters, metric="euclidean"):
         merge_dims = None  # 记录需要合并的维度
         all_locations = np.where(np.abs(old_d - np.sort(old_d.ravel())[len(old_d)]) < 1e-6)
         # 用来寻找簇与簇之间最短距离的索引， 由于距离是浮点型，所以通过作差来进行判断
-        for locs in zip(*all_locations):
+        for (row, col) in zip(*all_locations):
             # 去掉样本重复时，距离为0的错误索引情况，因为old_d[i][i]=0，表示第i个簇与其自身的距离
-            if locs[0] == locs[1]:  # 当最小值出现在对角线上时，继续
+            if row == col:  # 当最小值出现在对角线上时，继续
                 continue
-            merge_dims = [locs[0], locs[1]]  # 否则得到最小距离对应的索引
+            merge_dims = [row, col]  # 否则得到最小距离对应的索引
             break
         # logging.debug(f"第{n_merge}次合并前 old D:\n {old_d}")
+        merge_node = ClusterNode()
         logging.debug(f"第{n_merge}次合并前 簇的个数为: {len(cluster_nodes)}")
         # 遍历所有需要合并的节点，并将需要被合并的簇从列表中删除
-        del_nodes = [cluster_nodes.pop(dim) for dim in merge_dims[::-1]]
-        del_nodes[0].merge(del_nodes[1])  #
-        del del_nodes[1]
+        del_nodes = [cluster_nodes.pop(dim) for dim in sorted(merge_dims, reverse=True)]
+        for node in del_nodes:
+            merge_node.merge(node)
         logging.debug(f"第{n_merge}次合并前 合并节点的信息:({del_nodes[0]})")
-        cluster_nodes.insert(0, del_nodes[0])  # 将合并后的节点插入到最前面的位置
+        cluster_nodes.insert(0, merge_node)  # 将合并后的节点插入到最前面的位置
         logging.debug(f"第{n_merge}次合并后 簇的个数为: {len(cluster_nodes)}")
         new_d = deepcopy(old_d)
-        # 拷贝d，并从new_d中删除合并的两个簇对应的行和列
+        # 拷贝old_d，并从new_d中删除合并的两个簇对应的行和列
         new_d = np.delete(np.delete(new_d, merge_dims, axis=0), merge_dims, axis=1)
-        new_d = np.pad(new_d, [1, 0])  # 在new_d最第一行和最第一列padding 0
-        old_d_dims = [i for i in range(len(old_d)) if i not in merge_dims]  # 得到上一个d去掉合并维度后剩下的维度
+        new_d = np.pad(new_d, [1, 0])  # 在new_d首行和首列padding 0
+        old_d_dims = [i for i in range(len(old_d)) if i not in merge_dims]  # 得到old_d去掉合并维度后剩下的维度
         new_d_dims = [i for i in range(1, len(new_d))]  # 第一个位置是新插入的簇节点，所以从1开始
         logging.debug(f"第{n_merge}次合并后 old_d_dims: {old_d_dims}")
         logging.debug(f"第{n_merge}次合并后 merge_dims: {merge_dims}")
@@ -96,7 +96,7 @@ def single_linkage(X, n_clusters, metric="euclidean"):
 
 def ward_linkage(X, n_clusters, metric="euclidean"):
     """
-    single linkage 实现部分
+    ward linkage 实现部分
     :param X: 训练集, shape: [n_samples, n_features]
     :param n_clusters: 簇的数量
     :param metric: 字符串 ['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan'].
@@ -119,20 +119,21 @@ def ward_linkage(X, n_clusters, metric="euclidean"):
         all_locations = np.where(np.abs(d - np.sort(d.ravel())[len(d)]) < 1e-6)  # 顺序
         # 用来寻找簇与簇之间最短距离的索引， 由于距离是浮点型，所以通过作差来进行判断
         # 注意，这里np.sort()排序后的结果一定要为顺序
-        for locs in zip(*all_locations):  # 去掉样本重复时，距离为0的错误索引情况
-            if locs[0] == locs[1]:  # 去掉矩阵d中 对角线上的情况
+        for (row, col) in zip(*all_locations):
+            # 去掉样本重复时，距离为0的错误索引情况，因为d[i][i]=0，表示第i个簇与其自身的距离
+            if row == col:  # 当最小值出现在对角线上时，继续
                 continue
-            merge_dims = [locs[0], locs[1]]
+            merge_dims = [row, col]  # 否则得到最小距离对应的索引
             break
-
         logging.debug(f"第{n_merge}次合并前 D:\n {d}")
         logging.debug(f"第{n_merge}次合并前 当前簇个数为: {len(cluster_nodes)}")
-
-        del_nodes = [cluster_nodes.pop(dim) for dim in merge_dims[::-1]]  # 遍历所有需要合并的节点
-        del_nodes[0].merge(del_nodes[1])  #
-        del_nodes[0].centroid = np.mean(X[del_nodes[0].samples], axis=0)
+        merge_node = ClusterNode()
+        del_nodes = [cluster_nodes.pop(dim) for dim in sorted(merge_dims, reverse=True)]  # 遍历所有需要合并的节点
+        for node in del_nodes:
+            merge_node.merge(node)
+        merge_node.centroid = np.mean(X[merge_node.samples], axis=0)
         logging.debug(f"第{n_merge}次合并前 合并节点的信息:({del_nodes[0]})")
-        cluster_nodes.insert(0, del_nodes[0])  # 将合并后的节点插入到最前面的位置
+        cluster_nodes.insert(0, merge_node)  # 将合并后的节点插入到最前面的位置
         logging.debug(f" ======= 第{n_merge}次合并结束 "
                       f" 此时各个簇中样本分布情况为{[node.n_samples for node in cluster_nodes]}=======")
     return cluster_nodes
@@ -154,7 +155,6 @@ class HierarchicalClustering(object):
         self.n_clusters = n_clusters
 
     def fit(self, X):
-        cluster_nodes = None
         if self.linkage == "single":
             cluster_nodes = single_linkage(X, self.n_clusters, self.metric)
         elif self.linkage == "ward":
@@ -166,14 +166,15 @@ class HierarchicalClustering(object):
             for sample in node.samples:
                 labels_[sample] = cluster_id
         self.labels_ = labels_
+        self.cluster_nodes_ = cluster_nodes
 
 
 def test_single():
     n_clusters = 2
     X, y = make_moons(n_samples=500, noise=0.05, random_state=2020)
 
-    # n_clusters = 3
-    # X, y = load_iris(return_X_y=True)
+    n_clusters = 3
+    X, y = load_iris(return_X_y=True)
     X = StandardScaler().fit_transform(X)
     my_single = HierarchicalClustering(n_clusters=n_clusters)
     my_single.fit(X)
