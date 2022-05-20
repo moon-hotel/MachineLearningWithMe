@@ -26,4 +26,7 @@
 - [类Kmeans聚类算法弊端可视化 代码](C16_kmeans_disadvantage.py)
 - [基于密度的聚类算法实现 代码](C17_DBSCAN.py)
 
+### 基于层次的聚类算法（Hierarchical Clustering)
+- [Single-Link、Complete-Link和Ward聚类实现 代码](C18_hierarchical_clustering.py)
+
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
