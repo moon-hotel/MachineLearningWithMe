@@ -119,9 +119,10 @@ def ward_linkage(X, n_clusters, metric="euclidean"):
             centroids.append(node.centroid)  # 得到所有簇的簇中心
             n_samples.append(node.n_samples)  # 得到每个簇对应的样本数量
         n_samples = np.array(n_samples)
-        weight = (n_samples[:, None] * n_samples) / (n_samples[:, None] + n_samples)  # 计算权重
+        # 计算权重 [n_clusters,n_clusters]
+        weight = (n_samples[:, None] * n_samples) / (n_samples[:, None] + n_samples)
         d = weight * pairwise_distances(centroids, metric=metric)
-        # [n_samples,n_samples] 对称矩阵，计算簇与簇之间的距离
+        # [n_clusters,n_clusters] 对称矩阵，计算簇与簇之间的加权距离
         n_merge += 1
         merge_dims = None
         all_locations = np.where(np.abs(d - np.sort(d.ravel())[len(d)]) < 1e-6)  # 顺序
@@ -213,10 +214,12 @@ def test_complete():
     X = StandardScaler().fit_transform(X)
     my_single = HierarchicalClustering(n_clusters=n_clusters, linkage="complete")
     my_single.fit(X)
-    logging.info(f"HierarchicalClustering(Complete) 聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
+    logging.info(f"HierarchicalClustering(Complete) "
+                 f"聚类结果兰德系数为: {adjusted_rand_score(y, my_single.labels_)}")
     model = AgglomerativeClustering(n_clusters=n_clusters, linkage="complete")
     model.fit(X)
-    logging.info(f"AgglomerativeClustering(Complete) 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
+    logging.info(f"AgglomerativeClustering(Complete) "
+                 f"聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
 
 
 def test_ward():
@@ -228,10 +231,12 @@ def test_ward():
     X = StandardScaler().fit_transform(X)
     my_ward = HierarchicalClustering(n_clusters=n_clusters, linkage="ward")
     my_ward.fit(X)
-    logging.info(f"HierarchicalClustering 聚类结果兰德系数为: {adjusted_rand_score(y, my_ward.labels_)}")
+    logging.info(f"HierarchicalClustering(Ward) "
+                 f"聚类结果兰德系数为: {adjusted_rand_score(y, my_ward.labels_)}")
     model = AgglomerativeClustering(n_clusters=n_clusters, linkage="ward")
     model.fit(X)
-    logging.info(f"AgglomerativeClustering 聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
+    logging.info(f"AgglomerativeClustering(Ward) "
+                 f"聚类结果兰德系数为: {adjusted_rand_score(y, model.labels_)}")
 
     plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
