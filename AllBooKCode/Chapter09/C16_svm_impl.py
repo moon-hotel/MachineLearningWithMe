@@ -6,14 +6,14 @@ from sklearn.datasets import load_iris
 from sklearn.svm import SVC
 
 
-def kernel_linear(x1, x2):
+def kernel_linear(X, x):
     """
     线性核函数
-    :param x1: [n_samples,n_features] 或 [n_features,]
-    :param x2: [n_features,]
-    :return:
+    :param X: [n_samples,n_features] 或 [n_features,]
+    :param x: [n_features,]
+    :return: shape: [n_features]
     """
-    return np.dot(x1, x2)
+    return np.dot(X, x)
 
 
 def kernel_rbf(X, x):
@@ -32,15 +32,6 @@ def kernel_rbf(X, x):
     return np.exp(k)
 
 
-def compute_L_H(C, alpha_i, alpha_j, y_i, y_j):
-    L = np.max((0., alpha_j - alpha_i))
-    H = np.min((C, C + alpha_j - alpha_i))
-    if y_i == y_j:
-        L = np.max((0., alpha_i + alpha_j - C))
-        H = np.min((C, alpha_i + alpha_j))
-    return L, H
-
-
 def f_x(X, y, alphas, x, b, kernel):
     """
     :param X:  shape [n_samples, n_features]
@@ -55,48 +46,57 @@ def f_x(X, y, alphas, x, b, kernel):
     return np.sum(r) + b
 
 
-def compute_eta(x_i, x_j, kernel):
-    return 2 * kernel(x_i, x_j) - kernel(x_i, x_i) - kernel(x_j, x_j)
+def compute_eta(x_1, x_2, kernel):
+    return kernel(x_1, x_1) - 2 * kernel(x_1, x_2) + kernel(x_2, x_2)
 
 
-def compute_E_k(f_x_k, y_k):
-    return f_x_k - y_k
+def compute_E_i(f_x_i, y_i):
+    return f_x_i - y_i
 
 
-def clip_alpha_j(alpha_j, H, L):
-    if alpha_j > H:
+def compute_alpha_2(alpha_2, E_1, E_2, y_2, eta):
+    return alpha_2 + (y_2 * (E_1 - E_2) / eta)
+
+
+def compute_L_H(C, alpha_1, alpha_2, y_1, y_2):
+    L = np.max((0., alpha_2 - alpha_1))
+    H = np.min((C, C + alpha_2 - alpha_1))
+    if y_1 == y_2:
+        L = np.max((0., alpha_1 + alpha_2 - C))
+        H = np.min((C, alpha_1 + alpha_2))
+    return L, H
+
+
+def clip_alpha_2(alpha_2, H, L):
+    if alpha_2 > H:
         return H
-    if alpha_j < L:
+    if alpha_2 < L:
         return L
-    return alpha_j
+    return alpha_2
 
 
-def compute_alpha_j(alpha_j, E_i, E_j, y_j, eta):
-    return alpha_j - (y_j * (E_i - E_j) / eta)
+def compute_alpha_1(alpha_1, y_1, y_2, alpha_2, alpha_old_2):
+    return alpha_1 + y_1 * y_2 * (alpha_old_2 - alpha_2)
 
 
-def compute_alpha_i(alpha_i, y_i, y_j, alpha_j, alpha_old_j):
-    return alpha_i + y_i * y_j * (alpha_old_j - alpha_j)
-
-
-def compute_b1(b, E_i, y_i, alpha_i, alpha_old_i,
-               x_i, y_j, alpha_j, alpha_j_old, x_j, kernel):
-    p1 = b - E_i - y_i * (alpha_i - alpha_old_i) * kernel(x_i, x_i)
-    p2 = y_j * (alpha_j - alpha_j_old) * kernel(x_i, x_j)
+def compute_b1(b, E_1, y_1, alpha_1, alpha_old_1,
+               x_1, y_2, alpha_2, alpha_2_old, x_2, kernel):
+    p1 = b - E_1 - y_1 * (alpha_1 - alpha_old_1) * kernel(x_1, x_1)
+    p2 = y_2 * (alpha_2 - alpha_2_old) * kernel(x_1, x_2)
     return p1 - p2
 
 
-def compute_b2(b, E_j, y_i, alpha_i, alpha_old_i,
-               x_i, x_j, y_j, alpha_j, alpha_j_old, kernel):
-    p1 = b - E_j - y_i * (alpha_i - alpha_old_i) * kernel(x_i, x_j)
-    p2 = y_j * (alpha_j - alpha_j_old) * kernel(x_j, x_j)
+def compute_b2(b, E_2, y_1, alpha_1, alpha_old_1,
+               x_1, x_2, y_2, alpha_2, alpha_2_old, kernel):
+    p1 = b - E_2 - y_1 * (alpha_1 - alpha_old_1) * kernel(x_1, x_2)
+    p2 = y_2 * (alpha_2 - alpha_2_old) * kernel(x_2, x_2)
     return p1 - p2
 
 
-def clip_b(alpha_i, alpha_j, b1, b2, C):
-    if alpha_i > 0 and alpha_i < C:
+def clip_b(alpha_1, alpha_2, b1, b2, C):
+    if alpha_1 > 0 and alpha_1 < C:
         return b1
-    if alpha_j > 0 and alpha_j < C:
+    if alpha_2 > 0 and alpha_2 < C:
         return b2
     return (b1 + b2) / 2
 
@@ -109,6 +109,16 @@ def select_j(i, m):
 
 
 def smo(C, tol, max_passes, data_x, data_y, kernel):
+    """
+    SMO求解步骤实现
+    :param C:惩罚系数
+    :param tol: 误差容忍度
+    :param max_passes:当alpha_i不再发生变化时继续迭代更新的最大次数;
+    :param data_x: 训练集特征 [n_samples,n_features]
+    :param data_y: 训练集标签 [n_samples,]
+    :param kernel: 核函数
+    :return:
+    """
     m, n = data_x.shape
     b, passes = 0., 0
     alphas = np.zeros(shape=(m))
@@ -118,32 +128,32 @@ def smo(C, tol, max_passes, data_x, data_y, kernel):
         for i in range(m):
             x_i, y_i, alpha_i = data_x[i], data_y[i], alphas[i]
             f_x_i = f_x(data_x, data_y, alphas, x_i, b, kernel)
-            E_i = compute_E_k(f_x_i, y_i)
+            E_i = compute_E_i(f_x_i, y_i)
             if ((y_i * E_i < -tol and alpha_i < C) or (y_i * E_i > tol and alpha_i > 0.)):
                 j = select_j(i, m)
                 x_j, y_j, alpha_j = data_x[j], data_y[j], alphas[j]
                 f_x_j = f_x(data_x, data_y, alphas, x_j, b, kernel)
-                E_j = compute_E_k(f_x_j, y_j)
+                E_j = compute_E_i(f_x_j, y_j)
                 alphas_old[i], alphas_old[j] = alpha_i, alpha_j
                 L, H = compute_L_H(C, alpha_i, alpha_j, y_i, y_j)
                 if L == H:
                     continue
                 eta = compute_eta(x_i, x_j, kernel)
-                if eta >= 0:
+                if eta <= 0:
                     continue
-                alpha_j = compute_alpha_j(alpha_j, E_i, E_j, y_j, eta)
-                alpha_j = clip_alpha_j(alpha_j, H, L)
+                alpha_j = compute_alpha_2(alpha_j, E_i, E_j, y_j, eta)
+                alpha_j = clip_alpha_2(alpha_j, H, L)
                 alphas[j] = alpha_j
                 if np.abs(alpha_j - alphas_old[j]) < 10e-5:
                     continue
-                alpha_i = compute_alpha_i(alpha_i, y_i, y_j, alpha_j, alphas_old[j])
+                alpha_i = compute_alpha_1(alpha_i, y_i, y_j, alpha_j, alphas_old[j])
+                alphas[i] = alpha_i
                 b1 = compute_b1(b, E_i, y_i, alpha_i, alphas_old[i],
                                 x_i, y_i, alpha_j, alphas_old[j], x_j, kernel)
                 b2 = compute_b2(b, E_j, y_i, alpha_i, alphas_old[i],
                                 x_i, x_j, y_j, alpha_j, alphas_old[j], kernel)
                 b = clip_b(alpha_i, alpha_j, b1, b2, C)
                 num_changed_alphas += 1
-                alphas[i] = alpha_i
 
         if num_changed_alphas == 0:
             passes += 1
@@ -157,12 +167,14 @@ class SVM(object):
         self.C = C  # 惩罚项系数
         self.tol = tol  # 裁剪alpha时的容忍度
         self.max_passes = max_passes  # 当alpha不再发生变化时继续迭代更新的最大次数;
-        self.alphas = []  # 用来保存每个类别下的计算得到的alpha参数，因为在多分类问题中
-        self.bias = []  # 采用的是ovr策略； bias用来保存每个分类器的偏置
+        self.alphas = []  # 用来保存每个二分类器计算得到的alpha参数，因为在多分类问题中
+        self.bias = []  # 采用的是ovr策略； bias用来保存每个分类器对应的偏置
         if kernel == 'rbf':
             self.kernel = kernel_rbf
         elif kernel == 'linear':
             self.kernel = kernel_linear
+        else:
+            raise ValueError(f"核函数{kernel}未实现")
 
     def fit(self, X, y):
         """
@@ -181,8 +193,8 @@ class SVM(object):
         self.Y = Y
         for c in range(self.n_classes):
             self._fit_binary(self._X, Y[:, c])  # 分别为每个类别拟合得到一个二分类器
-        self.alphas = np.vstack((self.alphas))  # [n_classes*(n_classes-1)/2，n_samples]
-        self.bias = np.array(self.bias)  # [n_classes*(n_classes-1)/2,]
+        self.alphas = np.vstack((self.alphas))  # [n_classes，n_samples]
+        self.bias = np.array(self.bias)  # [n_classes,]
 
     def _fit_binary(self, X, y):
         """
@@ -271,7 +283,7 @@ def test_iris_classification():
     y_pred = model.predict(x_test)
     print("手动实现准确率：", accuracy_score(y_pred, y_test))
 
-    model = SVC()
+    model = SVC(C=1, kernel='rbf')
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     print("sklean上准确率：", accuracy_score(y_pred, y_test))
