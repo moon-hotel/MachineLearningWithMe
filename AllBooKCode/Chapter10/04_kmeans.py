@@ -15,7 +15,7 @@ def load_data():
 
 def InitCentroids(X, K):
     n = X.shape[0]
-    rands_index = np.array(random.sample(range(1, n), K))
+    rands_index = np.array(random.sample(range(0, n), K))
     centriod = X[rands_index, :]
     return centriod
 
