@@ -140,11 +140,16 @@ def visualization_3d():
     for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)):
         comp = comp * 2.3  # scale component by its variance explanation power
         ax.quiver(0, 0, 0, comp[0], comp[1], comp[2], color=f"C{i + 2}",
-                  linewidth=2, label=f"Component {i}", arrow_length_ratio=.2)
+                  linewidth=2, label=f"$z_{i}$", arrow_length_ratio=.2)
     ax.set_xlim(-2.5, 2.5)
     ax.set_ylim(-2.5, 2.5)
     ax.set_zlim(-2.5, 2.5)
     plt.legend()
+    plt.figure()
+    X_new = pca.transform(X)
+    plt.scatter(X_new[:, 0], X_new[:, 1])
+    plt.xlabel(f"$z_0$")
+    plt.ylabel(f"$z_1$")
     plt.show()
 
 
