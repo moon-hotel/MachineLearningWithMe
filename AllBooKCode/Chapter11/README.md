@@ -4,5 +4,6 @@
 
 - [PCA可视化 代码](C01_PCA_visualization.py)
 - [sklearn中PCA使用示例 代码](C02_PCA_train.py)
+- [从零实现PCA降维算法 代码](C03_PCA_impl.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
