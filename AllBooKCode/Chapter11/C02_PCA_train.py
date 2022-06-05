@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
 
-def load_data(reduction=False, n_components=2):
+def load_data(reduction=False, n_components=3):
     x, y = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = \
         train_test_split(x, y, test_size=0.3, random_state=2022)
