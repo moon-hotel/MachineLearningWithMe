@@ -14,8 +14,8 @@ pip install -r requirements.txt
 ### [第五章：K近邻算法与原理](AllBooKCode/Chapter05/README.md)
 ### [第六章：朴素贝叶斯算法](AllBooKCode/Chapter06/README.md)
 ### [第七章：文本特征提取与模型复用](AllBooKCode/Chapter07/README.md)
-### [第八章：决策树与集成模型](AllBooKCode/Chapter07/README.md)
-### 第九章：支持向量机
+### [第八章：决策树与集成模型](AllBooKCode/Chapter08/README.md)
+### [第九章：支持向量机](AllBooKCode/Chapter09/README.md)
 ### 第十章：聚类算法
 ### [知识点索引](AllBooKCode/Index.md)
 
