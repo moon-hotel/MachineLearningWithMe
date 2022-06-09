@@ -163,12 +163,10 @@ def smo(C, tol, max_passes, data_x, data_y, kernel):
 
 
 class SVM(object):
-    def __init__(self, C, tol, kernel='rbf', max_passes=20):
+    def __init__(self, C=1., tol=0.001, kernel='rbf', max_passes=20):
         self.C = C  # 惩罚项系数
         self.tol = tol  # 裁剪alpha时的容忍度
         self.max_passes = max_passes  # 当alpha不再发生变化时继续迭代更新的最大次数;
-        self.alphas = []  # 用来保存每个二分类器计算得到的alpha参数，因为在多分类问题中
-        self.bias = []  # 采用的是ovr策略； bias用来保存每个分类器对应的偏置
         if kernel == 'rbf':
             self.kernel = kernel_rbf
         elif kernel == 'linear':
@@ -184,6 +182,8 @@ class SVM(object):
         :return:
         """
         self._X = X
+        self.alphas = []  # 用来保存每个二分类器计算得到的alpha参数，因为在多分类问题中
+        self.bias = []  # 采用的是ovr策略； bias用来保存每个分类器对应的偏置
         labelbin = LabelBinarizer(neg_label=-1)  # 将标签转化为one-hot形式
         Y = labelbin.fit_transform(y)  # one-hot 形式标签 shape: [n_samples,n_classes]
         self.classes_ = labelbin.classes_  # 原始标签类别 shape: [n_classes,]
