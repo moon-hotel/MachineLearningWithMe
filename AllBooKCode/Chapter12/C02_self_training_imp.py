@@ -1,7 +1,5 @@
 import logging
 from copy import deepcopy
-
-from nltk import probability
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -10,7 +8,7 @@ import sys
 import numpy as np
 
 sys.path.append('../')
-from AllBooKCode.Chapter09.C16_svm_impl import SVM
+from Chapter09.C16_svm_impl import SVM
 
 
 class MySVM(SVM):
@@ -67,11 +65,11 @@ class SelfTrainingClassifier(object):
             prob = self.base_estimator_.predict_proba(X[~has_label])  # 取没有标签的样本进行预测
             # ②以最大概率（这个最大概率可能没有超过设定的阈值）给一个初始的预测结果
             pred = self.base_estimator_.classes_[np.argmax(prob, axis=1)]  # 根据概率取预测标签
-            max_proba = np.max(prob, axis=1)  # 去每个样本类别预测中的最大概率
-            # ③选择预测概率超过阈值的样本编号
+            max_proba = np.max(prob, axis=1)  # 取每个样本类别预测中的最大概率
+            # ③选择预测概率超过阈值的样本索引
             selected = max_proba > self.threshold  # 通过阈值来进行确定哪些标签的预测结果是可信的
             selected_full = np.nonzero(~has_label)[0][selected]
-            # ④将样本预测概率最大对应的标签且概率同时大于阈值的预测结果更新到标签结果中
+            # ④将样本预测概率最大值对应的标签且概率同时大于阈值的预测结果更新到标签结果中
             self.transduction_[selected_full] = pred[selected]  # 更新标签
             has_label[selected_full] = True  # 设定原本无标签的对应样本为有标签状态
             self.labeled_iter_[selected_full] = self.n_iter_
@@ -116,27 +114,26 @@ def load_data():
     x, y = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = \
         train_test_split(x, y, test_size=0.3, random_state=2022)
-    return x_train, x_test, y_train, y_test
-
-
-def test_self_training():
-    x_train, x_test, y_train, y_test = load_data()
-    rng = np.random.RandomState(22)
+    rng = np.random.RandomState(20)
     random_unlabeled_points = rng.rand(y_train.shape[0]) < 0.3
     y_mixed = deepcopy(y_train)
     y_mixed[random_unlabeled_points] = -1
+    return x_train, x_test, y_train, y_test, y_mixed
 
+
+def test_self_training():
+    x_train, x_test, y_train, y_test, y_mixed = load_data()
     svm = MySVM()
     # svm = SVC(probability=True)
-    print(f"一共有{np.sum(random_unlabeled_points)}个样本无标签.")
-    self_training_model = SelfTrainingClassifier(svm, threshold=0.6)
-    self_training_model.fit(x_train, y_mixed)
+    print(f"一共有{np.sum(y_mixed == -1)}个样本无标签.")
+    model = SelfTrainingClassifier(svm, threshold=0.6)
+    model.fit(x_train, y_mixed)
 
-    y_pred = self_training_model.predict(x_train)
-    print(f"模型训练结束的标志为：{self_training_model.termination_condition_}")
+    y_pred = model.predict(x_train)
+    print(f"模型训练结束的标志为：{model.termination_condition_}")
     print(f"模型在训练集上的准确率为: {accuracy_score(y_pred, y_train)}")
 
-    y_pred = self_training_model.predict(x_test)
+    y_pred = model.predict(x_test)
     print(f"模型在测试集上的准确率为: {accuracy_score(y_pred, y_test)}")
 
 
