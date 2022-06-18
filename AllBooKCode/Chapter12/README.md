@@ -4,6 +4,7 @@
 
 - [self-training示例 代码](C01_self_training.py)
 - [self-training从零实现 代码](C02_self_training_imp.py)
+- [label-propagation从零实现 代码](C03_label_propagation.py)
 
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
