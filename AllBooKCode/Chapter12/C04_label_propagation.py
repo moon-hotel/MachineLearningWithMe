@@ -1,28 +1,35 @@
 import logging
 from copy import deepcopy
-
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
-from sklearn.metrics.pairwise import rbf_kernel
+from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.model_selection import train_test_split
 import numpy as np
 
 
+def kernel(X, y=None, gamma=None):
+    if gamma is None:
+        gamma = 1.0 / X.shape[1]
+    K = euclidean_distances(X, y, squared=True)
+    K *= -gamma
+    np.exp(K, K)  # <==> K = np.exp(K)
+    return K
+
+
 class LabelPropagation(object):
     """Label Propagation classifier
-
     """
 
-    def __init__(self, gamma=20, max_iter=1000, tol=1e-3):
+    def __init__(self, gamma=20., max_iter=1000, tol=1e-3):
         self.gamma = gamma
         self.max_iter = max_iter  # 最大迭代次数
         self.tol = tol  # 误差容忍度
 
     def _get_kernel(self, X, y=None):
         if y is None:  # 模型训练时，建立训练样本中各个样本点之间距离关系，得到矩阵W
-            return rbf_kernel(X, X, gamma=self.gamma)
+            return kernel(X, X, gamma=self.gamma)
         else:  # 模型预测时，建立测试样本与训练样本之间距离关系，得到矩阵W
-            return rbf_kernel(X, y, gamma=self.gamma)
+            return kernel(X, y, gamma=self.gamma)
 
     def _build_graph(self):
         """Matrix representing a fully connected graph between each sample
@@ -87,7 +94,7 @@ class LabelPropagation(object):
         self.X_ = X
         logging.info(f"### 正在拟合模型……")
         logging.debug(f" ## 建立样本点之间的距离关系")
-        graph_matrix = self._build_graph()  # 得到矩阵T，[n_samples,n_samples]
+        self.graph_matrix = self._build_graph()  # 得到矩阵T，[n_samples,n_samples]
         classes = np.unique(y)  # 得到分类类别，例如三分类可能是 [-1,0,1,2]，其中-1表示对应样本无标签
         classes = (classes[classes != -1])
         logging.debug(f" ## 训练集中样本的标签取值为: {classes}")
@@ -112,7 +119,7 @@ class LabelPropagation(object):
                 break
             l_previous = self.label_distributions_
             # 根据公式Y=TY计算得到Y [n_samples,n_samples]  @ [n_samples, n_classes] = [n_samples, n_classes]
-            self.label_distributions_ = np.matmul(graph_matrix, self.label_distributions_)
+            self.label_distributions_ = np.matmul(self.graph_matrix, self.label_distributions_)
             normalizer = np.sum(self.label_distributions_, axis=1, keepdims=True)
             self.label_distributions_ /= normalizer  # 进行标准化
             self.label_distributions_ = np.where(unlabeled, self.label_distributions_, y_static)
@@ -139,11 +146,7 @@ def load_data():
     return x_train, x_test, y_train, y_test, y_mixed
 
 
-if __name__ == '__main__':
-    formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
-                        format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
-                        datefmt='%Y-%m-%d %H:%M:%S', )
+def test_label_propagation():
     x_train, x_test, y_train, y_test, y_mixed = load_data()
     model = LabelPropagation()
     model.fit(x_train, y_mixed)
@@ -152,3 +155,12 @@ if __name__ == '__main__':
     logging.info(f"模型在训练集上的准确率为: {accuracy_score(y_pred, y_train)}")
     y_pred = model.predict(x_test)
     logging.info(f"模型在测试集上的准确率为: {accuracy_score(y_pred, y_test)}")
+
+
+if __name__ == '__main__':
+    formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
+                        format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
+                        datefmt='%Y-%m-%d %H:%M:%S', )
+
+    test_label_propagation()
