@@ -96,10 +96,9 @@ class LabelPropagation(object):
         logging.debug(f" ## 建立样本点之间的距离关系")
         self.graph_matrix = self._build_graph()  # 得到矩阵T，[n_samples,n_samples]
         classes = np.unique(y)  # 得到分类类别，例如三分类可能是 [-1,0,1,2]，其中-1表示对应样本无标签
-        classes = (classes[classes != -1])
-        logging.debug(f" ## 训练集中样本的标签取值为: {classes}")
-        self.classes_ = classes
-        n_samples, n_classes = len(y), len(classes)  # 得到样本数和类别数
+        self.classes_ = (classes[classes != -1])
+        logging.debug(f" ## 训练集中样本的标签取值为: {self.classes_}")
+        n_samples, n_classes = len(y), len(self.classes_)  # 得到样本数和类别数
         unlabeled = y == -1  # 得到没有标签的样本对应的索引
         unlabeled = np.reshape(unlabeled, (-1, 1))
         # unlabeled为[True, False, False, False, True]这样的形式，True表示对应样本没有标签
@@ -107,8 +106,8 @@ class LabelPropagation(object):
         self.label_distributions_ = np.zeros((n_samples, n_classes))
         # 用来记录训练集中每个样本的类别所属概率
         logging.debug(f" ## 初始化标签分布")
-        for label in classes:  # 遍历每个类别
-            self.label_distributions_[y == label, classes == label] = 1
+        for label in self.classes_:  # 遍历每个类别
+            self.label_distributions_[y == label, self.classes_ == label] = 1
             # 把已经有标签的样本，在对应类别维度上置为1，会类似得到下面这样一个矩阵：
             #  [[0,0,1],[0,0,0],[1,0,0]]  其中2个样本表示没有标签
         y_static = np.copy(self.label_distributions_)
@@ -135,12 +134,23 @@ class LabelPropagation(object):
         return self
 
 
+def test_compute_W_and_T():
+    x = np.array([[0.5, 0.5], [1.5, 1.5], [2.5, 1.5], [1.5, 2.5], [3.5, 2.5]])
+    y = np.array([0, 1, 1, -1, -1])
+    W = kernel(x, x, gamma=1.0)
+    model = LabelPropagation(gamma=1.)
+    model.fit(x, y)
+    T = model.graph_matrix
+    logging.info(f"W: \n{np.round(W, 3)}")
+    logging.info(f"T: \n{np.round(T, 3)}")
+
+
 def load_data():
     x, y = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = \
         train_test_split(x, y, test_size=0.3, random_state=2022)
     rng = np.random.RandomState(20)
-    random_unlabeled_points = rng.rand(y_train.shape[0]) < 0.3
+    random_unlabeled_points = rng.rand(y_train.shape[0]) < 0.8
     y_mixed = deepcopy(y_train)
     y_mixed[random_unlabeled_points] = -1
     return x_train, x_test, y_train, y_test, y_mixed
@@ -162,5 +172,5 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S', )
-
+    # test_compute_W_and_T()
     test_label_propagation()
