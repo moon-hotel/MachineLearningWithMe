@@ -26,10 +26,13 @@ class LabelPropagation(object):
         self.tol = tol  # 误差容忍度
 
     def _get_kernel(self, X, y=None):
-        if y is None:  # 模型训练时，建立训练样本中各个样本点之间距离关系，得到矩阵W
-            return kernel(X, X, gamma=self.gamma)
-        else:  # 模型预测时，建立测试样本与训练样本之间距离关系，得到矩阵W
-            return kernel(X, y, gamma=self.gamma)
+        # 注意，这里的y不是指的训练标签，而是另外一个矩阵
+        # 当 y为None时（此时X为训练样本），即模型训练时，建立训练样本中各个样本点之间距离关系，得到矩阵W
+        # 此时计算的是X中各个样本点两两之间的权重距离
+        #
+        # 当 y不为None（此时X为训练样本，y为预测样本）即模型预测时，建立测试样本与训练样本之间距离关系，得到矩阵W
+        # 此时计算的是X中各个样本与y中各个样本之间的权重距离
+        return kernel(X, y, gamma=self.gamma)
 
     def _build_graph(self):
         """Matrix representing a fully connected graph between each sample
