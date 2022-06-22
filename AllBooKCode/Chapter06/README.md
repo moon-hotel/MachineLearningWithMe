@@ -4,7 +4,7 @@
 ### [从零实现朴素贝叶斯算法 讲解](https://mp.weixin.qq.com/s/kCbITIOq4TxvIhfR5nH2yg) 
 - [从零实现Categorical贝叶斯 代码](C01_naive_bayes_category.py)
 
-### 从零实现Multinomial贝叶斯 讲解
+### [从零实现Multinomial贝叶斯 讲解](https://mp.weixin.qq.com/s/LCCUypsAakFsdNpZqpaP4g)
 - [从零实现Multinomial贝叶斯 代码](C02_naive_bayes_multinomial.py)
 
 ### 从零实现Gaussian贝叶斯 讲解
