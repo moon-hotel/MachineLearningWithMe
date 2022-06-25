@@ -35,11 +35,6 @@ class LabelPropagation(object):
         return kernel(X, y, gamma=self.gamma)
 
     def _build_graph(self):
-        """Matrix representing a fully connected graph between each sample
-
-        This basic implementation creates a non-stochastic affinity matrix, so
-        class distributions will exceed 1 (normalization may be desired).
-        """
         affinity_matrix = self._get_kernel(self.X_)  # [n_samples,n_samples]
         logging.debug(f" ## 计算矩阵W完毕，形状为:{affinity_matrix.shape}")
         normalizer = affinity_matrix.sum(axis=0, keepdims=True)  # [1, n_samples]
