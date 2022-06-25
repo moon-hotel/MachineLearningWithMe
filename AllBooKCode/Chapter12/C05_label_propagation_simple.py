@@ -35,11 +35,6 @@ class LabelPropagation(object):
         return kernel(X, y, gamma=self.gamma)
 
     def _build_graph(self):
-        """Matrix representing a fully connected graph between each sample
-
-        This basic implementation creates a non-stochastic affinity matrix, so
-        class distributions will exceed 1 (normalization may be desired).
-        """
         affinity_matrix = self._get_kernel(self.X_)  # [n_samples,n_samples]
         logging.debug(f" ## 计算矩阵W完毕，形状为:{affinity_matrix.shape}")
         normalizer = affinity_matrix.sum(axis=0, keepdims=True)  # [1, n_samples]
@@ -101,7 +96,9 @@ class LabelPropagation(object):
         self.X_ = X
         logging.info(f"### 正在拟合模型……")
         logging.debug(f" ## 建立样本点之间的距离关系")
-        self.graph_matrix = self._build_graph()  # 得到矩阵T，[n_samples,n_samples]
+        graph_matrix = self._build_graph()  # 得到矩阵T，[n_samples,n_samples]
+        norm = np.sum(graph_matrix, axis=1, keepdims=True)
+        self.graph_matrix = graph_matrix / norm
         classes = np.unique(y)  # 得到分类类别，例如三分类可能是 [-1,0,1,2]，其中-1表示对应样本无标签
         classes = (classes[classes != -1])
         logging.debug(f" ## 训练集中样本的标签取值为: {classes}")
