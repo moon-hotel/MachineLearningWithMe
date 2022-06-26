@@ -128,6 +128,9 @@ class LabelPropagation(object):
             # b = np.where(u, a, c) # b= [ 1  2 99 99  6]
         else:
             logging.warning('max_iter=%d was reached without convergence.' % self.max_iter)
+        normalizer = np.sum(self.label_distributions_, axis=1, keepdims=True)
+        normalizer[normalizer == 0] = 1
+        self.label_distributions_ /= normalizer  # 进行标准化
         self.transduction_ = self.classes_[np.argmax(self.label_distributions_, axis=1)]
         return self
 
