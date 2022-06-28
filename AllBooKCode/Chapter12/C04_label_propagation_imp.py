@@ -74,6 +74,7 @@ class LabelPropagation(object):
         weight_matrices = self._get_kernel(self.X_, X).T  # [X.shape[0],n_train_sample]
         probabilities = np.matmul(weight_matrices, self.label_distributions_)
         normalizer = np.sum(probabilities, axis=1, keepdims=True)
+        normalizer[normalizer == 0] = 1  # 优化当normalizer为0时的情况
         probabilities /= normalizer
         return probabilities
 
@@ -118,6 +119,7 @@ class LabelPropagation(object):
             # 根据公式Y=TY计算得到Y [n_samples,n_samples]  @ [n_samples, n_classes] = [n_samples, n_classes]
             self.label_distributions_ = np.matmul(self.graph_matrix, self.label_distributions_)
             normalizer = np.sum(self.label_distributions_, axis=1, keepdims=True)
+            normalizer[normalizer == 0] = 1  # 优化当normalizer为0时的情况
             self.label_distributions_ /= normalizer  # 进行标准化
             self.label_distributions_ = np.where(unlabeled, self.label_distributions_, y_static)
             # 在self.label_distributions_中对满足条件的（unlabeled里面为FALSE）的位置，用y_static中对应位置上的值去替换
