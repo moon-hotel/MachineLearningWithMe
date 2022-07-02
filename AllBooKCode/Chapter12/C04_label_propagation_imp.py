@@ -136,6 +136,9 @@ class LabelPropagation(object):
         self.transduction_ = self.classes_[np.argmax(self.label_distributions_, axis=1)]
         return self
 
+    def score(self, X, y):
+        return accuracy_score(self.predict(X), y)
+
 
 def test_compute_W_and_T():
     x = np.array([[0.5, 0.5], [1.5, 1.5], [2.5, 1.5], [1.5, 2.5], [3.5, 2.5]])
@@ -164,10 +167,8 @@ def test_label_propagation():
     model = LabelPropagation()
     model.fit(x_train, y_mixed)
 
-    y_pred = model.predict(x_train)
-    logging.info(f"模型在训练集上的准确率为: {accuracy_score(y_pred, y_train)}")
-    y_pred = model.predict(x_test)
-    logging.info(f"模型在测试集上的准确率为: {accuracy_score(y_pred, y_test)}")
+    logging.info(f"模型在训练集上的准确率为: {model.score(x_train, y_train)}")
+    logging.info(f"模型在测试集上的准确率为: {model.score(x_test, y_test)}")
 
 
 if __name__ == '__main__':
