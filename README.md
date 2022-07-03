@@ -1,7 +1,7 @@
 # MachineLearningWithMe
 
 # 目录
-## 2021年
+## 2022年
 ### [掌柜谈如何入门机器学习（必读）！](MachingLearningGuide.md)
 ### [第一章：机器学习环境安装](https://mp.weixin.qq.com/s/L-3bXzYFFdNx_mL7eu2-kw)
 Python版本为3.6，各个Python包版本见`requirements.txt`，使用如下命令即可安装：
@@ -17,6 +17,8 @@ pip install -r requirements.txt
 ### [第八章：决策树与集成模型](AllBooKCode/Chapter08/README.md)
 ### [第九章：支持向量机](AllBooKCode/Chapter09/README.md)
 ### 第十章：聚类算法
+### 第十一章：降维
+### 第十二章：半监督学习
 ### [知识点索引](AllBooKCode/Index.md)
 
 ---
