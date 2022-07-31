@@ -1,6 +1,6 @@
 ## 代码索引
 
-### 支持向量机从原理到实现
+### [支持向量机从原理到实现 讲解](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
 - [不同分类算法决策边界可视化 代码](01_visualization_decision_boundary.py)
 - [不同分类算法决策边界对比可视化 代码](02_visualization_decision_boundary.py)
@@ -18,7 +18,7 @@
 - [SMO算法求解示例 代码](C14_svm_smo.py)
 - [SMO伪代码求解 代码](15_smo_pseudeo-code.py)
 
-### 从零实现SVM算法
+### [从零实现SVM算法 讲解](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
 - [从零实现SVM分类算法 代码](C16_svm_impl.py)
 
