@@ -16,9 +16,9 @@ pip install -r requirements.txt
 ### [第七章：文本特征提取与模型复用](AllBooKCode/Chapter07/README.md)
 ### [第八章：决策树与集成模型](AllBooKCode/Chapter08/README.md)
 ### [第九章：支持向量机](AllBooKCode/Chapter09/README.md)
-### 第十章：聚类算法
-### 第十一章：降维
-### 第十二章：半监督学习
+### [第十章：聚类算法](AllBooKCode/Chapter10/README.md)
+### 第十一章：降维算法
+### 第十二章：自训练与标签传播算法
 ### [知识点索引](AllBooKCode/Index.md)
 
 ---

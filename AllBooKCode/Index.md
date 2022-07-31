@@ -78,6 +78,21 @@
 - SVM优化问题与SMO算法
 - 从零实现支持向量机
 
+### [第十章：聚类算法](./Chapter10/README.md)
+- Kmeans聚类算法原理与实现
+- Kmeans聚类Sklearn示例
+- Kmeans聚类算法弊端可视化
+- Kmeans++原理与从零实现
+- 4种常见聚类外部评价指标原理与实现
+- WKmeans聚类算法原理与从零实现
+- 3种常见聚类内部评价指标原理与实现
+- elbow方法分析K值及其弊端
+- silhouette方法分析K值
+- elbow和silhouette发综合分析
+- 类Kmeans聚类算法弊端可视化
+- 基于密度的聚类算法实现
+- Single-Link、Complete-Link和Ward层次聚类原理与实现
+
 
 
 ### [返回主页](../README.md)
