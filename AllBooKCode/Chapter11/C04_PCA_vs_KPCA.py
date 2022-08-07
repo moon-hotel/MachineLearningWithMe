@@ -24,7 +24,7 @@ def visualization():
     plt.title('Projection via PCA')
     pca = PCA(n_components=1)
     x = pca.fit_transform(x_orig)
-    plt.scatter(range(len(x)), x[:, 0], c=y)
+    plt.scatter(x[:, 0], [0] * len(x), c=y)
 
     plt.subplot(1, 3, 3)
     plt.title('Projection via KernelPCA')
