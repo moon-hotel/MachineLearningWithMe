@@ -16,18 +16,18 @@ def make_nonlinear_cla_data():
 def visualization():
     plt.figure(figsize=(15, 5), dpi=80)
     plt.subplot(1, 3, 1)
-    plt.title('Original Projection')
+    plt.title('Original Projection', fontsize=15)
     x_orig, y = make_nonlinear_cla_data()
     plt.scatter(x_orig[:, 0], x_orig[:, 1], c=y)
 
     plt.subplot(1, 3, 2)
-    plt.title('Projection via PCA')
+    plt.title('Projection via PCA', fontsize=15)
     pca = PCA(n_components=1)
     x = pca.fit_transform(x_orig)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
 
     plt.subplot(1, 3, 3)
-    plt.title('Projection via KernelPCA')
+    plt.title('Projection via KernelPCA', fontsize=15)
     pca = KernelPCA(n_components=1, kernel='rbf', gamma=10)
     x = pca.fit_transform(x_orig)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
