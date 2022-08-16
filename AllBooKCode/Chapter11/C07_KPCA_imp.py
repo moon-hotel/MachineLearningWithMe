@@ -7,7 +7,17 @@ from sklearn.decomposition import KernelPCA
 
 
 class MyKernelPCA(object):
-    def __init__(self, n_components,
+    """
+    Parameters
+    ----------
+    n_components : int, default=None 指定主成分数量，默认None即保留所有主成分
+    kernel: 指定核函数类型，可选有：'linear',  'poly','rbf', 'sigmoid' default='linear'
+    gamma:  核函数 'poly','rbf', 'sigmoid' 中的核系数
+    degree: 多项式核 'poly' 中的多项式次数
+    coef0: 'poly', 'sigmoid' 中的系数
+    """
+
+    def __init__(self, n_components=None,
                  kernel='linear',
                  gamma=2.,
                  degree=3,
@@ -38,9 +48,6 @@ class MyKernelPCA(object):
         :param X: shape: [n_samples,n_features]
         :return:
         """
-        self.params = {"gamma": self.gamma,
-                       "degree": self.degree,
-                       "coef0": self.coef0}
         self._X = X
         self.K = self._get_kernel(X)  # [n_samples,n_samples]
         l_mat = np.ones(self.K.shape)
@@ -71,8 +78,6 @@ class MyKernelPCA(object):
         # 降维
         K = self._get_kernel(self._X, X)
         # K: [n_train_samples, n_test_samples]
-        print(K.shape)
-        print(self.alphas_.shape)
         return np.matmul(K.T, self.alphas_)
 
 
