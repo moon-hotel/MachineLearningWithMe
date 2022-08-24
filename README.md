@@ -1,5 +1,12 @@
 # MachineLearningWithMe
 
+
+<img src="Images/banner.jpg" width="80%">
+
+### [坚持的力量！《跟我一起学机器学习》上市了! 送礼65份！](https://mp.weixin.qq.com/s/p0cAZsVqX-rV7KBY9h0VmQ)
+
+### 购买链接：[当当网](http://product.dangdang.com/29447673.html) &nbsp; [京东](https://item.jd.com/13335981.html)
+
 # 目录
 ## 2022年
 ### [掌柜谈如何入门机器学习（必读）！](MachingLearningGuide.md)
