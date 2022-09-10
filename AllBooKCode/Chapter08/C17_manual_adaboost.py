@@ -1,11 +1,10 @@
 import numpy as np
 
-np.random.seed(10)
 np.set_printoptions(3)
 
 
 def estimator(n_samples):
-    y_pred = np.random.uniform(0, 1, n_samples) < 0.7
+    y_pred = np.random.uniform(0, 1, n_samples) < 0.5
     return np.array(y_pred, dtype=np.int32)
 
 
@@ -63,10 +62,11 @@ def predict(estimator_weights, y_predicts):
 
 
 if __name__ == '__main__':
-    n_samples = 10
-    y = np.random.randint(0, 2, n_samples)  # 生成正确标签
+    n_samples = 10  # 371
+    np.random.seed(370)
+    y = np.random.randint(0, 2, 10)  # 生成正确标签
     print("正确标签: ", y)
-    estimator_weights, y_predicts = boost(y, n_samples, 5)
+    estimator_weights, y_predicts = boost(y, n_samples, 4)
     print("estimator_weights:", estimator_weights)
     print("所有没有预测结果:\n", y_predicts)
     y_pred = predict(estimator_weights, y_predicts)
