@@ -12,6 +12,7 @@ def single_boost(n_samples, sample_weight, y, iboost):
     y_predict = estimator(n_samples)
     incorrect = y_predict != y
     estimator_error = np.average(incorrect, weights=sample_weight, axis=0)
+    # estimator_error = sum(incorrect * sample_weight) / sum(sample_weight)
     estimator_weight = np.log((1. - estimator_error) / estimator_error)
 
     sample_weight *= np.exp(estimator_weight * incorrect)
@@ -44,6 +45,7 @@ def boost(y, n_samples, n_estimators):
         sample_weight_sum = np.sum(sample_weight)
         if sample_weight_sum <= 0:
             break
+        # sample_weight /= sample_weight_sum # 标准化样本权重
     y_predicts_ = np.vstack(y_predicts_)
     return estimator_weights_, y_predicts_
 
