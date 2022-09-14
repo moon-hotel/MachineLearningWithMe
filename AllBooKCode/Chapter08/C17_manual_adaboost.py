@@ -65,9 +65,11 @@ if __name__ == '__main__':
     n_samples = 10  # 371
     np.random.seed(370)
     y = np.random.randint(0, 2, 10)  # 生成正确标签
+    n_estimators = 4
     print("正确标签: ", y)
-    estimator_weights, y_predicts = boost(y, n_samples, 4)
+    estimator_weights, y_predicts = boost(y, n_samples, n_estimators)
     print("estimator_weights:", estimator_weights)
     print("所有没有预测结果:\n", y_predicts)
     y_pred = predict(estimator_weights, y_predicts)
+    print("预测结果：", y_pred)
     print("AdaBoost准确率:", np.average(y == y_pred))
