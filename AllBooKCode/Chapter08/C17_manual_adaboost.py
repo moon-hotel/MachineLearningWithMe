@@ -51,7 +51,7 @@ def boost(y, n_samples, n_estimators):
 
 
 def predict(estimator_weights, y_predicts):
-    K = 2
+    K = 2  # 分类数
     estimator_weights = np.reshape(estimator_weights, [1, -1])
     result = []
     for k in range(K):
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     print("正确标签: ", y)
     estimator_weights, y_predicts = boost(y, n_samples, n_estimators)
     print("estimator_weights:", estimator_weights)
-    print("所有没有预测结果:\n", y_predicts)
+    print("每个分类器的预测结果:\n", y_predicts)
     y_pred = predict(estimator_weights, y_predicts)
     print("预测结果：", y_pred)
     print("AdaBoost准确率:", np.average(y == y_pred))
