@@ -3,13 +3,14 @@ import numpy as np
 np.set_printoptions(3)
 
 
-def estimator(n_samples):
+def estimator(n_samples, sample_weight):
+    # 在真实情况中，需要sample_weight参与模型的训练过程，这里是模拟所以没用到
     y_pred = np.random.uniform(0, 1, n_samples) < 0.5
     return np.array(y_pred, dtype=np.int32)
 
 
 def single_boost(n_samples, sample_weight, y, iboost):
-    y_predict = estimator(n_samples)
+    y_predict = estimator(n_samples, sample_weight)
     incorrect = y_predict != y
     estimator_error = np.average(incorrect, weights=sample_weight, axis=0)
     # estimator_error = sum(incorrect * sample_weight) / sum(sample_weight)
