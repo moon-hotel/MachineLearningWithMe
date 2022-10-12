@@ -73,12 +73,13 @@ class MyMultinomialNB(object):
         """Calculate the posterior log probability of the samples X"""
         return np.dot(X, self.feature_prob_.T) + self.class_prior_
 
-    def fit(self, X, y):
+    def fit(self, X, y, sample_weight=None):
         """
         Parameters
         ----------
-        X : shape: [n_samples,n_features]
-        y : shape [n_samples,]
+        :param X: shape: [n_samples,n_features]
+        :param y: shape [n_samples,]
+        :param sample_weight: [n_samples,]
         """
         self.n_features_ = X.shape[1]
         labelbin = LabelBinarizer()  # 将标签转化为one-hot形式
@@ -86,6 +87,10 @@ class MyMultinomialNB(object):
         self.classes_ = labelbin.classes_  # 原始标签类别 shape: [n_classes,]
         if Y.shape[1] == 1:  # 当数据集为二分类时fit_transform处理后的结果并不是one-hot形式
             Y = np.concatenate((1 - Y, Y), axis=1)  # 改变为one-hot形式
+        if sample_weight is not None:  # 每个样本对应的权重，只是在Boost方法中被作为基分类器（weak learner）时用到该参数
+            Y = Y.astype(np.float64, copy=False)  # 相关原理将在第8章AdaBoost算法中进行介绍
+            sample_weight = np.reshape(sample_weight, [1, -1])  # [1,n_samples]
+            Y *= sample_weight.T  # [n_samples,n_classes_] * [n_samples,1] 按位乘
         self.n_classes = Y.shape[1]  # 数据集的类别数量
         self._init_counters()  # 初始化计数器
         self._count(X, Y)  # 对各个特征的取值情况进行计数，以计算条件概率等
