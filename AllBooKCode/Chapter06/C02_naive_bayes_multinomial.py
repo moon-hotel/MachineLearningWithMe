@@ -105,6 +105,7 @@ class MyMultinomialNB(object):
         Parameters
         ----------
         X : shape: [n_samples,n_features]
+        return: shape: [X.shape[0],]
         """
         from scipy.special import softmax
         jll = self._joint_likelihood(X)
