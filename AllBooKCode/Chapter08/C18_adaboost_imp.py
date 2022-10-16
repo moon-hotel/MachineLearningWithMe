@@ -4,13 +4,13 @@ import sys
 sys.path.append('../')
 from Chapter06.C02_naive_bayes_multinomial import MyMultinomialNB
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_iris, load_breast_cancer
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
 from sklearn.ensemble import AdaBoostClassifier
 
-np.random.seed(1009)
+np.random.seed(1009)  # 固定结果
 
 
 class MyAdaBoostClassifier():
@@ -25,6 +25,11 @@ class MyAdaBoostClassifier():
         self.algorithm = algorithm
         self.n_estimators = n_estimators
         self.base_estimator = base_estimator
+        self.estimators_ = []  # 保存所有的分类器
+        self.estimator_weights_ = np.zeros(self.n_estimators, dtype=np.float64)
+        # 保存每个模型对应的权重，
+        self.estimator_errors_ = np.zeros(self.n_estimators, dtype=np.float64)
+        # 保存每个模型拟合后对应的误差
 
     def _single_boost_samme(self, iboost, X, y, sample_weight):
         estimator = deepcopy(self.base_estimator)  # 克隆一个分类器
@@ -37,9 +42,10 @@ class MyAdaBoostClassifier():
 
         incorrect = y_predict != y
         estimator_error = np.average(incorrect, weights=sample_weight, axis=0)
-        # 同上 estimator_error = sum(incorrect * sample_weight) / sum(sample_weight)
+        # estimator_error = sum(incorrect * sample_weight) / sum(sample_weight) # 同上
 
         # Stop if the error is at least as bad as random guessing
+        # 当不满足条件时则不再对后续分类器进行训练
         if estimator_error >= 1. - (1. / self.n_classes_):
             self.estimators_.pop(-1)
             if len(self.estimators_) == 0:
@@ -58,17 +64,10 @@ class MyAdaBoostClassifier():
             return self._single_boost_samme(iboost, X, y, sample_weight)
 
     def fit(self, X, y, sample_weight=None):
-
-        self.estimators_ = []  # 保存所有的分类器
-        self.estimator_weights_ = np.zeros(self.n_estimators, dtype=np.float64)
-        # 保存每个模型对应的权重，
-        self.estimator_errors_ = np.zeros(self.n_estimators, dtype=np.float64)
-        # 保存每个模型拟合后对应的误差
-
         if sample_weight is None:
             sample_weight = np.ones(len(X), dtype=np.float64)  # 初始化权重全为1
-
         sample_weight /= sample_weight.sum()  # 标准化权重
+
         for iboost in range(self.n_estimators):
             sample_weight, estimator_weight, estimator_error = self._boost(
                 iboost, X, y, sample_weight)
@@ -89,18 +88,16 @@ class MyAdaBoostClassifier():
 
     def predict(self, X):
         """
-
+        C(x)=\arg \max_{k}=\sum_{m=1}^M\alpha^{(m)}\cdot \mathbb{I}(g^{(m)}(x)=k)
         :param X: shape: [n_samples,n_features]
         :return:
         """
         classes = self.classes_[:, np.newaxis]  # [n_classes,1]
-        # estimator.predict(X):  [n_samples,n_classes]
-        # estimator.predict(X) == classes :  [n_samples,n_classes]
-        # w: 标量
-        pred = sum((estimator.predict(X) == classes).T * w  #
-                   for estimator, w in zip(self.estimators_,
-                                           self.estimator_weights_))
-
+        pred = np.zeros([len(X), len(self.classes_)])  # [n_samples,n_classes]
+        for estimator, alpha in zip(self.estimators_, self.estimator_weights_):
+            correct = estimator.predict(X) == classes  # [n_classes,n_samples]
+            result = alpha * correct.T  # [n_samples,n_classes]
+            pred += result  # [n_samples,n_classes] 把每个分类器的结果相加
         pred /= self.estimator_weights_.sum()
         y_pred = np.argmax(pred, axis=1)
         return y_pred
@@ -112,11 +109,11 @@ if __name__ == '__main__':
     clf = MyAdaBoostClassifier(base_estimator=MyMultinomialNB(), n_estimators=10)
     clf.fit(x_train, y_train)
     print(accuracy_score(y_test, clf.predict(x_test)))
-    print(clf.estimator_weights_)
-    print(clf.estimator_errors_)
+    # print(clf.estimator_weights_)
+    # print(clf.estimator_errors_)
 
     clf = AdaBoostClassifier(base_estimator=MultinomialNB(), n_estimators=10, algorithm='SAMME')
     clf.fit(x_train, y_train)
     print(accuracy_score(y_test, clf.predict(x_test)))
-    print(clf.estimator_weights_)
-    print(clf.estimator_errors_)
+    # print(clf.estimator_weights_)
+    # print(clf.estimator_errors_)
