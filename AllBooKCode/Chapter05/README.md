@@ -1,11 +1,14 @@
-## 代码索引
-### [K近邻算法与原理 讲解](https://mp.weixin.qq.com/s/CL1jqQfMaAbCH7yH-gb5Og)
-- [K近邻原理可视化 代码](01_visualzation.py)
-- [不同K值可视化 代码](02_visualzation.py)
-- [KNN及网格搜索示例 代码](03_knn_train.py)
-  
-### [从零实现K近邻算法 讲解](https://mp.weixin.qq.com/s/WQK3Xcy-HXQ-5_FObFcDMw)
-- [借助Sklearn中的KDTree实现KNN 代码](04_knn_imp.py)
-- [从零实现KNN 代码](C05_knn_imp.py)
+## Code Index
 
-### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
+### [Understanding K-nearest Neighbor (in Chinese)](https://mp.weixin.qq.com/s/CL1jqQfMaAbCH7yH-gb5Og)
+
+- [Visualization of K-nearest Neighbor](01_visualzation.py)
+- [Visualization of K-nearest Neighbor with Different K Value](02_visualzation.py)
+- [KNN with GridSearchCV 代码](03_knn_train.py)
+
+### [Implementation K-Nearest Neighbors from Scratch (in Chinese)](https://mp.weixin.qq.com/s/WQK3Xcy-HXQ-5_FObFcDMw)
+
+- [Implementation KNN by Sklearn KDTree](04_knn_imp.py)
+- [Implementation KNN from Scratch](C05_knn_imp.py)
+
+### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

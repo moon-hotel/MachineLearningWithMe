@@ -1,16 +1,16 @@
-## 代码索引
+## Code Index
 
-### 主成分分析原理与实现
+### Introduction of Principal Component Analysis
 
-- [PCA可视化 代码](C01_PCA_visualization.py)
-- [sklearn中PCA使用示例 代码](C02_PCA_train.py)
-- [从零实现PCA降维算法 代码](C03_PCA_impl.py)
+- [Visualization of Principal Component Analysis](C01_PCA_visualization.py)
+- [Using Principal Component Analysis by Sklearn](C02_PCA_train.py)
+- [Implementation of Principal Component Analysis from Scratch](C03_PCA_impl.py)
 
-### Kernel主成分分析原理与实现
+### Introduction of Kernel Principal Component Analysis
 
-- [PCA与KPCA对比可视化 代码](C04_PCA_vs_KPCA.py)
-- [KPCA算法思想可视化 代码](C05_KPCA_idea.py)
-- [KPCA算法sklearn示例 代码](C06_KPCA_train.py)
-- [KPCA算法实现 代码](C07_KPCA_imp.py)
+- [Visualization of PCA VS KPCA](C04_PCA_vs_KPCA.py)
+- [Visualization of the Key point of KPCA](C05_KPCA_idea.py)
+- [Using Kernel Principal Component Analysis by Sklearn](C06_KPCA_train.py)
+- [Implementation of Kernel Principal Component Analysis from Scratch](C07_KPCA_imp.py)
 
-### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
+### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

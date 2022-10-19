@@ -1,14 +1,20 @@
-## 代码索引
+## Code Index
 
-### 半监督学习之 self-training 
+### Introduction of Semi-Supervised Learning of Self-training
 
-- [self-training示例 代码](C01_self_training.py)
-- [self-training从零实现 代码](C02_self_training_imp.py)
-- [label-propagations示例 代码](C03_label_propagation.py)
-- [label-propagation从零实现 代码](C04_label_propagation_imp.py)
-- [label-propagation从零实现(论文中非迭代版本) 代码](C05_label_propagation_simple.py)
-- [label-spreading示例 代码](C06_label_spreading.py)
-- [label-propagation和label-spreading对比 代码](C07_label_spreading_comp.py)
-- [label-spreading从零实现 代码](C08_label_spreading_imp.py)
+- [Using Self-training by Sklearn](C01_self_training.py)
+- [Implementation of self-training from Scratch](C02_self_training_imp.py)
 
-### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
+### Introduction of Semi-Supervised Learning of Label-propagations
+
+- [Using Label-propagations by Sklearn](C03_label_propagation.py)
+- [Implementation of Label-propagation from Scratch](C04_label_propagation_imp.py)
+- [Implementation of Label-propagation from Scratch (Non-iterative Version)](C05_label_propagation_simple.py)
+
+### Introduction of Semi-Supervised Learning of label-spreading
+
+- [Using Label-spreading by Sklearn](C06_label_spreading.py)
+- [Comparison between Label-propagation and Label-spreading](C07_label_spreading_comp.py)
+- [Implementation of Label-spreading from Scratch](C08_label_spreading_imp.py)
+
+### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

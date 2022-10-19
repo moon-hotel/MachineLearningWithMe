@@ -1,32 +1,39 @@
-## 代码索引
+## Code Index
 
-### 聚类算法从原理到实现
+### [Understanding Clustering Algorithms from Scratch (in Chinese)](https://mp.weixin.qq.com/s/mMiBebbXfRHm6n4hx_aSWg)
 
-- [Kmeans聚类算法原理可视化 代码](01_kmeans_visualization_cluster.py)
-- [Kmeans聚类过程可视化 代码](02_kmeans_visual_step.py)
-- [Kmeans聚类Sklearn示例 代码](03_kmeans_train.py)
-- [Kmeans聚类算法从零实现 代码](04_kmeans.py)
-- [Kmeans聚类算法弊端可视化 代码](05_kmeans_visual_step.py)
-- [Kmeans++原理可视化 代码](06_kmeanspp_visual_step.py)
-- [Kmeans++从零实现 代码](07_kmeanspp.py)
-- [4种常见聚类外部评价指标实现 代码](08_metrics.py)
-- [WKmeans聚类算法原理可视化 代码](09_visualization_wkmeans.py)
-- [WKmeans聚类算法从零实现 代码](10_wkmeans.py)
+- [Visualization of Key Idea of Kmeans](01_kmeans_visualization_cluster.py)
+- [Visualization of Kmeans Clustering process](02_kmeans_visual_step.py)
+- [Kmeans Clustering by Sklearn](03_kmeans_train.py)
+- [Implementation of Kmeans from Scratch](04_kmeans.py)
+- [Visualization of Kmeans Disadvantage](05_kmeans_visual_step.py)
+- [Visualization of Key Idea of Kmeans++](06_kmeanspp_visual_step.py)
+- [Implementation of Kmeans++ from Scratch](07_kmeanspp.py)
+- [Visualization of Key Idea of WKmeans](09_visualization_wkmeans.py)
+- [Implementation of WKmeans from Scratch](10_wkmeans.py)
 
-### 聚类外部评价指标与K值分析
+### [Introduction of Three Common Clustering Internal Evaluation (in Chinese)](https://mp.weixin.qq.com/s/MlG2zv_2W-Myu0S2Ilu1qA)
 
-- [3种常见聚类内部评价指标实现 代码](C11_internal_evaluation.py)
-- [elbow方法分析K值 代码](C12_elbow_analysis.py)
-- [elbow方法失效图可视化 代码](C13_elbow_analysis_examples.py)
-- [silhouette方法分析K值 代码](C14_silhouette_analysis.py)
-- [elbow和silhouette发综合分析 代码](C15_elbow_sihouette_analysis.py)
+- [Implementation of Clustering Internal Evaluation](C11_internal_evaluation.py)
 
-### 基于密度的聚类算法（DBSCAN)
+### [Introduction of Four Common Clustering External Evaluation (in Chinese)](https://mp.weixin.qq.com/s/Yh11rPHn1tvomKDS5CgJEg)
 
-- [类Kmeans聚类算法弊端可视化 代码](C16_kmeans_disadvantage.py)
-- [基于密度的聚类算法实现 代码](C17_DBSCAN.py)
+- [Implementation of Clustering External Evaluation](08_metrics.py)
 
-### 基于层次的聚类算法（Hierarchical Clustering)
-- [Single-Link、Complete-Link和Ward聚类实现 代码](C18_hierarchical_clustering.py)
+### [Two Kinds of Method for K Value Selection](https://mp.weixin.qq.com/s/Ia2ZB1rCPDK5yHM0m4CKag)
 
-### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
+- [Elbow Method](C12_elbow_analysis.py)
+- [Visualization of Disadvantage of Elbow Method](C13_elbow_analysis_examples.py)
+- [Silhouette Method](C14_silhouette_analysis.py)
+- [Elbow and Silhouette Methods](C15_elbow_sihouette_analysis.py)
+
+### [Introduction of Density-Based Spatial Clustering of Applications with Noise（DBSCAN) (in Chinese)](https://mp.weixin.qq.com/s/WwYMJVuUXkRzEZoGuP6qRg)
+
+- [Visualization of Disadvantage of Kmeans-type Algorithms](C16_kmeans_disadvantage.py)
+- [Implementation of DBSCAN](C17_DBSCAN.py)
+
+### [Introduction of Three Strategies for Hierarchical Clustering (in Chinese)](https://mp.weixin.qq.com/s/BO7_z9RSMJG3SG8xtrlyuA)
+
+- [Implementation of Hierarchical Clustering by Single-Link,Complete-Link, and Ward](C18_hierarchical_clustering.py)
+
+### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

@@ -1,12 +1,14 @@
-## 代码索引
-### [文本特征提取与模型复用 讲解](https://mp.weixin.qq.com/s/8D-GW8KCihbn5ePl5Ac2uw)
-- [分词与词频统计 代码](01_cut_words.py)
-- [不考虑词频的文本向量化 代码](02_vectorization.py)
-- [虑词频的文本向量化 代码](03_vectorization_with_freq.py)
-- [Sklearn词袋模型 代码](04_bag_of_word.py)
-- [基于词袋模型表示的朴素贝叶斯垃圾邮件分类任务 代码](05_bag_of_word_cla.py)
-- [TF-IDF计算原理 代码](06_tf_idf.py)
-- [词云图构造 代码](07_word_cloud.py)
-- [自定义词云图构造 代码](08_word_cloud.py)
+## Code Index
 
-### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
+### [Text Feature Extraction and Model Reuse (in Chinese)](https://mp.weixin.qq.com/s/8D-GW8KCihbn5ePl5Ac2uw)
+
+- [Word Segmentation and Word Frequency Statistics](01_cut_words.py)
+- [Text Vectorization without Regard to Word Frequency](02_vectorization.py)
+- [Text Vectorization with Word frequency](03_vectorization_with_freq.py)
+- [Bag of Words in Sklearn](04_bag_of_word.py)
+- [Naive Bayesian Spam Classification Based on Bag-of-Words Model Representation](05_bag_of_word_cla.py)
+- [Implementation of TF-IDF](06_tf_idf.py)
+- [Implementation of Word Cloud](07_word_cloud.py)
+- [Implementation of Word Cloud with Custom Background](08_word_cloud.py)
+
+### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
