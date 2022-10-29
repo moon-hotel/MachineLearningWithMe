@@ -30,4 +30,8 @@
 - [AdaBoost 模型误差与模型权重图 代码](C16_adaboost_plot.py)
 - [AdaBoost之SAMME算法实现 代码](C18_adaboost_imp.py)
 
+### [从零实现GradientBoost 讲解]()
+
+- [GradientBoostDecisionTree Sklearn 示例代码](./C20_gbdt_train.py)
+
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)

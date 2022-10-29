@@ -30,4 +30,8 @@
 - [Model Error vs Model Weights in AdaBoost](C16_adaboost_plot.py)
 - [Implementation of AdaBoost with SAMME](C18_adaboost_imp.py)
 
+### [Understanding GradientBoost Algorithm from Scratch (in Chinese)]()
+
+- [GradientBoostDecisionTree in Sklearn](./C20_gbdt_train.py)
+
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
