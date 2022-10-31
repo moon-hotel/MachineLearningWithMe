@@ -1,8 +1,10 @@
 import os
 import re
 import jieba
+import pandas as pd
+import numpy as np
 
-data_home = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+DATA_HOME = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
 
 
 def clean_str(string, sep=" "):
@@ -27,7 +29,7 @@ def load_spam():
     :return: x为一个list，每个元素为一个样本
              y为一个list，每个元素为样本对应的标签
     """
-    data_spam_dir = os.path.join(data_home, 'spam')
+    data_spam_dir = os.path.join(DATA_HOME, 'spam')
 
     def load_spam_data(file_path=None):
         texts = []
@@ -56,3 +58,16 @@ def load_cut_spam():
         tmp = " ".join(seg_list)
         x_cut.append(tmp)
     return x_cut, y
+
+
+def load_admitted_dataset():
+    """
+    录取二分类数据集
+    :return:
+    """
+    file_path = os.path.join(DATA_HOME, 'Admitted', 'Admitted.txt')
+    data = pd.read_csv(file_path, names=['exam1', 'exam2', 'label'])
+    data = np.array(data)
+    x = data[:, :-1]  # 取前两列
+    y = data[:, -1:]  # 取最后一列
+    return x, y
