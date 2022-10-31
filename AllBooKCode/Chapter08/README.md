@@ -33,5 +33,6 @@
 ### [Understanding GradientBoost Algorithm from Scratch (in Chinese)]()
 
 - [GradientBoostDecisionTree in Sklearn](./C20_gbdt_train.py)
+- [Implementation of GradientBoost Regression](./C21_manaual_gradient_boost_reg.py)
 
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
