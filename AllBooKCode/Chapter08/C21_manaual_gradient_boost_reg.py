@@ -40,7 +40,7 @@ def negative_gradient(y, y_hat):
     return (y - y_hat)
 
 
-class MyGradientBoost(object):
+class MyGradientBoostRegression(object):
     def __init__(self,
                  learning_rate=0.1,
                  n_estimators=100,
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     x, y = make_data(200, False)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
     n_estimators = 100
-    my_boost = MyGradientBoost(n_estimators=n_estimators,
+    my_boost = MyGradientBoostRegression(n_estimators=n_estimators,
                                base_estimator=LinearRegression,
                                learning_rate=0.1)
     my_boost.fit(x_train, y_train)
