@@ -33,6 +33,7 @@
 ### [从零实现GradientBoost 讲解]()
 
 - [GradientBoostDecisionTree Sklearn 示例代码](./C20_gbdt_train.py)
-- [从零实现GradientBoost Regression](./C21_manaual_gradient_boost_reg.py)
+- [从零实现GradientBoost Regression](C21_manual_gradient_boost_reg.py)
+- [从零实现GradientBoost Classification](C22_manual_gradient_boost_cla.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
