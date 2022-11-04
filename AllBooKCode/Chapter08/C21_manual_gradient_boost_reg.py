@@ -1,3 +1,11 @@
+"""
+文件名: C21_manual_gradient_boost_reg.py
+创建时间: 2022/10/30 20:32 下午
+作者: @空字符
+公众号: @月来客栈
+知乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
@@ -41,6 +49,16 @@ def negative_gradient(y, y_hat):
 
 
 class MyGradientBoostRegression(object):
+    """
+    Gradient Boosting for Regression
+    author: 公众号：@月来客栈
+            知乎：https://www.zhihu.com/people/the_lastest
+    Parameters:
+        learning_rate: 学习率
+        n_estimators: boosting 次数
+        base_estimator: 预测梯度时使用到的回归模型
+    """
+
     def __init__(self,
                  learning_rate=0.1,
                  n_estimators=100,
@@ -84,8 +102,8 @@ if __name__ == '__main__':
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
     n_estimators = 100
     my_boost = MyGradientBoostRegression(n_estimators=n_estimators,
-                               base_estimator=LinearRegression,
-                               learning_rate=0.1)
+                                         base_estimator=LinearRegression,
+                                         learning_rate=0.1)
     my_boost.fit(x_train, y_train)
     plt.plot(range(n_estimators), my_boost.loss_)
     plt.xlabel("boosting steps")

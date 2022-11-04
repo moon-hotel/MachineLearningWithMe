@@ -49,8 +49,6 @@ def objective_function(y, raw_predictions, K):
 class MyGradientBoostClassifier(object):
     """
     Gradient Boosting for Classification
-    author: 公众号：@月来客栈
-            知乎：https://www.zhihu.com/people/the_lastest
     Parameters:
         learning_rate: 学习率
         n_estimators: boosting 次数
