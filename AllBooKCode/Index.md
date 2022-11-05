@@ -75,6 +75,13 @@
 - 随机森林与特征重要性
 - 泰坦尼克号生还预测
 - 从零实现决策树
+- 从零实现CART决策树算法
+- 从零实现AdaBoost算法
+- 从零实现AdaBoost之SAMME算法
+- 从零实现GradientBoost
+- 梯度提升树原理介绍
+- 从零实现GradientBoost Regression
+- 从零实现GradientBoost Classification
 
 ### [第九章：支持向量机](./Chapter09/README-zh-CN.md)
 
