@@ -24,7 +24,7 @@ def make_data(n=20, visualization=False):
     noise = np.random.randn(n)
     y_noise = 2 * x + 5. + noise * 2
     y = 2 * x + 5.
-    if visualization:
+    if visualization:  # 是否进行可视化
         plt.scatter(x, y_noise, c='black')
         plt.plot(x, y)
         plt.show()
@@ -81,15 +81,20 @@ class MyGradientBoostRegression(object):
 
     def _fit_stages(self, X, y, raw_predictions):
         for i in range(self.n_estimators):
-            grad = negative_gradient(y, raw_predictions)
+            grad = negative_gradient(y, raw_predictions)  # 计算负梯度
             model = self.base_estimator()
             model.fit(X, grad)  # 这里其实是用于拟合梯度，因为在预测时无法计算得到真实梯度
             grad = model.predict(X)  # 当然，这里的grad也可以直接使用上面的真实值
             raw_predictions += self.learning_rate * grad  # 梯度下降更新预测结果
             self.loss_.append(np.sum(objective_function(y, raw_predictions)))
-            self.estimators_.append(model)
+            self.estimators_.append(model)  # 保存每个模型
 
     def predict(self, X):
+        """
+        模型预测
+        :param X: [n_samples, n_features]
+        :return: [n_samples,]
+        """
         raw_predictions = np.zeros(X.shape[0])  # [n_samples,]
         for model in self.estimators_:
             grad = model.predict(X)  # 预测每个样本在当前boost序列中对应的梯度值
