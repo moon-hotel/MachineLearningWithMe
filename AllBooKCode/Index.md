@@ -121,7 +121,7 @@
 - KPCA算法sklearn示例
 - KPCA算法实现 代码
 
-### [第十二章：降维算法](./Chapter12/README-zh-CN.md)
+### [第十二章：自训练与标签传播算法](./Chapter12/README-zh-CN.md)
 
 - 半监督学习之self-training讲解
 - self-training示例
