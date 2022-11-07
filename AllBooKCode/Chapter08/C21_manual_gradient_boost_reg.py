@@ -9,7 +9,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
+from copy import deepcopy
 
 
 def make_data(n=20, visualization=False):
@@ -32,6 +34,12 @@ def make_data(n=20, visualization=False):
 
 
 def objective_function(y, y_hat):
+    """
+    均方误差损失函数
+    :param y: [n_samples,]
+    :param y_hat:  [n_samples,]
+    :return:  [n_samples,]
+    """
     return 0.5 * (y - y_hat) ** 2
 
 
@@ -51,8 +59,6 @@ def negative_gradient(y, y_hat):
 class MyGradientBoostRegression(object):
     """
     Gradient Boosting for Regression
-    author: 公众号：@月来客栈
-            知乎：https://www.zhihu.com/people/the_lastest
     Parameters:
         learning_rate: 学习率
         n_estimators: boosting 次数
@@ -82,7 +88,7 @@ class MyGradientBoostRegression(object):
     def _fit_stages(self, X, y, raw_predictions):
         for i in range(self.n_estimators):
             grad = negative_gradient(y, raw_predictions)  # 计算负梯度
-            model = self.base_estimator()
+            model = deepcopy(self.base_estimator)
             model.fit(X, grad)  # 这里其实是用于拟合梯度，因为在预测时无法计算得到真实梯度
             grad = model.predict(X)  # 当然，这里的grad也可以直接使用上面的真实值
             raw_predictions += self.learning_rate * grad  # 梯度下降更新预测结果
@@ -106,18 +112,19 @@ if __name__ == '__main__':
     x, y = make_data(200, False)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
     n_estimators = 100
+    base_estimator = LinearRegression()
     my_boost = MyGradientBoostRegression(n_estimators=n_estimators,
-                                         base_estimator=LinearRegression,
+                                         base_estimator=base_estimator,
                                          learning_rate=0.1)
     my_boost.fit(x_train, y_train)
     plt.plot(range(n_estimators), my_boost.loss_)
-    plt.xlabel("boosting steps")
-    plt.ylabel("loss on training data")
+    plt.xlabel("boosting steps", fontsize=13)
+    plt.ylabel("loss on training data", fontsize=13)
     plt.show()
     loss = np.sum(objective_function(y_test, my_boost.predict(x_test)))
-    print(f"loss in test by my_boost {loss}")
+    print(f"loss in test by MyGradientBoostRegression {loss}")
 
-    model = LinearRegression()
+    model = GradientBoostingRegressor()
     model.fit(x_train, y_train)
     loss = np.sum(objective_function(y_test, model.predict(x_test)))
-    print(f"loss in test by LinearRegression {loss}")
+    print(f"loss in test by GradientBoostingRegressor {loss}")
