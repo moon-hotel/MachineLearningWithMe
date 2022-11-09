@@ -14,6 +14,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingClassifier
 from scipy.special import logsumexp
 from sklearn.datasets import load_iris
+from copy import deepcopy
+
+np.random.seed(100)
 
 
 def negative_gradient(y, raw_predictions, k=0):
@@ -34,10 +37,11 @@ def objective_function(y, raw_predictions, K):
     计算损失 Multinomial deviance loss function for multi-class classification.
     L(y,p(x))=-\sum_{i=1}^m\left(\sum_{k=1}^K\mathbb{I}(y_i=c_k)f_k(x)+
                     \log\left(\sum_{l=1}^Ke^{f_l(x)}\right)\right)
+    这里的公式只是单独一个样本的损失
     :param y: [n_samples,]
     :param raw_predictions: 预测得到的概率值 shape: [n_samples,n_classes]
     :param K:
-    :return:
+    :return: 所有样本的损失平均
     """
     Y = np.zeros((y.shape[0], K), dtype=np.float64)
     for k in range(K):
@@ -88,7 +92,7 @@ class MyGradientBoostClassifier(object):
         for i in range(self.n_estimators):
             for k in range(self.n_classes_):
                 grad = negative_gradient(y, raw_predictions, k)  # 在训练集上计算真实梯度
-                model = self.base_estimator()
+                model = deepcopy(self.base_estimator)
                 model.fit(X, grad)  # 这里其实是用于拟合梯度，因为在预测时无法计算得到真实梯度
                 # grad = model.predict(X)  # 当然，这里的grad也可以使用模型的预测实值
                 raw_predictions[:, k] += self.learning_rate * grad  # 梯度下降更新预测概率
@@ -122,7 +126,8 @@ class MyGradientBoostClassifier(object):
 if __name__ == '__main__':
     x, y = load_iris(return_X_y=True)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3)
-    my_boost = MyGradientBoostClassifier(base_estimator=DecisionTreeRegressor,
+    base_estimator = DecisionTreeRegressor()
+    my_boost = MyGradientBoostClassifier(base_estimator=base_estimator,
                                          learning_rate=0.3)
     my_boost.fit(x_train, y_train)
     y_hat = my_boost.predict(x_train)
@@ -131,8 +136,8 @@ if __name__ == '__main__':
     print(f"MyGradientBoostClassifier accuracy on testing data {accuracy_score(y_test, y_hat)}")
 
     plt.plot(range(my_boost.n_estimators), my_boost.loss_)
-    plt.xlabel("boosting steps")
-    plt.ylabel("loss on training data")
+    plt.xlabel("boosting steps", fontsize=13)
+    plt.ylabel("loss on training data", fontsize=13)
     plt.show()
 
     print("===========")
