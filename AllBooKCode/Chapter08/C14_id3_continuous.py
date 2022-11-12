@@ -4,6 +4,7 @@ import sys
 import copy
 
 from sklearn.datasets import load_iris
+from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
@@ -327,7 +328,7 @@ class DecisionTree(object):
         n_features = data.shape[1]
         feature_values = {}
         for i in range(n_features):
-            x_feature = list(set(np.sort(data[:, i])))
+            x_feature = sorted(set(data[:, i]))  # 去重与排序
             tmp_values = [x_feature[0]]  # 左边插入最小值
             for j in range(1, len(x_feature)):
                 tmp_values.append(round((x_feature[j - 1] + x_feature[j]) / 2, 4))
