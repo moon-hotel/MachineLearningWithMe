@@ -57,7 +57,7 @@ def kmeanspp(X, K, max_iter=200):
     for i in range(max_iter):
         idx = findClostestCentroids(X, centroids)
         centroids = computeCentroids(X, idx, K)
-    return idx
+    return idx, centroids
 
 
 def kmeanspp_visual(X, idx, K):
@@ -91,13 +91,15 @@ def kmeanspp_visual(X, idx, K):
 if __name__ == '__main__':
     x, y = make_data()
     K = len(np.unique(y))
-    # y_pred = kmeans(x, y)
-    y_pred = kmeanspp_visual(x, y, K)
+    y_pred, centroids = kmeanspp(x, K)
+    # y_pred = kmeanspp_visual(x, y, K)
     nmi = normalized_mutual_info_score(y, y_pred)
     print("NMI by ours: ", nmi)
+    print("centroids: ", centroids)
 
     model = KMeans(n_clusters=K, init='k-means++')
     model.fit(x)
     y_pred = model.predict(x)
     nmi = normalized_mutual_info_score(y, y_pred)
     print("NMI by sklearn: ", nmi)
+    print("centroids: ", model.cluster_centers_)
