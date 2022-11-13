@@ -8,7 +8,7 @@
 - [Kmeans聚类算法从零实现 代码](04_kmeans.py)
 - [Kmeans聚类算法弊端可视化 代码](05_kmeans_visual_step.py)
 - [Kmeans++原理可视化 代码](06_kmeanspp_visual_step.py)
-- [Kmeans++从零实现 代码](07_kmeanspp.py)
+- [Kmeans++从零实现 代码](C07_kmeanspp.py)
 - [WKmeans聚类算法原理可视化 代码](09_visualization_wkmeans.py)
 - [WKmeans聚类算法从零实现 代码](10_wkmeans.py)
 

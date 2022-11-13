@@ -8,7 +8,7 @@
 - [Implementation of Kmeans from Scratch](04_kmeans.py)
 - [Visualization of Kmeans Disadvantage](05_kmeans_visual_step.py)
 - [Visualization of Key Idea of Kmeans++](06_kmeanspp_visual_step.py)
-- [Implementation of Kmeans++ from Scratch](07_kmeanspp.py)
+- [Implementation of Kmeans++ from Scratch](C07_kmeanspp.py)
 - [Visualization of Key Idea of WKmeans](09_visualization_wkmeans.py)
 - [Implementation of WKmeans from Scratch](10_wkmeans.py)
 
