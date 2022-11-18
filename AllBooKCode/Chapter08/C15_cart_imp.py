@@ -1,3 +1,11 @@
+"""
+文件名: AllBooKCode/Chapter08/C15_cart_imp.py
+创建时间: ------
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import numpy as np
 import logging
 import sys
@@ -78,15 +86,16 @@ class MyCART(object):
                       [1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0],
                       [2, 1, 1, 2, 2, 2, 0, 2, 2, 0, 0, 2, 2, 1, 1]]).transpose()
         y = np.array([1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1])
-        dt = CART()
+        dt = MyCART()
         dt.feature_values = dt._get_feature_values(x)
         dt._y = y
-        # {0: [0, 0.5, 1], 1: [0, 0.5, 1], 2: [0, 0.5, 1.5, 2]}
+        print(dt.feature_values)
+        # {0: [0.5], 1: [0.5], 2: [0.5, 1.5]}
         X = np.hstack(([x, np.arange(len(x)).reshape(-1, 1)]))
-        r = dt._compute_gini_da(2, X)
+        r = dt._compute_gini_da(0, X)
         print(r)
-        (0.43939393939393934, 1, array([False,  True,  True, False, False, False, False, False, False,
-       False, False, False, False,  True,  True]))
+        (0.3452380952380953, 0, array([ True,  True,  True,  True,  True,  True,  True, False, False,
+               False, False, False, False, False, False]))
         """
         feature_values = self.feature_values[f_id]  # 取当前f_id列特征对应的离散化取值情况
         logging.debug("----------")
@@ -463,6 +472,7 @@ if __name__ == '__main__':
     # test_cart()
     # test_get_subtree()
     test_wine_classification()
+
 
     # ================ test_cart()函数的运行中间过程如下：
     # [2022-11-10 20:19:03] - INFO: 标签[1 1 1 0 0 0 0 1 1 1 1 1 1 0 1]的GINI指数为: 0.4444444444444444
