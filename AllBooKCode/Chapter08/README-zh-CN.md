@@ -30,10 +30,12 @@
 - [AdaBoost 模型误差与模型权重图 代码](C16_adaboost_plot.py)
 - [AdaBoost之SAMME算法实现 代码](C18_adaboost_imp.py)
 
-### [从零实现GradientBoost 讲解]()
+### 从零实现GradientBoost 讲解
 
 - [GradientBoostDecisionTree Sklearn 示例代码](./C20_gbdt_train.py)
 - [从零实现GradientBoost Regression](C21_manual_gradient_boost_reg.py)
 - [从零实现GradientBoost Classification](C22_manual_gradient_boost_cla.py)
-
+- [梯度提升回归计算示例](C23_example_gradient_boost_reg.py)
+- [梯度提升分类计算示例](C24_example_gradient_boost_cla.py)
+   
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)

@@ -35,5 +35,6 @@
 - [GradientBoostDecisionTree in Sklearn](./C20_gbdt_train.py)
 - [Implementation of GradientBoost Regression](C21_manual_gradient_boost_reg.py)
 - [Implementation of GradientBoost Classification](C22_manual_gradient_boost_cla.py)
-
+- [Computing Examples of GradientBoost Regression](C23_example_gradient_boost_reg.py)
+- [Computing Examples GradientBoost Classification](C24_example_gradient_boost_cla.py)
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
