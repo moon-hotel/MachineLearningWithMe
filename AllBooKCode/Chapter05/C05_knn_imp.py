@@ -75,14 +75,14 @@ class MyKDTree(object):
         if len(data) < 1:
             return
         data = sorted(data, key=lambda x: x[order % self.dim])  # 按某个维度进行排序
-        logging.debug(f"当前待划分样本点：{data}")
+        logging.debug(f"当前待划分样本点：{[item.tolist() for item in data]}")
         idx = len(data) // 2
         node = Node(data[idx][:-1], data[idx][-1])
         logging.debug(f"父节点：{data[idx]}")
         left_data = data[:idx]
-        logging.debug(f"左子树: {left_data}")
+        logging.debug(f"左子树: {[item.tolist() for item in left_data]}")
         right_data = data[idx + 1:]
-        logging.debug(f"右子树: {right_data}")
+        logging.debug(f"右子树: {[item.tolist() for item in right_data]}")
         logging.debug("============")
         if self.is_empty():
             self.root = node  # 整个KD树的根节点
