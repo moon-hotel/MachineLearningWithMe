@@ -8,7 +8,7 @@ def cutWords(s, cut_all=False):
     cut_words = []
     s = re.sub("[A-Za-z0-9\：\·\—\，\。\“ \”]", "", s)
     seg_list = jieba.cut(s, cut_all=cut_all)
-    cut_words.append(" ".join(seg_list))
+    cut_words.append("/".join(seg_list))
     print(cut_words)
 
 
