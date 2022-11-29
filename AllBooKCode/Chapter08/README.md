@@ -18,10 +18,16 @@
 ### [Introduction of ID3 and C4.5 Implementation from Scratch (in Chinese)](https://mp.weixin.qq.com/s/ZV2rLuRaF-pFwmBWMfBsiw)
 
 - [Implementation of ID3 and C4.5 from Scratch](C13_id3_categorical.py)
+
+### Introduction of ID3 and C4.5 Implementation for Continuous Variable from Scratch (in Chinese)
+
 - [Implementation of ID3 and C4.5 from Scratch (Continuous Features)](C14_id3_continuous.py)
+
+### [Introduction of CART from Scratch (in Chinese)](https://mp.weixin.qq.com/s/gbErcU-Z8TYkRk3eCrTlKw)
+
 - [Implementation of CART from Scratch](C15_cart_imp.py)
 
-### [Understanding AdaBoost Algorithm from Scratch (in Chinese)]()
+### Understanding AdaBoost Algorithm from Scratch (in Chinese)
 
 - [Implementation of AdaBoost](C17_manual_adaboost.py)
 
@@ -37,4 +43,5 @@
 - [Implementation of GradientBoost Classification](C22_manual_gradient_boost_cla.py)
 - [Computing Examples of GradientBoost Regression](C23_example_gradient_boost_reg.py)
 - [Computing Examples GradientBoost Classification](C24_example_gradient_boost_cla.py)
+
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
