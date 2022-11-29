@@ -1,9 +1,16 @@
+"""
+文件名: AllBooKCode/Chapter12/C02_self_training_imp.py
+创建时间: 2022/6/11  上午 星期六
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import logging
 from copy import deepcopy
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
 import sys
 import numpy as np
 

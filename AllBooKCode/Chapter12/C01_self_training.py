@@ -1,3 +1,11 @@
+"""
+文件名: AllBooKCode/Chapter12/C01_self_training.py
+创建时间: 2022/6/11  上午 星期六
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 from copy import deepcopy
 from sklearn.datasets import load_iris
 from sklearn.metrics import accuracy_score
