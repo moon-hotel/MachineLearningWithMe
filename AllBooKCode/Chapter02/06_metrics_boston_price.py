@@ -21,7 +21,7 @@ def MAPE(y, y_pre):
 
 def R2(y, y_pre):
     u = np.sum((y - y_pre) ** 2)
-    v = np.sum((y - np.mean(y_pre)) ** 2)
+    v = np.sum((y - np.mean(y)) ** 2)
     return 1 - (u / v)
 
 
