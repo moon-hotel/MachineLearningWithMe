@@ -46,6 +46,7 @@
 - 交叉验证`train_test_split`与网格搜索`GridSearchCV`
 - 最近邻与K近邻搜索原理
 - kd树实现与搜索`KDTree`
+- 从零实现KNN算法
 
 ### [第六章：朴素贝叶斯算法](./Chapter06/README-zh-CN.md)
 
