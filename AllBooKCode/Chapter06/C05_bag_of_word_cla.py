@@ -1,6 +1,14 @@
+"""
+文件名: C05_bag_of_word_cla.py
+创建时间:
+作者: @空字符
+公众号: @月来客栈
+知乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
 import joblib
 import jieba
@@ -25,6 +33,15 @@ def clean_str(string, sep=" "):
 
 
 def load_data_and_cut(file_path='./data/ham_100.utf8'):
+    """
+    载入原始样本，分词并返回。
+    返回后是一个List，list里的每个元素为一个样本，样本为分词后的结果
+    :param file_path:
+    :return:
+    '本次 活动 只限 上海地区', '中信   国际   电子科技 有限公司 推出 新 产品',
+     '您好   本 公司 主要 从事 税务代理   并 可代 开发票 范围 如下   商品销售 发票 ',
+     ......]
+    """
     x_cut = []
     with open(file_path, encoding='utf-8') as f:
         for line in f:
@@ -43,6 +60,7 @@ def get_dataset(top_k_words=1000):
     X_train, X_test, y_train, y_test = \
         train_test_split(x, y, test_size=0.3, random_state=42)
     count_vec = CountVectorizer(max_features=top_k_words)
+    ## 考虑词频的词袋模型
     X_train = count_vec.fit_transform(X_train)
     X_test = count_vec.transform(X_test)
     # print(len(count_vec.vocabulary_)) # 输出词表长度
@@ -50,10 +68,11 @@ def get_dataset(top_k_words=1000):
 
 
 def train(X_train, X_test, y_train, y_test):
-    model = MultinomialNB()
+    model = KNeighborsClassifier(n_neighbors=3)
     model.fit(X_train, y_train)
     save_model(model)
     y_pre = model.predict(X_test)
+    print("模型在测试集上的表现结果：")
     print(classification_report(y_test, y_pre))
 
 
@@ -79,5 +98,5 @@ def predict(X):
 
 if __name__ == '__main__':
     X_train, X_test, y_train, y_test = get_dataset()
-    train(X_train, X_test, y_train, y_test)
-    # predict(X_test)
+    # train(X_train, X_test, y_train, y_test)
+    predict(X_test)
