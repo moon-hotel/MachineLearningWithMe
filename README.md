@@ -24,9 +24,9 @@ pip install -r requirements.txt
 
 ### [Chapter 5：K-nearest Neighbor Analysis and KD tree ](AllBooKCode/Chapter05/README.md)
 
-### [Chapter 6：Naive Bayes and Implementation](AllBooKCode/Chapter06/README.md)
+### [Chapter 6：Naive Bayes and Implementation](AllBooKCode/Chapter07/README.md)
 
-### [Chapter 7：Text Feature Extraction and Model Reuse](AllBooKCode/Chapter07/README.md)
+### [Chapter 7：Text Feature Extraction and Model Reuse](AllBooKCode/Chapter06/README.md)
 
 ### [Chapter 8：Decision Tree and Ensemble Learning](AllBooKCode/Chapter08/README.md)
 

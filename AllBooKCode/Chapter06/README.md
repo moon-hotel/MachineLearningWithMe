@@ -1,20 +1,14 @@
 ## Code Index
 
-### [Understanding Naive Bayes (in Chinese)](https://mp.weixin.qq.com/s/hh1gV9UoaFpQaotlIzrMkg)
+### [Text Feature Extraction and Model Reuse (in Chinese)](https://mp.weixin.qq.com/s/8D-GW8KCihbn5ePl5Ac2uw)
 
-### [Introduction to implementing the Categorical Bayes from scratch (in Chinese)](https://mp.weixin.qq.com/s/kCbITIOq4TxvIhfR5nH2yg)
-
-- [Implementation of Categorical Bayes from scratch](C01_naive_bayes_category.py)
-
-### [Introduction to implementing the Multinomial Bayes from scratch (in Chinese)](https://mp.weixin.qq.com/s/LCCUypsAakFsdNpZqpaP4g)
-
-- [Implementation of Multinomial Bayes from scratch](C02_naive_bayes_multinomial.py)
-
-### [Introduction to implementing the Gaussian Bayes from scratch (in Chinese)](https://mp.weixin.qq.com/s/B3rftdKAkIyMr9LX7UHKwQ)
-
-- [Implementation of Gaussian Bayes from scratch](C03_naive_bayes_gaussian.py)
-- [Comparison of Models with Different feature Representation](C04_comparison.py)
-
-    <img src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/22031953459.jpg" width="50%">
+- [Word Segmentation and Word Frequency Statistics](01_cut_words.py)
+- [Text Vectorization without Regard to Word Frequency](02_vectorization.py)
+- [Text Vectorization with Word frequency](03_vectorization_with_freq.py)
+- [Bag of Words in Sklearn](04_bag_of_word.py)
+- [Naive Bayesian Spam Classification Based on Bag-of-Words Model Representation](05_bag_of_word_cla.py)
+- [Implementation of TF-IDF](06_tf_idf.py)
+- [Implementation of Word Cloud](07_word_cloud.py)
+- [Implementation of Word Cloud with Custom Background](08_word_cloud.py)
 
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

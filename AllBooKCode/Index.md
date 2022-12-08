@@ -48,7 +48,15 @@
 - kd树实现与搜索`KDTree`
 - 从零实现KNN算法
 
-### [第六章：朴素贝叶斯算法](./Chapter06/README-zh-CN.md)
+### [第六章：文本特征提取与模型复用](Chapter06/README-zh-CN.md)
+
+- 分词`jieba`与词频统计`Counter`
+- 词袋模型`CountVectorizer`与TFIDF`TfidfTransformer`
+- 基于朴素贝叶斯的垃圾邮件分类模型
+- sklearn中模型的复用
+- 词云图`WordCloud`
+
+### [第七章：朴素贝叶斯算法](Chapter07/README-zh-CN.md)
 
 - 先验概率后验概率辨析
 - 朴素的含义
@@ -56,14 +64,6 @@
 - 从零实现`CategoricalNB`贝叶斯与`LabelBinarizer`
 - 从零实现`MultinomialNB`贝叶斯与`TfidfVectorizer`
 - 从零实现`GaussianNB`贝叶斯
-
-### [第七章：文本特征提取与模型复用](./Chapter07/README-zh-CN.md)
-
-- 分词`jieba`与词频统计`Counter`
-- 词袋模型`CountVectorizer`与TFIDF`TfidfTransformer`
-- 基于朴素贝叶斯的垃圾邮件分类模型
-- sklearn中模型的复用
-- 词云图`WordCloud`
 
 ### [第八章：决策树与集成模型](./Chapter08/README-zh-CN.md)
 
