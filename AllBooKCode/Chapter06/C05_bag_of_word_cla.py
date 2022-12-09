@@ -25,14 +25,26 @@ def get_dataset():
     return X_train, X_test, y_train, y_test
 
 
-def preprocessing(x, top_k_words=1000, MODEL_NAME='count_vec.pkl'):
-    count_vec = load_model(MODEL_NAME=MODEL_NAME)
-    if not count_vec:  # 模型不存在
+def preprocessing(x,
+                  train=False,
+                  top_k_words=1000,
+                  MODEL_NAME='count_vec.pkl'):
+    """
+    数据预处理
+    :param x: 原始数据
+    :param train: 训练或测试
+    :param top_k_words:  取前top_k_words词为词表
+    :param MODEL_NAME:   模型保存的名称
+    :return:
+    """
+    if train:
         count_vec = CountVectorizer(max_features=top_k_words)
         ## 考虑词频的词袋模型
         count_vec.fit(x)  # 重新训练
         # print(len(count_vec.vocabulary_)) # 输出词表长度
-        save_model(count_vec, MODEL_NAME='count_vec.pkl')
+        save_model(count_vec, MODEL_NAME=MODEL_NAME)
+    else:
+        count_vec = load_model(MODEL_NAME=MODEL_NAME)
     x = count_vec.transform(x)
     return x
 
@@ -40,20 +52,22 @@ def preprocessing(x, top_k_words=1000, MODEL_NAME='count_vec.pkl'):
 def save_model(model, dir='MODEL', MODEL_NAME='model.pkl'):
     if not os.path.exists(dir):
         os.mkdir(dir)
-    joblib.dump(model, os.path.join(dir, MODEL_NAME))
+    path = os.path.join(dir, MODEL_NAME)
+    joblib.dump(model,path )
+    print(f"模型: {path} 保存成功！")
 
 
 def load_model(dir='MODEL', MODEL_NAME='model.pkl'):
     path = os.path.join(dir, MODEL_NAME)
-    if os.path.exists(path):
-        print(f"载入已有模型: {path}")
-        model = joblib.load(path)
-        return model
-    return False
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path} 模型不存在，请先训练模型！")
+    model = joblib.load(path)
+    print(f"载入已有模型: {path}")
+    return model
 
 
 def train(X_train, y_train):
-    X_train = preprocessing(X_train)
+    X_train = preprocessing(X_train, train=True)
     model = KNeighborsClassifier(n_neighbors=3)
     model.fit(X_train, y_train)
     save_model(model, MODEL_NAME='KNN.pkl')
@@ -63,10 +77,10 @@ def train(X_train, y_train):
 
 
 def predict(X, MODEL_NAME='KNN.pkl'):
-    X_test = preprocessing(X)
+    X_test = preprocessing(X, train=False)
     model = load_model(MODEL_NAME=MODEL_NAME)
     if not model:
-        raise FileNotFoundError(f"模型 {MODEL_NAME} 不存在，请先执行 train() 训练模型！")
+        raise FileNotFoundError(f"模型 {MODEL_NAME} 不存在，请先训练模型！")
     y_pred = model.predict(X_test)
     return y_pred
 
