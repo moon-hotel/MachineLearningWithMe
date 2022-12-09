@@ -2,7 +2,7 @@
 
 ### [文本特征提取与模型复用 讲解](https://mp.weixin.qq.com/s/8D-GW8KCihbn5ePl5Ac2uw)
 
-- [分词与词频统计 代码](01_cut_words.py)
+- [分词与词频统计 代码](C01_cut_words.py)
 - [不考虑词频的文本向量化 代码](02_vectorization.py)
 - [虑词频的文本向量化 代码](03_vectorization_with_freq.py)
 - [Sklearn词袋模型 代码](04_bag_of_word.py)

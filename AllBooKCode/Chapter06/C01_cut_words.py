@@ -1,5 +1,12 @@
-from collections import Counter
+"""
+文件名: C01_cut_words.py
+创建时间:
+作者: @空字符
+公众号: @月来客栈
+知乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
 
+from collections import Counter
 import jieba
 import re
 
@@ -32,5 +39,5 @@ def wordsCount(s):
 
 if __name__ == '__main__':
     s = "央视网消息：当地时间11日，美国国会参议院以88票对11票的结果通过了一项动议，允许国会“在总统以国家安全为由决定征收关税时”发挥一定的限制作用。这项动议主要针对加征钢铝关税的232调查，目前尚不具有约束力。动议的主要发起者——共和党参议员鲍勃·科克说，11日的投票只是一小步，他会继续推动进行有约束力的投票。"
+    cutWords(s, cut_all=False)
     wordsCount(s)
-    # cutWords(s, cut_all=True)
