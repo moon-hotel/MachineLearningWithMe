@@ -79,15 +79,13 @@ def train(X_train, y_train):
 def predict(X, MODEL_NAME='KNN.pkl'):
     X_test = preprocessing(X, train=False)
     model = load_model(MODEL_NAME=MODEL_NAME)
-    if not model:
-        raise FileNotFoundError(f"模型 {MODEL_NAME} 不存在，请先训练模型！")
     y_pred = model.predict(X_test)
     return y_pred
 
 
 if __name__ == '__main__':
     X_train, X_test, y_train, y_test = get_dataset()
-    # train(X_train, y_train)
+    train(X_train, y_train)
     y_pred = predict(X_test)
     print("模型在测试集上的表现结果：")
     print(classification_report(y_test, y_pred))
