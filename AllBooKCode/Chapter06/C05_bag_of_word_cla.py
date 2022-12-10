@@ -7,6 +7,7 @@
 """
 
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report
@@ -38,8 +39,11 @@ def preprocessing(x,
     :return:
     """
     if train:
-        count_vec = CountVectorizer(max_features=top_k_words)
-        ## 考虑词频的词袋模型
+        # 仅考虑词频的词袋模型
+        # count_vec = CountVectorizer(max_features=top_k_words)
+        # 基于权重的词袋模型
+        count_vec = TfidfVectorizer(max_features=top_k_words)
+
         count_vec.fit(x)  # 重新训练
         # print(len(count_vec.vocabulary_)) # 输出词表长度
         save_model(count_vec, MODEL_NAME=MODEL_NAME)
@@ -53,7 +57,7 @@ def save_model(model, dir='MODEL', MODEL_NAME='model.pkl'):
     if not os.path.exists(dir):
         os.mkdir(dir)
     path = os.path.join(dir, MODEL_NAME)
-    joblib.dump(model,path )
+    joblib.dump(model, path)
     print(f"模型: {path} 保存成功！")
 
 
