@@ -7,6 +7,7 @@ vocabulary = ['this', 'document', 'first', 'is', 'second', 'the',
 
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 if __name__ == '__main__':
     count = CountVectorizer(vocabulary=vocabulary)
@@ -15,3 +16,7 @@ if __name__ == '__main__':
     tfidf_matrix = tfidf_trans.fit_transform(count_matrix)
     idf_vec = tfidf_trans.idf_
     print(tfidf_matrix.toarray())
+
+    print("\n\nTfidfVectorizer转换结果：")
+    tfidf = TfidfVectorizer(norm=None, vocabulary=vocabulary)
+    print(tfidf.fit_transform(corpus).toarray())
