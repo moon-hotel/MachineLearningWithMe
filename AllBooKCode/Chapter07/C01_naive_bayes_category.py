@@ -1,3 +1,10 @@
+"""
+文件名: AllBooKCode/Chapter07/C01_naive_bayes_category.py
+创建时间: 2022年
+作者: @空字符
+公众号: @月来客栈
+知乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import CategoricalNB
 from sklearn.preprocessing import LabelBinarizer
@@ -7,7 +14,7 @@ import numpy as np
 import sys
 
 sys.path.append('../')
-from utils import load_spam
+from utils import load_cut_spam
 from utils import VectWithoutFrequency
 
 
@@ -20,7 +27,7 @@ def load_simple_data():
 
 
 def load_data():
-    x, y = load_spam()
+    x, y = load_cut_spam()
     x_train, x_test, y_train, y_test \
         = train_test_split(x, y, test_size=0.3, random_state=2020)
     vect = VectWithoutFrequency(top_k_words=1000)
@@ -227,7 +234,7 @@ def test_spam_classification():
     model = MyCategoricalNB(alpha=1.0)
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
-    logging.info(f"My Bayes 运行结果：")
+    logging.info(f"MyCategoricalNB 运行结果：")
     logging.info(classification_report(y_test, y_pred))
 
     model = CategoricalNB()
