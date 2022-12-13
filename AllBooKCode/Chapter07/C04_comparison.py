@@ -1,3 +1,10 @@
+"""
+文件名: AllBooKCode/Chapter07/C04_comparison.py
+创建时间: 2022年
+作者: @空字符
+公众号: @月来客栈
+知乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
 from C01_naive_bayes_category import MyCategoricalNB
 from C02_naive_bayes_multinomial import MyMultinomialNB
 from C03_naive_bayes_gaussian import MyGaussianNB
@@ -9,15 +16,12 @@ import numpy as np
 import sys
 
 sys.path.append('../')
-from utils import load_spam
 from utils import load_cut_spam
 from utils import VectWithoutFrequency
 
 
 def make_dataset(feature_type='category', top_k_words=1000):
-    x_text, y = load_spam()
-    if feature_type == "counts" or feature_type == "tfidf":
-        x_text, y = load_cut_spam()
+    x_text, y = load_cut_spam()
     if feature_type == "category":
         vectorizer = VectWithoutFrequency(top_k_words=top_k_words)
     elif feature_type == "counts":
@@ -45,7 +49,7 @@ def comp_funcs(x_train, x_test, y_train, y_test, model_type):
         model = MyGaussianNB()
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
-    print(f"{model_type}模型准确率为:{accuracy_score(y_test, y_pred)}")
+    print(f"{model_type}模型在测试集上的准确率为:{accuracy_score(y_test, y_pred)}")
 
 
 def comparison(feature_type="category", top_k_words=1000, model_type="MyCategoricalNB"):

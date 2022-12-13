@@ -13,7 +13,7 @@ from utils import load_cut_spam
 
 class MyMultinomialNB(object):
 
-    def __init__(self, alpha=0):
+    def __init__(self, alpha=0.):
         self.alpha = alpha
         self._ALPHA_MIN = 1e-10
 
