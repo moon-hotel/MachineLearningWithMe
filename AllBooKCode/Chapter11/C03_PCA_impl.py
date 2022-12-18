@@ -1,3 +1,12 @@
+"""
+文件名: AllBooKCode/Chapter11/C03_PCA_impl.py
+创建时间: 2022/6/5
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
+
 from sklearn.decomposition import PCA
 from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier

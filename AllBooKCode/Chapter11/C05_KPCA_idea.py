@@ -1,3 +1,11 @@
+"""
+文件名: AllBooKCode/Chapter11/C05_KPCA_idea.py
+创建时间: 2022/8/14
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.datasets import make_circles
