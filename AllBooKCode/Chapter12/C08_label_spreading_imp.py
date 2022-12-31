@@ -1,5 +1,12 @@
+"""
+文件名: AllBooKCode/Chapter12/C08_label_spreading_imp.py
+创建时间:
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import logging
-from copy import deepcopy
 from scipy.sparse import csgraph
 from sklearn.metrics import accuracy_score
 from sklearn.metrics.pairwise import euclidean_distances
@@ -131,6 +138,8 @@ def test_label_spreading():
 
     logging.info(f"模型在训练集上的准确率为: {model.score(x_train, y_train)}")
     logging.info(f"模型在测试集上的准确率为: {model.score(x_test, y_test)}")
+    #- INFO: 模型在训练集上的准确率为: 0.863961813842482
+    #- INFO: 模型在测试集上的准确率为: 0.8444444444444444
 
 
 if __name__ == '__main__':

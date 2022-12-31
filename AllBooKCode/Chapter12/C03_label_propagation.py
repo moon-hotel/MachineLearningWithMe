@@ -1,3 +1,11 @@
+"""
+文件名: AllBooKCode/Chapter12/C03_label_propagation.py
+创建时间: 2022/6/22
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 from copy import deepcopy
 import numpy as np
 from sklearn.datasets import load_iris
@@ -19,7 +27,7 @@ def load_data():
 
 def test_label_propagation():
     x_train, x_test, y_train, y_test, y_mixed = load_data()
-    model = LabelPropagation(gamma=20,max_iter=1000)
+    model = LabelPropagation(gamma=20, max_iter=1000)
     model.fit(x_train, y_mixed)
     y_pred = model.predict(x_train)
     print(f"模型在训练集上的准确率为: {accuracy_score(y_pred, y_train)}")

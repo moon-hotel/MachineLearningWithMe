@@ -1,3 +1,11 @@
+"""
+文件名: AllBooKCode/Chapter12/C05_label_propagation_simple.py
+创建时间:
+作 者: @空字符
+公众号: @月来客栈
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+"""
+
 import logging
 from copy import deepcopy
 from sklearn.datasets import load_iris
