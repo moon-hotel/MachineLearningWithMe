@@ -16,5 +16,6 @@
 - [Using Label-spreading by Sklearn](C06_label_spreading.py)
 - [Comparison between Label-propagation and Label-spreading](C07_label_spreading_comp.py)
 - [Implementation of Label-spreading from Scratch](C08_label_spreading_imp.py)
+- [Implementation of Label-spreading from Scratch (Non-iterative Version)](C09_label_spreading_simple.py)
 
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)

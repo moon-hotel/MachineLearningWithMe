@@ -16,5 +16,6 @@
 - [label-spreading示例 代码](C06_label_spreading.py)
 - [label-propagation和label-spreading对比 代码](C07_label_spreading_comp.py)
 - [label-spreading从零实现 代码](C08_label_spreading_imp.py)
+- [label-spreading从零实现(论文中非迭代版本) 代码](C09_label_spreading_simple.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)
