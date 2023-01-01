@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
 sys.path.append('../')
-from utils import load_spam
+from utils import load_cut_spam
 from utils import VectWithoutFrequency
 
 
@@ -306,6 +306,15 @@ def load_simple_data():
     return x, y
 
 
+def test_compute():
+    x, y = load_simple_data()
+    dt = DecisionTree()
+    ety = dt._compute_entropy(y)
+    print(f"信息熵{ety}")
+    for i in range(x.shape[1]):
+        print(f"条件熵为{dt._compute_condition_entropy(x[:, i], y)}")
+
+
 def test_decision_tree():
     x, y = load_simple_data()
     dt = DecisionTree(criterion='c45')
@@ -319,7 +328,7 @@ def test_decision_tree():
 
 
 def load_data():
-    x, y = load_spam()
+    x, y = load_cut_spam()
     x_train, x_test, y_train, y_test \
         = train_test_split(x, y, test_size=0.3, random_state=2020)
     vect = VectWithoutFrequency(top_k_words=1000)
@@ -360,10 +369,11 @@ def test_decision_tree_pruning():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
-                        format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
+    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
+                        format=formatter,  # 关于Logging模块的详细使用可参加文章 https://mp.weixin.qq.com/s/cvO6hCiHMJqC4-4AuUlydw
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
+    test_compute()
     # test_decision_tree()
-    # test_spam_classification()  # Accuracy:  id3:0.9753  c45 0.975
-    test_decision_tree_pruning()
+    # test_spam_classification()  # Accuracy:  id3:0.977  c45 0.975
+    # test_decision_tree_pruning()
