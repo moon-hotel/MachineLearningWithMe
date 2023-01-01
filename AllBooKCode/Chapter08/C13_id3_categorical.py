@@ -117,7 +117,8 @@ class DecisionTree(object):
 
     def _split_criterion(self, ety, X_feature, y_class):
         c_ety = self._compute_condition_entropy(X_feature, y_class)  # 计算每个特征下的条件熵
-        logging.debug(f"当前节点下特征对应的条件熵为 {c_ety}")
+        logging.debug("")
+        logging.debug(f"【当前节点下特征对应的条件熵为 {c_ety}")
         info_gains = ety - c_ety  # 计算信息增益
         if self.criterion == "id3":
             return info_gains
@@ -134,14 +135,13 @@ class DecisionTree(object):
         :param f_ids: list 特征序号，用于在当前节点中保存特征集中还剩余哪些特征
         :return:
         """
-        x_ids = np.array(data[:, -1], dtype=np.int).reshape(-1)
+        x_ids = np.array(data[:, -1], dtype=int).reshape(-1)
         node = Node()
         node.sample_index = x_ids  # 当前节点所有样本的索引
         labels = self._y[x_ids]  # 当前节点所有样本对应的标签
         node.n_samples = len(labels)  # 当前节点的样本数量
         node.values = np.bincount(labels, minlength=self.n_classes)  # 当前节点每个类别的样本数
         node.features = f_ids  # 当前节点状态时特征集中剩余特征
-        logging.debug("========>")
         logging.debug(f"当前节点所有样本的索引 {node.sample_index}")
         logging.debug(f"当前节点的样本数量 {node.n_samples}")
         logging.debug(f"当前节点每个类别的样本数 {node.values}")
@@ -153,6 +153,7 @@ class DecisionTree(object):
         if y_unique.shape[0] == 1 or len(f_ids) < 1 \
                 or node.n_samples <= self.min_samples_split:  # 只有一个类别或特征集为空或样本数量少于min_samples_split
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
+            logging.debug(f"**当前节点满足停止条件，不再继续往下进行分裂，节点对应的类别为 {node.label}")
             return node
         ety = self._compute_entropy(labels)  # 计算当前节点所有样本对应的信息熵
         node.criterion_value = ety
@@ -161,12 +162,13 @@ class DecisionTree(object):
         best_feature_id = -1
         for id in f_ids:  # 根据划分标准（如信息增益）选择最佳特征
             criterion = self._split_criterion(ety, data[:, id], labels)
-            logging.debug(f"当前节点第{id}个特征在标准{self.criterion}下对应的划分指标为{criterion}")
+            logging.debug(f"当前节点第{id}个特征在标准{self.criterion}下对应的划分指标为{criterion}】")
             if criterion > max_criterion:  # 遍历选择最大指标（信息增益或信息增益比）
                 max_criterion = criterion
                 best_feature_id = id
         if max_criterion < self.epsilon:  # 最大指标小于设定阈值
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
+            logging.debug(f"**当前节点满足停止条件(最大指标小于设定阈值)，不再继续往下进行分裂，节点对应的类别为 {node.label}")
             return node
         node.feature_id = best_feature_id
         logging.debug(f"此时选择第{best_feature_id}个特征进行样本划分")
@@ -176,7 +178,9 @@ class DecisionTree(object):
         candidate_ids.remove(best_feature_id)  # 当前节点划分后的剩余特征集
 
         for f in feature_values:  # 依次遍历每个取值情况
-            logging.debug(f"正在遍历最佳特征（第{best_feature_id}个）的取值 {f}")
+            logging.debug("")
+            logging.debug("========>")
+            logging.debug(f"往下递归遍历最佳特征（第<{best_feature_id}>个）的取值 {f} 对应的子树")
             c = data[:, best_feature_id] == f  # 根据当前特征维度的取值，来判断对应的样本
             index = np.array([i for i in range(len(c)) if c[i] == True])  # 获取对应的索引
             node.children[f] = self._build_tree(data[index], candidate_ids)
@@ -317,7 +321,7 @@ def test_compute():
 
 def test_decision_tree():
     x, y = load_simple_data()
-    dt = DecisionTree(criterion='c45')
+    dt = DecisionTree(min_samples_split=1)
     dt.fit(x, y)
     dt.level_order()
     y_pred = dt.predict(np.array([['0', '0', 'T'],
@@ -369,11 +373,11 @@ def test_decision_tree_pruning():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
                         format=formatter,  # 关于Logging模块的详细使用可参加文章 https://mp.weixin.qq.com/s/cvO6hCiHMJqC4-4AuUlydw
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
     test_compute()
-    # test_decision_tree()
+    test_decision_tree()
     # test_spam_classification()  # Accuracy:  id3:0.977  c45 0.975
     # test_decision_tree_pruning()
