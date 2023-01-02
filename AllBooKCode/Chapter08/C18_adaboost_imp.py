@@ -2,7 +2,7 @@ import numpy as np
 import sys
 
 sys.path.append('../')
-from Chapter06.C02_naive_bayes_multinomial import MyMultinomialNB
+from Chapter07.C02_naive_bayes_multinomial import MyMultinomialNB
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.datasets import load_iris, load_breast_cancer
 from sklearn.metrics import accuracy_score
