@@ -236,7 +236,7 @@ class MyKDTree(object):
         return k_nearest_nodes
 
 
-class KNN():
+class MyKNN():
     def __init__(self, n_neighbors, p=2):
         """
         :param n_neighbors:
@@ -314,7 +314,7 @@ def test_kd_k_nearest_search(points):
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)]
@@ -322,6 +322,8 @@ if __name__ == '__main__':
     # 测试 MyKDTree
     # points = np.array(
     #     [[2, 5], [1, 4], [3, 3], [6, 5], [10, 2.], [7, 3], [8, 13], [8, 9], [1, 2]])
+    # points = np.array(
+    #     [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
     # test_kd_tree_build(points)
     # test_kd_nearest_search(points)
     # test_kd_k_nearest_search(points)
@@ -334,7 +336,7 @@ if __name__ == '__main__':
     y_pred = model.predict(x_test)
     logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
 
-    my_model = KNN(n_neighbors=k)
+    my_model = MyKNN(n_neighbors=k)
     my_model.fit(x_train, y_train)
     y_pred = my_model.predict(x_test)
     logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
