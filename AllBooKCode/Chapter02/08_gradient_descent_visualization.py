@@ -30,8 +30,8 @@ def gradient_descent():
 
 def plot_surface_and_jump_points(jump_points, costs):
     fig = plt.figure()
-    ax = Axes3D(fig)
-
+    ax = Axes3D(fig, auto_add_to_figure=False)
+    fig.add_axes(ax)
     w1 = np.arange(-4, 4, 0.25)
     w2 = np.arange(-4, 4, 0.25)
     w1, w2 = np.meshgrid(w1, w2)
