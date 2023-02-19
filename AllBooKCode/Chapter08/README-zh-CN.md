@@ -19,7 +19,7 @@
 
 - [从零实现ID3与C4.5算法](C13_id3_categorical.py)
 
-### 从零实现ID3与C4.5算法之连续型特征变量 讲解
+### [从零实现ID3与C4.5算法之连续型特征变量 讲解](https://mp.weixin.qq.com/s/FlryXoL0-ywH7QeZwRvAJQ)
 
 - [从零实现ID3与C4.5算法（连续型特征变量）](C14_id3_continuous.py)
 
@@ -27,11 +27,11 @@
 
 - [从零实现CART决策树算法](C15_cart_imp.py)
 
-### [从零实现AdaBoost算法 讲解]()
+### [从零实现AdaBoost算法 讲解](https://mp.weixin.qq.com/s/k1-NqKtS5C3vXPtPPFffSg)
 
 - [AdaBoost模拟实现 代码](C17_manual_adaboost.py)
 
-### 从零实现AdaBoost之SAMME 讲解
+### [从零实现AdaBoost之SAMME 讲解](https://mp.weixin.qq.com/s/T2easf4JZtHYE6Sdq5YqXQ)
 
 - [AdaBoost 模型误差与模型权重图 代码](C16_adaboost_plot.py)
 - [AdaBoost之SAMME算法实现 代码](C18_adaboost_imp.py)

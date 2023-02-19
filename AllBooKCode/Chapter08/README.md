@@ -19,7 +19,7 @@
 
 - [Implementation of ID3 and C4.5 from Scratch](C13_id3_categorical.py)
 
-### Introduction of ID3 and C4.5 Implementation for Continuous Variable from Scratch (in Chinese)
+### [Introduction of ID3 and C4.5 Implementation for Continuous Variable from Scratch (in Chinese)](https://mp.weixin.qq.com/s/FlryXoL0-ywH7QeZwRvAJQ)
 
 - [Implementation of ID3 and C4.5 from Scratch (Continuous Features)](C14_id3_continuous.py)
 
@@ -27,11 +27,11 @@
 
 - [Implementation of CART from Scratch](C15_cart_imp.py)
 
-### Understanding AdaBoost Algorithm from Scratch (in Chinese)
+### [Understanding AdaBoost Algorithm from Scratch (in Chinese)](https://mp.weixin.qq.com/s/k1-NqKtS5C3vXPtPPFffSg)
 
 - [Implementation of AdaBoost](C17_manual_adaboost.py)
 
-### [Understanding AdaBoost with SAMME (in Chinese)]()
+### [Understanding AdaBoost with SAMME (in Chinese)](https://mp.weixin.qq.com/s/T2easf4JZtHYE6Sdq5YqXQ)
 
 - [Model Error vs Model Weights in AdaBoost](C16_adaboost_plot.py)
 - [Implementation of AdaBoost with SAMME](C18_adaboost_imp.py)
