@@ -22,7 +22,12 @@ def InitialCentroid(x, K):
             dimension2 = np.power(subs, 2)
             dimension_s = np.sum(dimension2, axis=1)  # sum of each row
             d2.append(np.min(dimension_s))
-        new_c_idx = np.argmax(d2)
+        # ---- 直接选择概率值最大的 ------
+        # new_c_idx = np.argmax(d2)
+        # ---- 依照概率分布进行选择 -----
+        prob = np.array(d2) / np.sum(np.array(d2))
+        new_c_idx = np.random.choice(n, p=prob)
+
         centroid = np.vstack([centroid, x[new_c_idx]])
         k += 1
     return centroid
@@ -103,3 +108,14 @@ if __name__ == '__main__':
     nmi = normalized_mutual_info_score(y, y_pred)
     print("NMI by sklearn: ", nmi)
     print("centroids: ", model.cluster_centers_)
+
+#   NMI by ours:  0.9456935014894648
+# centroids:
+# [[3.79243249 1.00756396]
+#  [2.20105974 1.00882189]
+#  [2.99200232 2.81003461]]
+# NMI by sklearn:  0.9456935014894648
+# centroids:
+# [[2.99200232 2.81003461]
+#  [2.20105974 1.00882189]
+#  [3.79243249 1.00756396]]
