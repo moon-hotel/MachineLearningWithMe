@@ -75,20 +75,20 @@ def clip_alpha_2(alpha_2, H, L):
     return alpha_2
 
 
-def compute_alpha_1(alpha_1, y_1, y_2, alpha_2, alpha_old_2):
-    return alpha_1 + y_1 * y_2 * (alpha_old_2 - alpha_2)
+def compute_alpha_1(alpha_1, y_1, y_2, alpha_2, alpha_2_old):
+    return alpha_1 + y_1 * y_2 * (alpha_2_old - alpha_2)
 
 
-def compute_b1(b, E_1, y_1, alpha_1, alpha_old_1,
+def compute_b1(b, E_1, y_1, alpha_1, alpha_1_old,
                x_1, y_2, alpha_2, alpha_2_old, x_2, kernel):
-    p1 = b - E_1 - y_1 * (alpha_1 - alpha_old_1) * kernel(x_1, x_1)
+    p1 = b - E_1 - y_1 * (alpha_1 - alpha_1_old) * kernel(x_1, x_1)
     p2 = y_2 * (alpha_2 - alpha_2_old) * kernel(x_1, x_2)
     return p1 - p2
 
 
-def compute_b2(b, E_2, y_1, alpha_1, alpha_old_1,
+def compute_b2(b, E_2, y_1, alpha_1, alpha_1_old,
                x_1, x_2, y_2, alpha_2, alpha_2_old, kernel):
-    p1 = b - E_2 - y_1 * (alpha_1 - alpha_old_1) * kernel(x_1, x_2)
+    p1 = b - E_2 - y_1 * (alpha_1 - alpha_1_old) * kernel(x_1, x_2)
     p2 = y_2 * (alpha_2 - alpha_2_old) * kernel(x_2, x_2)
     return p1 - p2
 
