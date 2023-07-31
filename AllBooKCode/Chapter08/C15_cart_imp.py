@@ -199,7 +199,7 @@ class MyCART(object):
         left_data = data[split_sample_idx]
         right_data = data[~split_sample_idx]
         candidate_ids = deepcopy(f_ids)
-        candidate_ids.remove(best_feature_id)  # 当前节点划分后的剩余特征集
+        candidate_ids.remove(best_feature_id)  # 当前节点划分后的剩余特征集，同一个子树中特征只会用到一次。
         if len(left_data) > 0:
             node.left_child = self._build_tree(left_data, candidate_ids)  # 递归构建决策树
         if len(right_data) > 0:

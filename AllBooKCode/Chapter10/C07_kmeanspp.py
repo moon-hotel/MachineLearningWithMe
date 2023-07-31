@@ -22,9 +22,9 @@ def InitialCentroid(x, K):
             dimension2 = np.power(subs, 2)
             dimension_s = np.sum(dimension2, axis=1)  # sum of each row
             d2.append(np.min(dimension_s))
-        # ---- 直接选择概率值最大的 ------
+        # ---- 直接选择距离最远（概率值最大）的 ------
         # new_c_idx = np.argmax(d2)
-        # ---- 依照概率分布进行选择 -----
+        # ---- 依照概率分布进行选择，距离越远越有可能被选中 -----
         prob = np.array(d2) / np.sum(np.array(d2))
         new_c_idx = np.random.choice(n, p=prob)
 
