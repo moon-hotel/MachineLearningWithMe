@@ -65,12 +65,12 @@
 - [8.5 从零实现ID3与C4.5决策树算法](https://mp.weixin.qq.com/s/jMtWMEWpaMP4r4VQ9oC9gg)
 - [8.6 连续型特征变量下决策树实现](https://mp.weixin.qq.com/s/Tc24Af82DiHWRKoq6_nVDw)
 - [8.7 CART生成与剪枝算法](https://mp.weixin.qq.com/s/gLERnh5hSIuVvLclrkeU9w)
-- 8.8 从零实现CART决策树算法 
-- 8.9 集成学习
-- 8.10 随机森林
-- 8.11 泰坦尼克号生还预测
-- 8.12 AdaBoost原理与实现
-- 8.13 MultiAdaboost原理与实现
+- [8.8 从零实现CART决策树算法](https://mp.weixin.qq.com/s/tUlPRL7SXJoJ3X4TWTwEjA) 
+- [8.9 集成学习](https://mp.weixin.qq.com/s/QXbZhNkRQ-6j3-2hewQPLg)
+- [8.10 随机森林](https://mp.weixin.qq.com/s/2eeYr0zg9J96Potrbm4QXw)
+- [8.11 泰坦尼克号生还预测](https://mp.weixin.qq.com/s/J86WdaOLT5FPfWgIdZmgyg)
+- [8.12 AdaBoost原理与实现](https://mp.weixin.qq.com/s/IpqTNE-Kmj8vTgRJxMKgiA)
+- [8.13 MultiAdaboost原理与实现](https://mp.weixin.qq.com/s/mffoOPBbJhZZWYDLlh06kQ)
 - 8.14 GradientBoosted原理与实现
 ### 第 9 章 支持向量机
 - 9.1 SVM思想
