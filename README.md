@@ -71,11 +71,11 @@
 - [8.11 泰坦尼克号生还预测](https://mp.weixin.qq.com/s/J86WdaOLT5FPfWgIdZmgyg)
 - [8.12 AdaBoost原理与实现](https://mp.weixin.qq.com/s/IpqTNE-Kmj8vTgRJxMKgiA)
 - [8.13 MultiAdaboost原理与实现](https://mp.weixin.qq.com/s/mffoOPBbJhZZWYDLlh06kQ)
-- 8.14 GradientBoosted原理与实现
+- [8.14 GradientBoosted原理与实现](https://mp.weixin.qq.com/s/AkTBLjKTbN2CpsxHBZ4b4Q)
 ### 第 9 章 支持向量机
-- 9.1 SVM思想
-- 9.2 SVM原理
-- 9.3 SVM示例代码与线性不可分
+- [9.1 SVM思想](https://mp.weixin.qq.com/s/y32JcZNpyyznNunnVL1Itg)
+- [9.2 SVM原理](https://mp.weixin.qq.com/s/Rwnun50MZ4g12gDH2HqdmA)
+- [9.3 SVM示例代码与线性不可分](https://mp.weixin.qq.com/s/DC3VXt-MaKnf-1XMYQZ3Qw)
 - 9.4 SVM中的软间隔
 - 9.5 拉格朗日乘数法
 - 9.6 对偶性与KKT条件
