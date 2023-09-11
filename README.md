@@ -76,10 +76,10 @@
 - [9.1 SVM思想](https://mp.weixin.qq.com/s/y32JcZNpyyznNunnVL1Itg)
 - [9.2 SVM原理](https://mp.weixin.qq.com/s/Rwnun50MZ4g12gDH2HqdmA)
 - [9.3 SVM示例代码与线性不可分](https://mp.weixin.qq.com/s/DC3VXt-MaKnf-1XMYQZ3Qw)
-- 9.4 SVM中的软间隔
-- 9.5 拉格朗日乘数法
-- 9.6 对偶性与KKT条件
-- 9.7 SVM优化问题
+- [9.4 SVM中的软间隔](https://mp.weixin.qq.com/s/NErokG77l13WVZ1M0cqA7A)
+- [9.5 拉格朗日乘数法](https://mp.weixin.qq.com/s/Wz6ShRfv3wBjQm0-VrNCfw)
+- [9.6 对偶性与KKT条件](https://mp.weixin.qq.com/s/ySwSQMilM87eJpP1-YCcpQ)
+- [9.7 SVM优化问题](https://mp.weixin.qq.com/s/aZlUQzRDEn0MF-uDfNdQEw)
 - 9.8 SMO算法
 - 9.9 从零实现SVM分类算法
 ### 第 10 章 聚类
