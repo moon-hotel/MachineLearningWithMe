@@ -80,16 +80,16 @@
 - [9.5 拉格朗日乘数法](https://mp.weixin.qq.com/s/Wz6ShRfv3wBjQm0-VrNCfw)
 - [9.6 对偶性与KKT条件](https://mp.weixin.qq.com/s/ySwSQMilM87eJpP1-YCcpQ)
 - [9.7 SVM优化问题](https://mp.weixin.qq.com/s/aZlUQzRDEn0MF-uDfNdQEw)
-- 9.8 SMO算法
-- 9.9 从零实现SVM分类算法
+- [9.8 SMO算法](https://mp.weixin.qq.com/s/k9hRy2sWSCnx96xSmmA3pw)
+- [9.9 从零实现SVM分类算法](https://mp.weixin.qq.com/s/BVTin_QQ1F8cPJIfPdLyRA)
 ### 第 10 章 聚类
-- 10.1 聚类算法的思想
-- 10.2 kmeans聚类算法
-- 10.3 kmeans算法求解
-- 10.4 从零实现kmeans聚类算法
-- 10.5 kmeans++聚类算法
-- 10.6 聚类外部评估指标
-- 10.7 加权kmeans聚类算法
+- [10.1 聚类算法的思想](https://mp.weixin.qq.com/s/PtfLLZ5dJDRO_8Cj_w8nKg)
+- [10.2 kmeans聚类算法](https://mp.weixin.qq.com/s/Yq1J0rOeRZ1YycOWdTbt7w)
+- [10.3 kmeans算法求解](https://mp.weixin.qq.com/s/jEL0IbuPGmFrWJT_ZQEF4g)
+- [10.4 从零实现kmeans聚类算法](https://mp.weixin.qq.com/s/p4ffRc7sI7zSfKoh6j1qLA)
+- [10.5 kmeans++聚类算法](https://mp.weixin.qq.com/s/mEQ0XuEshtsKAHP1pB3SzA)
+- [10.6 聚类外部评估指标](https://mp.weixin.qq.com/s/cvlQv71ZK5SqsUbtBgl_2A)
+- [10.7 加权kmeans聚类算法](https://mp.weixin.qq.com/s/CwLQooEzS3mXfDex-ADfaA)
 - 10.8 聚类内部评估指标
 - 10.9 聚类K值选取与分析
 - 10.10 基于密度的聚类
