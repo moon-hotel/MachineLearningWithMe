@@ -90,14 +90,14 @@
 - [10.5 kmeans++聚类算法](https://mp.weixin.qq.com/s/mEQ0XuEshtsKAHP1pB3SzA)
 - [10.6 聚类外部评估指标](https://mp.weixin.qq.com/s/cvlQv71ZK5SqsUbtBgl_2A)
 - [10.7 加权kmeans聚类算法](https://mp.weixin.qq.com/s/CwLQooEzS3mXfDex-ADfaA)
-- 10.8 聚类内部评估指标
-- 10.9 聚类K值选取与分析
-- 10.10 基于密度的聚类
-- 10.11 基于层次的聚类
+- [10.8 聚类内部评估指标](https://mp.weixin.qq.com/s/HBuC6-QNckcxkfO0zSl5kQ)
+- [10.9 聚类K值选取与分析](https://mp.weixin.qq.com/s/5oZWI7c-AxiDIgkIuAxdfw)
+- [10.10 基于密度的聚类](https://mp.weixin.qq.com/s/QXa46c_i9Q6gccsZZJUaaQ)
+- [10.11 基于层次的聚类](https://mp.weixin.qq.com/s/REYcLu9bk9qzvN160WG_8g)
 ### 第 11 章 降维算法
-- 11.1 主成分分析
-- 11.2 基于核方法的主成分分析
+- [11.1 主成分分析](https://mp.weixin.qq.com/s/9t5nSSUOeri6CiQu7CIxWQ)
+- [11.2 基于核方法的主成分分析](https://mp.weixin.qq.com/s/UFX6J99wzyNKr_mglR5d1g)
 ### 第 12 章 自训练与标签传播算法
-- 12.1 Self-training自训练算法
-- 12.2 Label Propagation标签传播算法
-- 12.3 Label Spreading标签传播算法
+- [12.1 Self-training自训练算法](https://mp.weixin.qq.com/s/k0hMuW9NkpPnalstVoTPLA)
+- [12.2 Label Propagation标签传播算法](https://mp.weixin.qq.com/s/FQNt9mhkzmMZNqVgp_L6KQ)
+- [12.3 Label Spreading标签传播算法](https://mp.weixin.qq.com/s/XZ3-DogVO0HRE2eXQnLm4Q)
