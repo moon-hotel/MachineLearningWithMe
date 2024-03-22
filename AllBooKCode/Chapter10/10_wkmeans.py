@@ -91,3 +91,6 @@ if __name__ == '__main__':
     y_pred = wkmeans(x_noise, 3, belta=3)
     ARI = adjusted_rand_score(y, y_pred)
     print("ARI with noise : ", ARI)
+
+    # ARI without noise:  0.9123928340359085
+    # ARI with noise :  0.9024712598542746

@@ -8,7 +8,7 @@ def load_data():
     data = load_iris()
     x, y = data.data, data.target
     x_train, x_test, y_train, y_test \
-        = train_test_split(x, y, test_size=0.3,random_state=10)
+        = train_test_split(x, y, test_size=0.3, random_state=10)
     return x_train, x_test, y_train, y_test
 
 

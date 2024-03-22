@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from collections import Counter
 import jieba
 import re
-from PIL import Image
 import numpy as np
 
 

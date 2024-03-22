@@ -9,6 +9,7 @@ import numpy as np
 import sys
 import logging
 import time
+
 sys.path.append('../')
 from Chapter05.C05_knn_imp import MyKDTree
 

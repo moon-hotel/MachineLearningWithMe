@@ -1,4 +1,4 @@
-from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 from sklearn.linear_model import LinearRegression
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ def standarlization(X):
 
 
 def load_data(standarlized=True):
-    data = load_boston()
+    data = fetch_california_housing()
     X = data.data
     y = data.target.reshape(-1, 1)
     if standarlized:

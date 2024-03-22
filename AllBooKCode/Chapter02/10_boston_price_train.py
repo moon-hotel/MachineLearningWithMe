@@ -1,4 +1,4 @@
-from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 from sklearn.linear_model import LinearRegression
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ def feature_scalling(X):
 
 
 def load_data():
-    data = load_boston()
+    data = fetch_california_housing()
     X = data.data
     y = data.target.reshape(-1, 1)
     X = feature_scalling(X)
@@ -70,10 +70,10 @@ if __name__ == '__main__':
     costs = train(x, y)
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
-    plt.plot(range(len(costs)), costs, label='损失值',c='black')
+    plt.plot(range(len(costs)), costs, label='损失值', c='black')
     # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.legend(fontsize=15)
-    plt.xlabel('迭代次数',fontsize=15)
+    plt.xlabel('迭代次数', fontsize=15)
     plt.tight_layout()  # 调整子图间距
     plt.show()

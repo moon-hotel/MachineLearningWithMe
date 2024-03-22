@@ -16,11 +16,11 @@ def load_data():
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data()
     dt = DecisionTreeClassifier()
-    paras = {"base_estimator__criterion": ['gini', 'entropy'],
-             "base_estimator__max_depth": [1, 2],#  base_estimator__ 来索引基模型中的各个参数
+    paras = {"estimator__criterion": ['gini', 'entropy'],
+             "estimator__max_depth": [1, 2],  # estimator__ 来索引基模型中的各个参数
              "n_estimators": [20, 30, 50, 100]}
 
-    ada = AdaBoostClassifier(base_estimator=dt)
+    ada = AdaBoostClassifier(estimator=dt)
     gs = GridSearchCV(ada, paras, verbose=2, cv=3)
     gs.fit(x_train, y_train)
     print('最佳模型:', gs.best_params_, '准确率：', gs.best_score_)

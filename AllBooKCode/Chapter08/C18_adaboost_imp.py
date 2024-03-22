@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # print(clf.estimator_weights_)
     # print(clf.estimator_errors_)
 
-    clf = AdaBoostClassifier(base_estimator=MultinomialNB(), n_estimators=10, algorithm='SAMME')
+    clf = AdaBoostClassifier(estimator=MultinomialNB(), n_estimators=10, algorithm='SAMME')
     clf.fit(x_train, y_train)
     print(accuracy_score(y_test, clf.predict(x_test)))
     # print(clf.estimator_weights_)

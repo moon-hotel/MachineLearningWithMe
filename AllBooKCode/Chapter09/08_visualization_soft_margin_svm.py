@@ -27,9 +27,9 @@ def decision_boundary():
         data.append(X[index, :])
 
     plt.subplot(1, 3, 1)
-    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1)
     clf.fit(X, y)
     Z4 = clf.decision_function(xy).reshape(XX.shape)
@@ -52,9 +52,9 @@ def decision_boundary():
     plt.subplot(1, 3, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired) # 彩色
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40) # 彩色
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(X, y)
     Z4 = clf.decision_function(xy).reshape(XX.shape)
@@ -66,9 +66,9 @@ def decision_boundary():
     plt.subplot(1, 3, 3)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1)
     clf.fit(X, y)
     Z4 = clf.decision_function(xy).reshape(XX.shape)

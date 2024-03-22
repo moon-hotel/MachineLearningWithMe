@@ -2,7 +2,8 @@ import numpy as np
 import random
 from sklearn.datasets import make_blobs
 import matplotlib.pyplot as plt
-np.random.seed(55)#10
+
+np.random.seed(55)  # 10
 
 
 def InitCentroids(X, K):
@@ -58,7 +59,7 @@ def kmeans(X, idx, K):
             plt.scatter(centroids[0, 0], centroids[0, 1], c='black', s=50)
             plt.scatter(centroids[1, 0], centroids[1, 1], c='black', s=50)
             plt.scatter(centroids[2, 0], centroids[2, 1], c='black', s=50)
-            plt.xlabel("iter = {}".format(fig_idx-1),fontsize=15)
+            plt.xlabel("iter = {}".format(fig_idx - 1), fontsize=15)
             fig_idx += 1
             plt.xticks([])
             plt.yticks([])

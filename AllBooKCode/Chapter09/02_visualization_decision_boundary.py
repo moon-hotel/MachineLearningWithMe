@@ -18,7 +18,6 @@ def decision_boundary():
     YY, XX = np.meshgrid(yy, xx)
     xy = np.vstack([XX.ravel(), YY.ravel()]).T
 
-
     data = []
     for i in range(len(X)):
         index = np.where(y == i)[0]
@@ -26,8 +25,8 @@ def decision_boundary():
     plt.figure(figsize=(6, 6), dpi=80)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.scatter(data[0][:, 0], data[0][:, 1],  marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1],  marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
 
     clf = LogisticRegression()
     clf.fit(X, y)

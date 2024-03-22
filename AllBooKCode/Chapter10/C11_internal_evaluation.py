@@ -104,3 +104,10 @@ if __name__ == '__main__':
     test_silhouette_score()
     test_calinski_harabasz_score()
     test_davies_bouldin_score()
+
+    # 轮廓系数 by sklearn: 0.5528190123564095
+    # 轮廓系数 by ours: 0.5528190123564101
+    # 方差比 by sklearn: 561.5937320156642
+    # 方差比 by ours: 561.5937320156642
+    # db_score by sklearn: 0.6660385791628493
+    # db_score by ours: 0.6660385791628493

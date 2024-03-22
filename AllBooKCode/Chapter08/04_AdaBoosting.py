@@ -15,6 +15,6 @@ def load_data():
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data()
     dt = DecisionTreeClassifier(criterion='gini', max_features=4, max_depth=1)
-    model = AdaBoostClassifier(base_estimator=dt, n_estimators=100)
+    model = AdaBoostClassifier(estimator=dt, n_estimators=100)
     model.fit(x_train, y_train)
     print("模型在测试集上的准确率为：", model.score(x_test, y_test))

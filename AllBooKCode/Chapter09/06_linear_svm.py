@@ -24,3 +24,20 @@ def train(x_train, x_test, y_train, y_test):
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data()
     train(x_train, x_test, y_train, y_test)
+    # 准确率为：0.975925925925926
+    #               precision    recall  f1-score   support
+    #
+    #            0       1.00      1.00      1.00        50
+    #            1       0.96      0.98      0.97        56
+    #            2       1.00      1.00      1.00        44
+    #            3       1.00      0.95      0.98        63
+    #            4       1.00      1.00      1.00        60
+    #            5       0.94      0.98      0.96        51
+    #            6       1.00      0.97      0.98        59
+    #            7       0.96      0.98      0.97        53
+    #            8       0.94      0.98      0.96        52
+    #            9       0.94      0.92      0.93        52
+    #
+    #     accuracy                           0.98       540
+    #    macro avg       0.98      0.98      0.98       540
+    # weighted avg       0.98      0.98      0.98       540

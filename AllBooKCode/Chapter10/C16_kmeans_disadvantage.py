@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 def test_moon_circle():
-    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022,factor=0.5)
+    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022, factor=0.5)
     plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
     plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.7)
@@ -23,7 +23,7 @@ def test_moon_circle():
 
 
 def test_circle():
-    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022,factor=0.5)
+    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022, factor=0.5)
     model = KMeans(n_clusters=2)
     model.fit(X)
     y_pred = model.predict(X)
@@ -61,8 +61,9 @@ def test_moon():
     plt.tight_layout()
     plt.show()
 
+
 def test_moon_circle_cluster():
-    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022,factor=0.5)
+    X, y = make_circles(n_samples=700, noise=0.05, random_state=2022, factor=0.5)
     model = KMeans(n_clusters=2)
     model.fit(X)
     y_pred = model.predict(X)
@@ -83,6 +84,8 @@ def test_moon_circle_cluster():
     plt.yticks([])
     plt.tight_layout()
     plt.show()
+
+
 if __name__ == '__main__':
     test_moon_circle()
     test_circle()

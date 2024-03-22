@@ -39,3 +39,6 @@ def test_self_training():
 
 if __name__ == '__main__':
     test_self_training()
+
+    # 一共有27个样本无标签.
+    # 模型在测试集上的准确率为: 0.9777777777777777

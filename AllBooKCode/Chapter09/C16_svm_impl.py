@@ -292,3 +292,7 @@ def test_iris_classification():
 if __name__ == '__main__':
     test_simple_binary_classification()
     test_iris_classification()
+
+    # [0 1]
+    # 手动实现准确率： 0.9777777777777777
+    # sklean上准确率： 0.9777777777777777

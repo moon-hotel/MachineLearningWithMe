@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.metrics import plot_precision_recall_curve
+from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import precision_score, recall_score
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
@@ -67,6 +67,7 @@ if __name__ == '__main__':
     plt.legend(loc="lower left")
     plt.xlabel("Recall (Positive label: 1)")
     plt.ylabel("Precision (Positive label: 1)")
-    # 通过sklear方法进行绘制
-    plot_precision_recall_curve(model, x_test, y_test)
+    # 也可以通过sklear方法进行计算绘制
+    # precision, recall, _ = precision_recall_curve(y_test, y_scores[:, 1])
+    # plt.plot(recall, precision, drawstyle="steps-post", label=f'LogisticRegression (AP={ap})')
     plt.show()

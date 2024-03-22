@@ -124,8 +124,9 @@ def test_label_spreading():
 
     logging.info(f"模型在训练集上的准确率为: {model.score(x_train, y_train)}")
     logging.info(f"模型在测试集上的准确率为: {model.score(x_test, y_test)}")
-    #- INFO: 模型在训练集上的准确率为: 0.8655529037390612
-    #- INFO: 模型在测试集上的准确率为: 0.8444444444444444
+    # - INFO: 模型在训练集上的准确率为: 0.8655529037390612
+    # - INFO: 模型在测试集上的准确率为: 0.8444444444444444
+
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
@@ -133,4 +134,3 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S', )
     test_label_spreading()
-

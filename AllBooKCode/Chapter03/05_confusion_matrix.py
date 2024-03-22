@@ -1,4 +1,4 @@
-from sklearn.metrics import  classification_report
+from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 import numpy as np
@@ -10,9 +10,6 @@ def load_data():
     data = load_breast_cancer()
     x, y = data.data, data.target
     return x, y
-
-
-
 
 
 def get_acc_rec_pre_f(y_true, y_pred, beta=1.0):

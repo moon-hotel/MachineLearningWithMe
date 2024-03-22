@@ -26,8 +26,8 @@ def decision_boundary():
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.subplot(1, 2, 1)
     # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = LogisticRegression()
     clf.fit(X, y)
     Z1 = clf.decision_function(xy).reshape(XX.shape)
@@ -38,8 +38,8 @@ def decision_boundary():
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(X, y)
     Z4 = clf.decision_function(xy).reshape(XX.shape)

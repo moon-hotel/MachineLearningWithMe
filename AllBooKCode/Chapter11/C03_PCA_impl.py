@@ -6,7 +6,6 @@
 知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
 """
 
-
 from sklearn.decomposition import PCA
 from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier
@@ -72,3 +71,6 @@ def test_PCA():
 
 if __name__ == '__main__':
     test_PCA()
+
+    # MyPCA降维后的准确率为：0.9777777777777777，形状为(105, 3)
+    # PCA降维后的准确率为：0.9555555555555556，形状为(105, 3)

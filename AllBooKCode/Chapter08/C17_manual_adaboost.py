@@ -76,3 +76,48 @@ if __name__ == '__main__':
     y_pred = predict(estimator_weights, y_predicts)
     print("预测结果：", y_pred)
     print("AdaBoost准确率:", np.average(y == y_pred))
+
+    # 正确标签:  [0 1 1 0 1 0 1 1 0 0]
+    # estimator: 0
+    # sample_weight:  [0.1 0.1 0.1 0.4 0.4 0.1 0.1 0.1 0.1 0.1]
+    # y_predict:  [0 1 1 1 0 0 1 1 0 0]
+    # estimator_error:  0.2
+    # estimator_weight:  1.3862943611198906
+    # accuracy: 0.8
+    # I(*) incorrect:  [False False False  True  True False False False False False]
+    # ====================
+    # estimator: 1
+    # sample_weight:  [0.1 0.1 0.1 0.4 0.4 0.1 0.1 0.7 0.1 0.7]
+    # y_predict:  [0 1 1 0 1 0 1 0 0 1]
+    # estimator_error:  0.125
+    # estimator_weight:  1.9459101490553132
+    # accuracy: 0.8
+    # I(*) incorrect:  [False False False False False False False  True False  True]
+    # ====================
+    # estimator: 2
+    # sample_weight:  [0.1   0.1   0.133 0.4   0.533 0.1   0.1   0.933 0.1   0.7  ]
+    # y_predict:  [0 1 0 0 0 0 1 0 0 0]
+    # estimator_error:  0.42857142857142866
+    # estimator_weight:  0.2876820724517807
+    # accuracy: 0.7
+    # I(*) incorrect:  [False False  True False  True False False  True False False]
+    # ====================
+    # estimator: 3
+    # sample_weight:  [0.1   0.153 0.204 0.4   0.533 0.1   0.153 1.425 0.1   0.7  ]
+    # y_predict:  [0 0 0 0 1 0 0 0 0 0]
+    # estimator_error:  0.3958333333333333
+    # estimator_weight:  0.42285685082003377
+    # accuracy: 0.6
+    # I(*) incorrect:  [False  True  True False False False  True  True False False]
+    # ====================
+    # estimator_weights: [1.386 1.946 0.288 0.423]
+    # 每个分类器的预测结果:
+    #  [[0 1 1 1 0 0 1 1 0 0]
+    #  [0 1 1 0 1 0 1 0 0 1]
+    #  [0 1 0 0 0 0 1 0 0 0]
+    #  [0 0 0 0 1 0 0 0 0 0]]
+    # 计算分类概率值:
+    #  [[4.043 0.423 0.711 2.656 1.674 4.043 0.423 2.656 4.043 2.097]
+    #  [0.    3.62  3.332 1.386 2.369 0.    3.62  1.386 0.    1.946]]
+    # 预测结果： [0 1 1 0 1 0 1 0 0 0]
+    # AdaBoost准确率: 0.9

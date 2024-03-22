@@ -99,7 +99,7 @@ def test_naive_bayes():
     model = GaussianNB()
     model.fit(x, y)
     logging.debug(f"\n期望mu = {model.theta_}")
-    logging.debug(f"\n方差sigma = {model.sigma_}")
+    logging.debug(f"\n方差sigma = {model.var_}")
     logging.debug(f"\n先验概率 = {model.class_prior_}")
     logging.debug(f"\nlog先验概率 = {np.log(model.class_prior_)}")
     logging.info(f"预测结果: {model.predict(np.array([[0.5, 0.12, 0.218]]))}")
@@ -107,7 +107,7 @@ def test_naive_bayes():
 
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
-    logging.basicConfig(level=logging.INFO,  # 如果需要查看简略信息可将该参数改为logging.INFO
+    logging.basicConfig(level=logging.DEBUG,  # 如果需要查看简略信息可将该参数改为logging.INFO
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])

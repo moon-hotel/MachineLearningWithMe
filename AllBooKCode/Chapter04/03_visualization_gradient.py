@@ -28,7 +28,7 @@ def plot_countour():
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 1)
     J = W1 ** 2 + W2 ** 2
-    CS = plt.contour(W1, W2, J, 10,colors = 'black')
+    CS = plt.contour(W1, W2, J, 10, colors='black')
     plt.clabel(CS, inline=2, fontsize=12)
     plt.scatter(0, 0, s=80, c='black')
     plt.xlabel(r'$w_1$', fontsize=15)
@@ -46,14 +46,14 @@ def plot_countour():
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 2)
     J = (1 / 6) * W1 ** 2 + W2 ** 2
-    CS = plt.contour(W1, W2, J, 16,colors='black')
+    CS = plt.contour(W1, W2, J, 16, colors='black')
     plt.clabel(CS, inline=2, fontsize=10)
     plt.scatter(0, 0, s=80, c='black')
     plt.xlabel(r'$w_1$', fontsize=15)
     plt.ylabel(r'$w_2$', fontsize=15)
 
     p = np.array([-3.5, 3.5])  # 起始位置
-    plt.scatter(p[0], p[1],c='black')
+    plt.scatter(p[0], p[1], c='black')
     for i in range(40):  # 梯度反方向，最速下降曲线
         q = f_grad2(p[0], p[1])
         print("P{}:{}".format(i, p))

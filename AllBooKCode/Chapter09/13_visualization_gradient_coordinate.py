@@ -38,7 +38,7 @@ def plot_countour():
         plt.arrow(p[0], p[1], q[0] - p[0], 0., head_width=0.1, head_length=0.1, )
         p[0] = q[0]
 
-        q[1] = (1 / 9.) * (p[0] -4.)
+        q[1] = (1 / 9.) * (p[0] - 4.)
         plt.arrow(p[0], p[1], 0., q[1] - p[1], head_width=0.1, head_length=0.1, )
         p[1] = q[1]
 
@@ -57,4 +57,4 @@ def plot_countour():
 
 if __name__ == '__main__':
     plot_countour()
-    print(cost(5/17,-7/17))
+    print(cost(5 / 17, -7 / 17))

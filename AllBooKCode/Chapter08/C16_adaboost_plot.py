@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def f(x):
-    return np.log((1 - x) / x)
+    return np.log((1 - x) / (x + 1e-5))
 
 
 if __name__ == '__main__':

@@ -35,3 +35,7 @@ def test_label_spreding():
 
 if __name__ == '__main__':
     test_label_spreding()
+
+    # Label Spreading
+    # 训练集上的准确率为：0.9714285714285714
+    # 测试集上的准确率为：1.0

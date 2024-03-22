@@ -10,7 +10,7 @@ def visualization():
     for i in range(len(centers)):
         index = np.where(y == i)[0]
         cluster = x[index, :]
-        plt.scatter(cluster[:, 0], cluster[:, 1], s=60, marker=markers[i], cmap=plt.cm.Paired)
+        plt.scatter(cluster[:, 0], cluster[:, 1], s=60, marker=markers[i])
     plt.xticks([])
     plt.yticks([])
     plt.show()

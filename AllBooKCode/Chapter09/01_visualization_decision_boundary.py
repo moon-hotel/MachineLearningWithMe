@@ -27,8 +27,8 @@ def decision_boundary():
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.subplot(2, 2, 1)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = LogisticRegression()
     clf.fit(X, y)
     Z = clf.predict(xy).reshape(XX.shape)
@@ -39,8 +39,8 @@ def decision_boundary():
     plt.subplot(2, 2, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = GaussianNB()
     clf.fit(X, y)
     Z = clf.predict(xy).reshape(XX.shape)
@@ -54,8 +54,8 @@ def decision_boundary():
     plt.subplot(2, 2, 3)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = DecisionTreeClassifier()
     clf.fit(X, y)
     Z = clf.predict(xy).reshape(XX.shape)
@@ -66,8 +66,8 @@ def decision_boundary():
     plt.subplot(2, 2, 4)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(X, y)
     # plot the decision function

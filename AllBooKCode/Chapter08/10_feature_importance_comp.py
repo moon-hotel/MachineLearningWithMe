@@ -40,3 +40,8 @@ if __name__ == '__main__':
     rfc1(x_train, x_test, y_train, y_test)
     x_train, x_test, y_train, y_test = load_data(indices=True)
     frc2(x_train, x_test, y_train, y_test)
+
+    # 包含所有维度时的准确率： 1.0
+    # 每个维度对应的重要性： [0.0934594  0.02908228 0.45367491 0.42378341]
+    # 按维度重要性排序的维度的序号： [2 3 0 1]
+    # 仅包含两个维度时的准确率： 1.0

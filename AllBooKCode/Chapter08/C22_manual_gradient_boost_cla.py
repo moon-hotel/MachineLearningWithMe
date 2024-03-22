@@ -145,3 +145,9 @@ if __name__ == '__main__':
     boost.fit(x_train, y_train)
     print(f"GradientBoostingClassifier acc on training data: {boost.score(x_train, y_train)}")
     print(f"GradientBoostingClassifier acc on testing data: {boost.score(x_test, y_test)}")
+
+    # MyGradientBoostClassifier accuracy on training data 1.0
+    # MyGradientBoostClassifier accuracy on testing data 0.9555555555555556
+    # ===========
+    # GradientBoostingClassifier acc on training data: 1.0
+    # GradientBoostingClassifier acc on testing data: 0.9555555555555556

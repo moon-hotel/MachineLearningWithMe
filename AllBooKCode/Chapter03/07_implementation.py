@@ -78,7 +78,7 @@ def train(X, y, ite=200):
 
 def train_by_sklearn(x, y):
     model = LogisticRegression(multi_class='ovr')
-    model.fit(x, y)
+    model.fit(x, y.ravel())
     print("Accuracy by sklearn: ", model.score(x, y))
 
 

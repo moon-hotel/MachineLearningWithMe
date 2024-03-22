@@ -38,7 +38,8 @@ def model_selection(X, y, k=5):
     for learning_rate in learning_rates:
         for penalty in penalties:
             print(f"正在训练模型: learning_rate = {learning_rate}, penalty = {penalty}")
-            model = SGDClassifier(loss='log', penalty='l2', learning_rate='constant', eta0=learning_rate, alpha=penalty)
+            model = SGDClassifier(loss='log_loss', penalty='l2', learning_rate='constant', eta0=learning_rate,
+                                  alpha=penalty)
             kf = KFold(n_splits=k, shuffle=True, random_state=10)
             model_score = []
             for train_index, dev_index in kf.split(X):
@@ -58,10 +59,15 @@ if __name__ == '__main__':
 
     # 先执行以下两行代码获得最优模型，然后注释掉
     # visualization(x_train)
-    # model_selection(x_train, y_train)  # The best model:  [0.9490956807689876, 0.0001]
+    # model_selection(x_train, y_train)
+    # 正在训练模型: learning_rate = 3, penalty = 0.1
+    # 正在训练模型: learning_rate = 3, penalty = 0.3
+    # 正在训练模型: learning_rate = 3, penalty = 1
+    # 正在训练模型: learning_rate = 3, penalty = 3
+    # 最优模型:  [0.9586163283374439, 0.03, 0]
 
     # 在下面的模型参数填入上面模型选择结束后的最优参数：
-    model = SGDClassifier(loss='log', penalty='l2', learning_rate='constant', eta0=0.03, alpha=0.0)
+    model = SGDClassifier(loss='log_loss', penalty='l2', learning_rate='constant', eta0=0.03, alpha=0.0)
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
     print(classification_report(y_test, y_pred))

@@ -31,9 +31,9 @@ def decision_boundary():
         index = np.where(y == i)[0]
         data.append(X[index, :])
 
-    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40, cmap=plt.cm.Paired)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40, cmap=plt.cm.Paired)
+    # plt.scatter(X[:, 0], X[:, 1], c=y, s=40)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
     clf = svm.SVC(kernel='linear', C=1.)
     clf.fit(X, y)
 

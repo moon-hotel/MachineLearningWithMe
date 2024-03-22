@@ -1,4 +1,4 @@
-from sklearn.datasets import load_boston
+from sklearn.datasets import fetch_california_housing
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
@@ -26,7 +26,7 @@ def R2(y, y_pre):
 
 
 def load_data():
-    data = load_boston()
+    data = fetch_california_housing()
     x = data.data
     y = data.target
     return x, y

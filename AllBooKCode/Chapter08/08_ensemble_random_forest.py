@@ -22,3 +22,30 @@ if __name__ == '__main__':
     model.fit(x_train, y_train)
     print(model.score(x_test, y_test))
 
+    # Fitting 3 folds for each of 8 candidates, totalling 24 fits
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=gini, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=3, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=200; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # [CV] END final_estimator__criterion=entropy, knn__n_neighbors=4, logist__max_iter=500; total time=   0.1s
+    # 模型在测试集上的准确率为： 0.9777777777777777
+

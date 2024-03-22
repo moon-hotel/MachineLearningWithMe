@@ -6,7 +6,6 @@
 知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
 """
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -144,6 +143,7 @@ def visualization_3d():
     X = np.c_[a, b, c]
     fig = plt.figure()
     ax = Axes3D(fig)
+    fig.add_axes(ax)
     pca = PCA(n_components=3).fit(X)
     ax.scatter3D(X[:, 0], X[:, 1], X[:, 2], alpha=0.5, label="samples")
     for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)):

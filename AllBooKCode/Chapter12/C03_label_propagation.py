@@ -37,3 +37,6 @@ def test_label_propagation():
 
 if __name__ == '__main__':
     test_label_propagation()
+
+    # 模型在训练集上的准确率为: 0.9619047619047619
+    # 模型在测试集上的准确率为: 1.0

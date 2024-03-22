@@ -61,6 +61,7 @@ if __name__ == '__main__':
         ax2.set_ylabel("特征维度 2", fontsize=12)
         plt.suptitle("轮廓分析法 K = %d"
                      % n_clusters, fontsize=12, fontweight="bold", )
+        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
         plt.tight_layout()
 
     plt.show()

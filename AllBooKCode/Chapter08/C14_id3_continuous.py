@@ -168,7 +168,8 @@ class DecisionTree(object):
                 best_feature_id = id
         if max_criterion < self.epsilon:  # 最大指标小于设定阈值
             node.label = self._get_label(labels)  # 根据多数原则确定当前节点对应的类别
-            logging.debug(f"**当前节点满足停止条件(最大指标小于设定阈值)，不再继续往下进行分裂，节点对应的类别为 {node.label}")
+            logging.debug(
+                f"**当前节点满足停止条件(最大指标小于设定阈值)，不再继续往下进行分裂，节点对应的类别为 {node.label}")
             return node
         node.feature_id = best_feature_id
         logging.debug(f"此时选择第{best_feature_id}个特征进行样本划分")

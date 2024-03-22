@@ -75,6 +75,7 @@ def silhouette_elbow__analysis(X, range_n_clusters, all_cluster_labels, all_cent
     plt.yticks([])  # 去掉y轴上的刻度显示
     plt.xlabel("K", fontsize=12)
     plt.ylabel("distance", fontsize=12)
+    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.tight_layout()
     plt.show()
 

@@ -63,3 +63,6 @@ if __name__ == '__main__':
     y_pred = model.predict(x)
     nmi = normalized_mutual_info_score(y, y_pred)
     print("NMI by sklearn: ", nmi)
+
+    # NMI by ours:  0.7581756800057784
+    # NMI by sklearn:  0.7581756800057784

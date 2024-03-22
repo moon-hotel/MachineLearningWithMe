@@ -21,7 +21,7 @@ def make_nonlinear_cla_data():
 
 def decision_boundary(x, y, pol):
     model = LogisticRegression()
-    model.fit(x, y)
+    model.fit(x, y.ravel())
     print("Accuracy:", model.score(x, y))
     x_min, x_max = x[:, 0].min() - .5, x[:, 0].max() + .5
     y_min, y_max = x[:, 1].min() - .5, x[:, 1].max() + .5
@@ -35,7 +35,7 @@ def decision_boundary(x, y, pol):
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1,shading='auto')
+    plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1, shading='auto')
 
     neg, pos = [], []
     for i in range(len(x)):

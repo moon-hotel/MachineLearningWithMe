@@ -23,6 +23,11 @@ def train(X_train, X_test, y_train, y_test, feature_names):
                                     special_characters=True)
     graph = graphviz.Source(dot_data)
     graph.render('iris')
+    # 本地也需要安装 graphviz
+    # Mac: brew install graphviz
+    # Ubuntu: sudo apt install graphviz
+    # Centos: sudo yum install graphviz
+    # https://graphviz.org/download/
     print("特征重要性为：", model.feature_importances_)
 
 
