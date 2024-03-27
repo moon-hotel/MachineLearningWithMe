@@ -12,7 +12,7 @@ def feature_scalling(X):
 
 def load_data():
     data = fetch_california_housing()
-    X = data.data
+    X = data.data  # [20640, 8]
     y = data.target.reshape(-1, 1)
     X = feature_scalling(X)
     return X, y
