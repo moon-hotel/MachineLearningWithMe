@@ -36,7 +36,7 @@ def hypothesis(X, W, bias):
     return h_x
 
 
-def prediction(X, W, bias, thre=0.5):
+def prediction(X, W, bias):
     class_type = len(W)
     prob = []
     for c in range(class_type):
