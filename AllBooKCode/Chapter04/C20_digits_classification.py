@@ -12,7 +12,6 @@ def load_data():
     x, y = data.data, data.target
     x_train, x_test, y_train, y_test = \
         train_test_split(x, y, test_size=0.3, random_state=20)
-
     ss = StandardScaler()
     x_train = ss.fit_transform(x_train)
     x_test = ss.transform(x_test)
@@ -35,11 +34,12 @@ def model_selection(X, y, k=5):
     learning_rates = [0.001, 0.03, 0.01, 0.03, 0.1, 0.3, 1, 3]
     penalties = [0, 0.01, 0.03, 0.1, 0.3, 1, 3]
     all_models = []
+    model_id = 1
     for learning_rate in learning_rates:
         for penalty in penalties:
-            print(f"正在训练模型: learning_rate = {learning_rate}, penalty = {penalty}")
-            model = SGDClassifier(loss='log_loss', penalty='l2', learning_rate='constant', eta0=learning_rate,
-                                  alpha=penalty)
+            print(f"正在训练模型 {model_id}: learning_rate = {learning_rate}, penalty = {penalty}")
+            model = SGDClassifier(loss='log_loss', penalty='l2', learning_rate='constant',
+                                  eta0=learning_rate, alpha=penalty)
             kf = KFold(n_splits=k, shuffle=True, random_state=10)
             model_score = []
             for train_index, dev_index in kf.split(X):
@@ -48,8 +48,9 @@ def model_selection(X, y, k=5):
                 model.fit(X_train, y_train)
                 s = model.score(X_dev, y_dev)
                 model_score.append(s)
+            model_id += 1
             all_models.append([np.mean(model_score), learning_rate, penalty])
-    print("最优模型: ", sorted(all_models, reverse=True)[0])
+    print("最优模型: ", sorted(all_models, reverse=True, key=lambda x: x[0])[0])
 
 
 if __name__ == '__main__':
@@ -59,11 +60,15 @@ if __name__ == '__main__':
 
     # 先执行以下两行代码获得最优模型，然后注释掉
     # visualization(x_train)
-    # model_selection(x_train, y_train)
-    # 正在训练模型: learning_rate = 3, penalty = 0.1
-    # 正在训练模型: learning_rate = 3, penalty = 0.3
-    # 正在训练模型: learning_rate = 3, penalty = 1
-    # 正在训练模型: learning_rate = 3, penalty = 3
+    model_selection(x_train, y_train)
+    # 正在训练模型 1: learning_rate = 0.001, penalty = 0
+    # 正在训练模型 2: learning_rate = 0.001, penalty = 0.01
+    # 正在训练模型 3: learning_rate = 0.001, penalty = 0.03
+    # 正在训练模型 4: learning_rate = 0.001, penalty = 0.1
+    # 正在训练模型 5: learning_rate = 0.001, penalty = 0.3
+    # 正在训练模型 6: learning_rate = 0.001, penalty = 1
+    # 正在训练模型 7: learning_rate = 0.001, penalty = 3
+    # .....
     # 最优模型:  [0.9586163283374439, 0.03, 0]
 
     # 在下面的模型参数填入上面模型选择结束后的最优参数：

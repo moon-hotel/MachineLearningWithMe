@@ -29,6 +29,8 @@ def classification_penalty():
     model = SGDClassifier(l1_ratio=0.4, penalty='elasticnet', alpha=0.001)
     model.fit(x_train, y_train)
     print(model.score(x_test, y_test))
+    print(model.predict(x_test)[:5])
+    print(y_test[:5])
 
 
 if __name__ == '__main__':
