@@ -1,3 +1,14 @@
+"""
+文件名: AllBooKCode/Chapter04/C20_digits_classification.py
+作 者: @空字符
+B 站: @月来客栈Moon https://space.bilibili.com/392219165
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+油 管: @月来客栈
+小红书: @月来客栈
+公众号: @月来客栈
+代码仓库: https://github.com/moon-hotel/MachineLearningWithMe
+"""
+
 from sklearn.datasets import load_digits
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import SGDClassifier
@@ -60,7 +71,8 @@ if __name__ == '__main__':
 
     # 先执行以下两行代码获得最优模型，然后注释掉
     # visualization(x_train)
-    model_selection(x_train, y_train)
+
+    # model_selection(x_train, y_train)
     # 正在训练模型 1: learning_rate = 0.001, penalty = 0
     # 正在训练模型 2: learning_rate = 0.001, penalty = 0.01
     # 正在训练模型 3: learning_rate = 0.001, penalty = 0.03
@@ -75,4 +87,4 @@ if __name__ == '__main__':
     model = SGDClassifier(loss='log_loss', penalty='l2', learning_rate='constant', eta0=0.03, alpha=0.0)
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
-    print(classification_report(y_test, y_pred))
+    print(classification_report(y_test, y_pred))#
