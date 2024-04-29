@@ -1,3 +1,14 @@
+"""
+文件名: AllBooKCode/Chapter05/C05_knn_imp_from_scratch.py
+作 者: @空字符
+B 站: @月来客栈Moon https://space.bilibili.com/392219165
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+油 管: @月来客栈
+小红书: @月来客栈
+公众号: @月来客栈
+代码仓库: https://github.com/moon-hotel/MachineLearningWithMe
+"""
+
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KDTree
@@ -284,17 +295,16 @@ def test_kd_tree_build(points):
     tree.level_order()
 
 
-def test_kd_nearest_search(points):
+def test_kd_nearest_search(points, q=np.array([[10., 3]])):
     tree = MyKDTree(points)
-    p = np.array([[5.9, 3]])
-    best_node, best_dist = tree.nearest_search(p)
+    best_node, best_dist = tree.nearest_search(q)
     logging.debug("MyKDTree 运行结果：")
-    logging.debug(f"离样本点{p}最近的节点是：{best_node},距离为：{round(best_dist, 3)}")
+    logging.debug(f"离样本点{q}最近的节点是：{best_node},距离为：{round(best_dist, 3)}")
 
     kd_tree = KDTree(points)
-    dist, ind = kd_tree.query(p, k=1)
+    dist, ind = kd_tree.query(q, k=1)
     logging.debug("sklearn KDTree 运行结果：")
-    logging.debug(f"离样本点{p}最近的节点是：{points[ind]},距离为：{dist}")
+    logging.debug(f"离样本点{q}最近的节点是：{points[ind]},距离为：{dist}")
 
 
 def test_kd_k_nearest_search(points):
@@ -312,6 +322,22 @@ def test_kd_k_nearest_search(points):
     logging.debug(ind)
 
 
+def test_kd_tree_build_in_book():
+    """
+    构建书中的插图
+    :return:
+    """
+    points = np.array(
+        [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
+    test_kd_tree_build(points)
+
+
+def test_kd_tree_nearest_search_in_book():
+    points = np.array(
+        [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
+    test_kd_nearest_search(points)
+
+
 if __name__ == '__main__':
     formatter = '[%(asctime)s] - %(levelname)s: %(message)s'
     logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
@@ -319,13 +345,9 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
-    # 测试 MyKDTree
-    # points = np.array(
-    #     [[2, 5], [1, 4], [3, 3], [6, 5], [10, 2.], [7, 3], [8, 13], [8, 9], [1, 2]])
-    # points = np.array(
-    #     [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
-    # test_kd_tree_build(points)
-    # test_kd_nearest_search(points)
+    test_kd_tree_build_in_book()  # 构建书中的示例kd树
+    test_kd_tree_nearest_search_in_book()  # 书中的最近邻搜索
+
     # test_kd_k_nearest_search(points)
 
     # 测试KNN

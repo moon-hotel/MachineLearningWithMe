@@ -1,3 +1,14 @@
+"""
+文件名: AllBooKCode/Chapter05/C01_visualzation.py
+作 者: @空字符
+B 站: @月来客栈Moon https://space.bilibili.com/392219165
+知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
+油 管: @月来客栈
+小红书: @月来客栈
+公众号: @月来客栈
+代码仓库: https://github.com/moon-hotel/MachineLearningWithMe
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import make_blobs
