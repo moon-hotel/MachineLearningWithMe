@@ -86,15 +86,15 @@ class MyKDTree(object):
         if len(data) < 1:
             return
         data = sorted(data, key=lambda x: x[order % self.dim])  # 按某个维度进行排序
-        logging.debug(f"当前待划分样本点：{[item.tolist() for item in data]}")
+        logging.info(f"当前待划分样本点：{[item.tolist() for item in data]}")
         idx = len(data) // 2
         node = Node(data[idx][:-1], data[idx][-1])
-        logging.debug(f"父节点：{data[idx]}")
+        logging.info(f"父节点：{data[idx]}")
         left_data = data[:idx]
-        logging.debug(f"左子树: {[item.tolist() for item in left_data]}")
+        logging.info(f"左子树: {[item.tolist() for item in left_data]}")
         right_data = data[idx + 1:]
-        logging.debug(f"右子树: {[item.tolist() for item in right_data]}")
-        logging.debug("============")
+        logging.info(f"右子树: {[item.tolist() for item in right_data]}")
+        logging.info("============")
         if self.is_empty():
             self.root = node  # 整个KD树的根节点
         node.left_child = self.insert(left_data, order + 1)  # 递归构建左子树
@@ -121,12 +121,12 @@ class MyKDTree(object):
                 if node.right_child:
                     queue.append(node.right_child)
             res.append(tmp)
-        logging.debug("\n层次遍历结果为：")
+        logging.info("\n层次遍历结果为：")
         for i, r in enumerate(res):
-            logging.debug(f"第{i + 1}层的节点为：")
+            logging.info(f"第{i + 1}层的节点为：")
             for node in r:
-                logging.debug(f"<p({node.data}), idx({int(node.index)})>")
-            logging.debug("\n")
+                logging.info(f"<p({node.data}), idx({int(node.index)})>")
+            logging.info("\n")
 
     def nearest_search(self, point):
         """
@@ -147,23 +147,32 @@ class MyKDTree(object):
             :return:
             """
             nonlocal best_node, best_dist, visited  # 声明这三个变量不是局部变量
-            logging.debug(f"当前访问节点为：{curr_node}")
-            visited.append(curr_node)
+            logging.info(f"当前访问节点为：{curr_node}")
             if curr_node is None:
+                logging.info(f"结束本次递归")
                 return None
+            visited.append(curr_node)
             dist = self.distance(curr_node.data, point, self.p)
-            logging.debug(f"当前访问节点到被搜索点的距离为：{round(dist, 3)},"
-                          f"全局最佳距离为：{round(best_dist, 3)}, 全局最佳点为：{best_node}\n")
+            logging.info(f"当前访问节点到被搜索点的距离为：{round(dist, 3)}")
+            logging.info(f"【上次】:全局最佳距离为：{round(best_dist, 3)}, 全局最佳点为：{best_node}")
             if dist < best_dist:
                 best_dist = dist
                 best_node = curr_node
+            logging.info(f"【本次】:全局最佳距离为：{round(best_dist, 3)}, 全局最佳点为：{best_node}\n")
             cmp_dim = order % self.dim
             if point[cmp_dim] < curr_node.data[cmp_dim]:
+                logging.info(f"访问当前节点{curr_node}的左孩子")
                 nearest_node_search(point, curr_node.left_child, order + 1)
             else:
+                logging.info(f"访问当前节点{curr_node}的右孩子")
                 nearest_node_search(point, curr_node.right_child, order + 1)
+            logging.info(f"回到上一层递归，当前访问节点为: {curr_node}，开始判断步骤(6)")
             if np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < best_dist:
+                logging.info(f"** {curr_node.data}满足条件被搜索点到当前节点划分维度的距离小于全局最短距离，即 "
+                             f"|{curr_node.data[cmp_dim]} - {point[cmp_dim]}| < {round(best_dist, 3)} **")
                 child = curr_node.left_child if curr_node.left_child not in visited else curr_node.right_child
+                tmp = '左' if curr_node.left_child not in visited else '右'
+                logging.info(f"访问当前节点{curr_node}的{tmp}孩子")
                 nearest_node_search(point, child, order + 1)
 
         nearest_node_search(point, self.root, 0)
@@ -180,10 +189,10 @@ class MyKDTree(object):
         k_nearest_nodes.append(curr_node)
         k_nearest_nodes = sorted(k_nearest_nodes,
                                  key=lambda x: self.distance(x.data, point, self.p))
-        logging.debug(f"\t\t当前K近邻中的节点为（已按距离排序）：")
+        logging.info(f"\t\t当前K近邻中的节点为（已按距离升序排序）：")
         for item in k_nearest_nodes:
-            logging.debug(f"\t\t\t{item}", )
-        logging.debug("\n")
+            logging.info(f"\t\t\t{item}", )
+        logging.info("\n")
         return k_nearest_nodes
 
     def k_nearest_search(self, points, k):
@@ -216,11 +225,11 @@ class MyKDTree(object):
         k_nearest_nodes = []
         visited = []
         n = 0
-        logging.debug(f"\n\n正在查找离样本点{point}最近的{k}个样本点！")
+        logging.info(f"\n\n====== 正在查找离样本点{point}最近的{k}个样本点！")
 
         def k_nearest_node_search(point, curr_node, order=0):
             nonlocal k_nearest_nodes, n
-            logging.debug(f"    K近邻搜索当前访问节点为：{curr_node}")
+            logging.info(f"    K近邻搜索当前访问节点为：{curr_node}")
             if curr_node is None:
                 return None
             visited.append(curr_node)
@@ -240,6 +249,10 @@ class MyKDTree(object):
                 k_nearest_node_search(point, curr_node.right_child, order + 1)
             if n < k or np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < \
                     self.distance(point, k_nearest_nodes[-1].data, self.p):
+                logging.info(
+                    f"** {curr_node.data}被搜索点到当前节点划分维度的距离小于列表中最后一个元素到被搜索点的距离，即 "
+                    f"|{curr_node.data[cmp_dim]} - {point[cmp_dim]}| < "
+                    f"{round(self.distance(point, k_nearest_nodes[-1].data, self.p), 3)} **")
                 child = curr_node.left_child if curr_node.left_child not in visited else curr_node.right_child
                 k_nearest_node_search(point, child, order + 1)
 
@@ -287,39 +300,41 @@ class MyKNN():
 
 
 def test_kd_tree_build(points):
-    logging.debug("MyKDTree 运行结果：")
-    logging.debug("构建KD树")
+    logging.info("MyKDTree 运行结果：")
+    logging.info("构建KD树")
     tree = MyKDTree(points)
-    logging.debug("构建结束")
-    logging.debug("MyKDTree 层次遍历结果：")
+    logging.info("构建结束")
+    logging.info("MyKDTree 层次遍历结果：")
     tree.level_order()
 
 
-def test_kd_nearest_search(points, q=np.array([[10., 3]])):
+def test_kd_nearest_search(points, q=None):
     tree = MyKDTree(points)
     best_node, best_dist = tree.nearest_search(q)
-    logging.debug("MyKDTree 运行结果：")
-    logging.debug(f"离样本点{q}最近的节点是：{best_node},距离为：{round(best_dist, 3)}")
+    logging.info("MyKDTree 运行结果：")
+    logging.info(f"离样本点{q}最近的节点是：{best_node},距离为：{round(best_dist, 3)}")
 
     kd_tree = KDTree(points)
     dist, ind = kd_tree.query(q, k=1)
-    logging.debug("sklearn KDTree 运行结果：")
-    logging.debug(f"离样本点{q}最近的节点是：{points[ind]},距离为：{dist}")
+    logging.info("sklearn KDTree 运行结果：")
+    logging.info(f"离样本点{q}最近的节点是：{points[ind]},距离为：{dist}")
 
 
-def test_kd_k_nearest_search(points):
+def test_kd_k_nearest_search():
+    points = np.array(
+        [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
     tree = MyKDTree(points)
-    p = np.array([[10, 3], [8.9, 4], [2, 9.], [5, 5]])
+    p = np.array([[8.9, 4]])
     k_best_nodes, ind = tree.k_nearest_search(p, k=3)
-    logging.debug("MyKDTree 运行结果：")
-    logging.debug(k_best_nodes)
-    logging.debug(ind)
+    logging.info("MyKDTree 运行结果：")
+    logging.info(f"\n{k_best_nodes}")
+    logging.info(ind)
 
-    logging.debug("sklearn KDTree 运行结果：")
+    logging.info("sklearn KDTree 运行结果：")
     kd_tree = KDTree(points)
     dist, ind = kd_tree.query(p, k=3)
-    logging.debug(points[ind])
-    logging.debug(ind)
+    logging.info(f"\n{points[ind]}", )
+    logging.info(ind)
 
 
 def test_kd_tree_build_in_book():
@@ -335,7 +350,7 @@ def test_kd_tree_build_in_book():
 def test_kd_tree_nearest_search_in_book():
     points = np.array(
         [[5, 7], [3, 8], [6, 3], [8, 5], [15, 6.], [10, 4], [12, 13], [9, 10], [11, 14]])
-    test_kd_nearest_search(points)
+    test_kd_nearest_search(points, q=np.array([[8.9, 4]]))
 
 
 if __name__ == '__main__':
@@ -343,22 +358,20 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG,  # 如果需要查看详细信息可将该参数改为logging.DEBUG
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
-                        handlers=[logging.StreamHandler(sys.stdout)]
-                        )
-    test_kd_tree_build_in_book()  # 构建书中的示例kd树
+                        handlers=[logging.StreamHandler(sys.stdout)])
+    # test_kd_tree_build_in_book()  # 构建书中的示例kd树
     test_kd_tree_nearest_search_in_book()  # 书中的最近邻搜索
-
-    # test_kd_k_nearest_search(points)
+    # test_kd_k_nearest_search() # 书中的K近邻搜索示例
 
     # 测试KNN
-    x_train, x_test, y_train, y_test = load_data()
-    k = 5
-    model = KNeighborsClassifier(n_neighbors=k)
-    model.fit(x_train, y_train)
-    y_pred = model.predict(x_test)
-    logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
-
-    my_model = MyKNN(n_neighbors=k)
-    my_model.fit(x_train, y_train)
-    y_pred = my_model.predict(x_test)
-    logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
+    # x_train, x_test, y_train, y_test = load_data()
+    # k = 5
+    # model = KNeighborsClassifier(n_neighbors=k)
+    # model.fit(x_train, y_train)
+    # y_pred = model.predict(x_test)
+    # logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
+    #
+    # my_model = MyKNN(n_neighbors=k)
+    # my_model.fit(x_train, y_train)
+    # y_pred = my_model.predict(x_test)
+    # logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
