@@ -244,9 +244,12 @@ class MyKDTree(object):
                     k_nearest_nodes = self.append(k_nearest_nodes, curr_node, point)  # 加入新的点并进行排序
             cmp_dim = order % self.dim
             if point[cmp_dim] < curr_node.data[cmp_dim]:
+                logging.info(f"访问当前节点{curr_node}的左孩子")
                 k_nearest_node_search(point, curr_node.left_child, order + 1)
             else:
+                logging.info(f"访问当前节点{curr_node}的右孩子")
                 k_nearest_node_search(point, curr_node.right_child, order + 1)
+            logging.info(f"回到上一层递归，当前访问节点为: {curr_node}，开始判断步骤(6)")
             if n < k or np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < \
                     self.distance(point, k_nearest_nodes[-1].data, self.p):
                 logging.info(
@@ -254,6 +257,8 @@ class MyKDTree(object):
                     f"|{curr_node.data[cmp_dim]} - {point[cmp_dim]}| < "
                     f"{round(self.distance(point, k_nearest_nodes[-1].data, self.p), 3)} **")
                 child = curr_node.left_child if curr_node.left_child not in visited else curr_node.right_child
+                tmp = '左' if curr_node.left_child not in visited else '右'
+                logging.info(f"访问当前节点{curr_node}的{tmp}孩子")
                 k_nearest_node_search(point, child, order + 1)
 
         k_nearest_node_search(point, self.root, 0)
