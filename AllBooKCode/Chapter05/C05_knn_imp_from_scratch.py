@@ -258,7 +258,7 @@ class MyKDTree(object):
             if n < k or np.abs(curr_node.data[cmp_dim] - point[cmp_dim]) < \
                     self.distance(point, k_nearest_nodes[-1].data, self.p):
                 logging.info(
-                    f"** {curr_node.data}被搜索点到当前节点划分维度的距离小于列表中最后一个元素到被搜索点的距离，即 "
+                    f"** 被搜索点到当前节点划分维度的距离小于列表中最后一个元素到被搜索点的距离，即 "
                     f"|{curr_node.data[cmp_dim]} - {point[cmp_dim]}| < "
                     f"{round(self.distance(point, k_nearest_nodes[-1].data, self.p), 3)} **")
                 child = curr_node.left_child if curr_node.left_child not in visited else curr_node.right_child
