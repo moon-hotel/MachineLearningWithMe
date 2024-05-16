@@ -135,6 +135,33 @@ def load_data():
     x_test = vect.transform(x_test)
     return x_train, x_test, y_train, y_test
 
+def test_count():
+    x, y = load_simple_data()
+    X = x
+    labelbin = LabelBinarizer()  # 将标签转化为one-hot形式
+    Y = labelbin.fit_transform(y)
+    logging.info(f"{Y.shape}")
+    logging.info(f"{X.shape}")
+    r = np.dot(Y.T,X)
+    logging.info(f"np.dot(Y.T,X): \n{r}")
+    logging.info(f"np.dot(Y.T,X): \n{Y.T}")
+    logging.info(f"np.dot(Y.T,X): \n{X}")
+    #                                       [[ 5 11  7]
+    #                                        [ 3 10  1]
+    #                                        [ 2  6  9]
+    #                                        [ 1  8  2]
+    #                                        [ 0  7 12]
+    # [[0 0 1 1 0 0 0 0 0 0 0 1 1 1 0]       [ 5  0  2]     [[ 6 31 36]
+    #  [1 1 0 0 0 1 1 0 1 0 1 0 0 0 1]   @   [12  0 15]  =  [44 22 28]
+    #  [0 0 0 0 1 0 0 1 0 1 0 0 0 0 0]]      [12  0  2]      [19 10 14]]
+    #                                        [10  0  2]
+    #                                        [ 7  3  0]
+    #                                        [ 8  1  0]
+    #                                        [ 3  9 12]
+    #                                        [ 0  1  4]
+    #                                        [ 0  7  9]
+    #                                        [ 1  0  1]]
+    #
 
 def test_naive_bayes():
     x, y = load_simple_data()
@@ -171,5 +198,6 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
-    test_naive_bayes()
+    test_count()
+    # test_naive_bayes()
     # test_spam_classification()
