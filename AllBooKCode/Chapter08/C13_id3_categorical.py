@@ -213,7 +213,7 @@ class DecisionTree(object):
         for i, r in enumerate(res):
             logging.debug(f"第{i + 1}层的节点为：")
             for node in r:
-                logging.debug(node)
+                logging.debug(node.sample_index)
             logging.debug("\n")
 
     def _predict_one_sample(self, x):
@@ -330,6 +330,30 @@ def test_decision_tree():
                                   ['0', '1', 'T']]))
     logging.info(f"DecisionTree 预测结果为：{y_pred}")
 
+    # 层次遍历结果为：
+    # [2024-05-17 19:49:55] - DEBUG: 第1层的节点为：
+    # [2024-05-17 19:49:55] - DEBUG: [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+    # [2024-05-17 19:49:55] - DEBUG:
+    #
+    # [2024-05-17 19:49:55] - DEBUG: 第2层的节点为：
+    # [2024-05-17 19:49:55] - DEBUG: [0 1 2 3 4 5 6]
+    # [2024-05-17 19:49:55] - DEBUG: [ 7  8  9 10 11 12 13 14]
+    # [2024-05-17 19:49:55] - DEBUG:
+    #
+    # [2024-05-17 19:49:55] - DEBUG: 第3层的节点为：
+    # [2024-05-17 19:49:55] - DEBUG: [3 5 6]
+    # [2024-05-17 19:49:55] - DEBUG: [0 1 2 4]
+    # [2024-05-17 19:49:55] - DEBUG: [ 9 10]
+    # [2024-05-17 19:49:55] - DEBUG: [13 14]
+    # [2024-05-17 19:49:55] - DEBUG: [ 7  8 11 12]
+    # [2024-05-17 19:49:55] - DEBUG:
+    #
+    # [2024-05-17 19:49:55] - DEBUG: 第4层的节点为：
+    # [2024-05-17 19:49:55] - DEBUG: [1 2]
+    # [2024-05-17 19:49:55] - DEBUG: [0 4]
+    # [2024-05-17 19:49:55] - DEBUG:
+    # 上述层次遍历结果可对应《跟我一起学机器学习》一书中表8-4的划分结果
+
 
 def load_data():
     x, y = load_cut_spam()
@@ -377,7 +401,7 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章 https://mp.weixin.qq.com/s/cvO6hCiHMJqC4-4AuUlydw
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    test_compute()
+    # test_compute()
     test_decision_tree()
     # test_spam_classification()  # Accuracy:  id3:0.977  c45 0.975
     # test_decision_tree_pruning()
