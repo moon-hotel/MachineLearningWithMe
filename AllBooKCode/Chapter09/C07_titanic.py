@@ -7,7 +7,7 @@ from sklearn.model_selection import GridSearchCV
 def load_data():
     # 读取原始数据
     train = pd.read_csv('data/train.csv', sep=',')
-    test = pd.read_csv('./data/test.csv')
+    test = pd.read_csv('data/test.csv')
 
     # 进行特征选择
     features = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
