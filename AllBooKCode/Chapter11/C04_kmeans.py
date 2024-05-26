@@ -1,10 +1,10 @@
 import numpy as np
 import random
 from sklearn.datasets import load_iris
-from sklearn.metrics.cluster import normalized_mutual_info_score
+from sklearn.metrics.cluster import adjusted_rand_score
 from sklearn.cluster import KMeans
 
-random.seed(12)
+# random.seed(12)
 
 
 def load_data():
@@ -55,14 +55,14 @@ if __name__ == '__main__':
     x, y = load_data()
     K = len(np.unique(y))
     y_pred = kmeans(x, K)
-    nmi = normalized_mutual_info_score(y, y_pred)
-    print("NMI by ours: ", nmi)
+    ari = adjusted_rand_score(y, y_pred)
+    print("ARI by ours: ", ari)
 
     model = KMeans(n_clusters=K)
     model.fit(x)
     y_pred = model.predict(x)
-    nmi = normalized_mutual_info_score(y, y_pred)
-    print("NMI by sklearn: ", nmi)
+    ari = adjusted_rand_score(y, y_pred)
+    print("ARI by sklearn: ", ari)
 
-    # NMI by ours:  0.7581756800057784
-    # NMI by sklearn:  0.7581756800057784
+    # ARI by ours:  0.7163421126838476
+    # ARI by sklearn:  0.7163421126838476

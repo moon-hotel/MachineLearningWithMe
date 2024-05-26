@@ -1,6 +1,6 @@
 from sklearn.datasets import load_iris
 from sklearn.cluster import KMeans
-from sklearn.metrics.cluster import normalized_mutual_info_score
+from sklearn.metrics.cluster import adjusted_rand_score
 
 
 def load_data():
@@ -13,8 +13,8 @@ def train(x, y, K):
     model = KMeans(n_clusters=K)
     model.fit(x)
     y_pred = model.predict(x)
-    nmi = normalized_mutual_info_score(y, y_pred)
-    print("NMI: ", nmi)
+    ari = adjusted_rand_score(y, y_pred)
+    print("ARI: ", ari)
 
 
 if __name__ == '__main__':
