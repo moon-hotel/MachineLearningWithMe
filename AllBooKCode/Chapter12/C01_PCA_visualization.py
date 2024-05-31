@@ -50,7 +50,7 @@ def visualization1():
     # a.spines['top'].set_visible(False)
     # a.spines['bottom'].set_position('center')
     # a.spines['left'].set_position('center')
-    plt.xlabel(f"$z$")
+    plt.xlabel(f"$z_1$")
     plt.xlim(-3.5, 3.5)
     plt.ylim(-3.5, 3.5)
     plt.yticks([])
@@ -164,6 +164,6 @@ def visualization_3d():
 
 if __name__ == '__main__':
     visualization1()
-    visualization2()
-    visualization_3d()
-    eigenvalue_vs_singular()
+    # visualization2()
+    # visualization_3d()
+    # eigenvalue_vs_singular()
