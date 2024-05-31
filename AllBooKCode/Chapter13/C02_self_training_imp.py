@@ -15,7 +15,7 @@ import sys
 import numpy as np
 
 sys.path.append('../')
-from Chapter09.C16_svm_impl import SVM
+from Chapter10.C16_svm_impl import SVM
 
 
 class MySVM(SVM):
@@ -69,10 +69,10 @@ class SelfTrainingClassifier(object):
             self.base_estimator_.fit(X[has_label],  # 取有标签的部分进行模型拟合
                                      self.transduction_[has_label])
             # ①先对每个没有标签的样本进行预测
-            prob = self.base_estimator_.predict_proba(X[~has_label])  # 取没有标签的样本进行预测
+            prob = self.base_estimator_.predict_proba(X[~has_label])  # 取没有标签的样本进行预测, [n_samples, n_classes]
             # ②以最大概率（这个最大概率可能没有超过设定的阈值）给一个初始的预测结果
-            pred = self.base_estimator_.classes_[np.argmax(prob, axis=1)]  # 根据概率取预测标签
-            max_proba = np.max(prob, axis=1)  # 取每个样本类别预测中的最大概率
+            pred = self.base_estimator_.classes_[np.argmax(prob, axis=1)]  # 根据概率取预测标签 [n_samples,]
+            max_proba = np.max(prob, axis=1)  # 取每个样本类别预测中的最大概率 [n_samples,]
             # ③选择预测概率超过阈值的样本索引
             selected = max_proba > self.threshold  # 通过阈值来进行确定哪些标签的预测结果是可信的
             selected_full = np.nonzero(~has_label)[0][selected]

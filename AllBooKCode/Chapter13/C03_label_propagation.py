@@ -1,5 +1,5 @@
 """
-文件名: AllBooKCode/Chapter12/C03_label_propagation.py
+文件名: AllBooKCode/Chapter13/C03_label_propagation.py
 创建时间: 2022/6/22
 作 者: @空字符
 公众号: @月来客栈
