@@ -112,8 +112,10 @@ class MyCategoricalNB(object):
             X_feature = X[:, i]  # 取每一列的特征
             self.category_count_[i] = np.pad(self.category_count_[i],
                                              [(0, 0), (0, self.n_categories_[i])],
-                                             'constant')  # shape: [n_classes,diff]
-            # 在原始category_count_[i]的基础上，追加diff列全为0的值，
+                                             'constant')  # shape: [n_classes,n_categories_[i]]
+            # np.pad(a,((1,2),(3,4)),'constant') 含义是在a的第一个维度（行）的上面和下面各填充1行和2行0，
+            # 在a的第二个维度（列）的左边和右边各填充3列和4列0
+            # 在原始category_count_[i]的基础上，追加n_categories_[i]列全为0的值，
             # 因为category_count_[i]初始化式时的shape为[n_classes,0]
             _update_cat_count(X_feature, Y,
                               self.category_count_[i],
@@ -253,4 +255,9 @@ if __name__ == '__main__':
                         )
 
     # test_naive_bayes()
-    test_spam_classification()
+    # test_spam_classification()
+    category_count_ = [np.ones((3,0))]
+    print(category_count_[0])
+    a = np.pad(category_count_[0],[(1, 0), (0, 5)],
+                                             'constant')
+    print(a)
