@@ -1,0 +1,37 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname="helvetica"] ;
+edge [fontname="helvetica"] ;
+0 [label=<petal width (cm) &le; 0.8<br/>entropy = 1.58<br/>samples = 105<br/>value = [31, 37, 37]>, fillcolor="#ffffff"] ;
+1 [label=<entropy = 0.0<br/>samples = 31<br/>value = [31, 0, 0]>, fillcolor="#e58139"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<petal width (cm) &le; 1.75<br/>entropy = 1.0<br/>samples = 74<br/>value = [0, 37, 37]>, fillcolor="#ffffff"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label=<petal length (cm) &le; 4.95<br/>entropy = 0.535<br/>samples = 41<br/>value = [0, 36, 5]>, fillcolor="#54e992"] ;
+2 -> 3 ;
+4 [label=<petal width (cm) &le; 1.6<br/>entropy = 0.187<br/>samples = 35<br/>value = [0, 34, 1]>, fillcolor="#3fe685"] ;
+3 -> 4 ;
+5 [label=<entropy = 0.0<br/>samples = 34<br/>value = [0, 34, 0]>, fillcolor="#39e581"] ;
+4 -> 5 ;
+6 [label=<entropy = 0.0<br/>samples = 1<br/>value = [0, 0, 1]>, fillcolor="#8139e5"] ;
+4 -> 6 ;
+7 [label=<petal width (cm) &le; 1.55<br/>entropy = 0.918<br/>samples = 6<br/>value = [0, 2, 4]>, fillcolor="#c09cf2"] ;
+3 -> 7 ;
+8 [label=<entropy = 0.0<br/>samples = 3<br/>value = [0, 0, 3]>, fillcolor="#8139e5"] ;
+7 -> 8 ;
+9 [label=<sepal length (cm) &le; 6.95<br/>entropy = 0.918<br/>samples = 3<br/>value = [0, 2, 1]>, fillcolor="#9cf2c0"] ;
+7 -> 9 ;
+10 [label=<entropy = 0.0<br/>samples = 2<br/>value = [0, 2, 0]>, fillcolor="#39e581"] ;
+9 -> 10 ;
+11 [label=<entropy = 0.0<br/>samples = 1<br/>value = [0, 0, 1]>, fillcolor="#8139e5"] ;
+9 -> 11 ;
+12 [label=<petal length (cm) &le; 4.85<br/>entropy = 0.196<br/>samples = 33<br/>value = [0, 1, 32]>, fillcolor="#853fe6"] ;
+2 -> 12 ;
+13 [label=<sepal length (cm) &le; 5.95<br/>entropy = 0.918<br/>samples = 3<br/>value = [0, 1, 2]>, fillcolor="#c09cf2"] ;
+12 -> 13 ;
+14 [label=<entropy = 0.0<br/>samples = 1<br/>value = [0, 1, 0]>, fillcolor="#39e581"] ;
+13 -> 14 ;
+15 [label=<entropy = 0.0<br/>samples = 2<br/>value = [0, 0, 2]>, fillcolor="#8139e5"] ;
+13 -> 15 ;
+16 [label=<entropy = 0.0<br/>samples = 30<br/>value = [0, 0, 30]>, fillcolor="#8139e5"] ;
+12 -> 16 ;
+}
