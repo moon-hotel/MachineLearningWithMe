@@ -255,9 +255,4 @@ if __name__ == '__main__':
                         )
 
     # test_naive_bayes()
-    # test_spam_classification()
-    category_count_ = [np.ones((3,0))]
-    print(category_count_[0])
-    a = np.pad(category_count_[0],[(1, 0), (0, 5)],
-                                             'constant')
-    print(a)
+    test_spam_classification()
