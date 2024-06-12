@@ -8,8 +8,6 @@ def normal_distribution(mu=0, sigma2=2., n=100):
     return x, y
 
 
-np.random.randn()
-
 
 def visualization_normal_dis():
     x, y = normal_distribution(mu=0, sigma2=1)
