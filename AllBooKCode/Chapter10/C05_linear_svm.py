@@ -14,7 +14,7 @@ def load_data():
 
 
 def train(x_train, x_test, y_train, y_test):
-    model = SVC(kernel='linear')
+    model = SVC(C=1.0, kernel='linear')
     model.fit(x_train, y_train)
     y_pre = model.predict(x_test)
     print(f"准确率为：{model.score(x_test, y_test)}")
