@@ -1,39 +1,25 @@
 ## 代码索引
 
-### [聚类算法从原理到实现 讲解](https://mp.weixin.qq.com/s/mMiBebbXfRHm6n4hx_aSWg)
+### [支持向量机从原理到实现 讲解](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
-- [Kmeans聚类算法原理可视化 代码](01_kmeans_visualization_cluster.py)
-- [Kmeans聚类过程可视化 代码](02_kmeans_visual_step.py)
-- [Kmeans聚类Sklearn示例 代码](03_kmeans_train.py)
-- [Kmeans聚类算法从零实现 代码](04_kmeans.py)
-- [Kmeans聚类算法弊端可视化 代码](05_kmeans_visual_step.py)
-- [Kmeans++原理可视化 代码](06_kmeanspp_visual_step.py)
-- [Kmeans++从零实现 代码](C07_kmeanspp.py)
-- [WKmeans聚类算法原理可视化 代码](09_visualization_wkmeans.py)
-- [WKmeans聚类算法从零实现 代码](10_wkmeans.py)
+- [不同分类算法决策边界可视化 代码](01_visualization_decision_boundary.py)
+- [不同分类算法决策边界对比可视化 代码](02_visualization_decision_boundary.py)
+- [逻辑回归SVM决策边界对比可视化 代码](03_visualization_decision_boundary.py)
+- [函数间隔可视化 代码](04_functional_margin.py)
+- [几何间隔可视化 代码](05_geometric_margin.py)
+- [线性SVM示例 代码](06_linear_svm.py)
+- [核函数映射可视化 代码](07_visualization_projection.py)
+- [软间隔支持向量可视化 代码](08_visualization_soft_margin_svm.py)
+- [不同惩罚项决策边界对比可视化 代码](09_visualization_soft_margin_c.py)
+- [SVM软间隔分类示例 代码](10_soft_margin_svm.py)
+- [硬间隔决策边界对比可视化 代码](11_visualization_decision_hard_boundary.py)
+- [软间隔决策边界对比可视化 代码](12_visualization_decision_soft_boundary.py)
+- [梯度下降和坐标下降可视化 代码](13_visualization_gradient_coordinate.py)
+- [SMO算法求解示例 代码](C14_svm_smo.py)
+- [SMO伪代码求解 代码](15_smo_pseudeo-code.py)
 
-### [三种常见聚类内部评价指标 讲解](https://mp.weixin.qq.com/s/MlG2zv_2W-Myu0S2Ilu1qA)
+### [从零实现SVM算法 讲解](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
-- [聚类内部评价指标实现 代码](C11_internal_evaluation.py)
-
-### [四种常见聚类外部评价指标 讲解](https://mp.weixin.qq.com/s/Yh11rPHn1tvomKDS5CgJEg)
-
-- [四种种常见聚类外部评价指标实现 代码](08_metrics.py)
-
-### [两种策略分析聚类算法K值选取 讲解](https://mp.weixin.qq.com/s/Ia2ZB1rCPDK5yHM0m4CKag)
-
-- [elbow方法分析K值 代码](C12_elbow_analysis.py)
-- [elbow方法失效图可视化 代码](C13_elbow_analysis_examples.py)
-- [silhouette方法分析K值 代码](C14_silhouette_analysis.py)
-- [elbow和silhouette发综合分析 代码](C15_elbow_sihouette_analysis.py)
-
-### [基于密度的聚类算法（DBSCAN) 讲解](https://mp.weixin.qq.com/s/WwYMJVuUXkRzEZoGuP6qRg)
-
-- [类Kmeans聚类算法弊端可视化 代码](C16_kmeans_disadvantage.py)
-- [基于密度的聚类算法实现 代码](C17_DBSCAN.py)
-
-### [三种基于层次的聚类算法（Hierarchical Clustering) 讲解](https://mp.weixin.qq.com/s/BO7_z9RSMJG3SG8xtrlyuA)
-
-- [Single-Link、Complete-Link和Ward聚类实现 代码](C18_hierarchical_clustering.py)
+- [从零实现SVM分类算法 代码](C16_svm_impl.py)
 
 ### [返回主页](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[返回索引](../Index.md)

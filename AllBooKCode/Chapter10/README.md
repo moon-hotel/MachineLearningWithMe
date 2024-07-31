@@ -1,39 +1,25 @@
 ## Code Index
 
-### [Understanding Clustering Algorithms from Scratch (in Chinese)](https://mp.weixin.qq.com/s/mMiBebbXfRHm6n4hx_aSWg)
+### [Understanding Support Vector Machine from Scratch (in Chinese)](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
-- [Visualization of Key Idea of Kmeans](01_kmeans_visualization_cluster.py)
-- [Visualization of Kmeans Clustering process](02_kmeans_visual_step.py)
-- [Kmeans Clustering by Sklearn](03_kmeans_train.py)
-- [Implementation of Kmeans from Scratch](04_kmeans.py)
-- [Visualization of Kmeans Disadvantage](05_kmeans_visual_step.py)
-- [Visualization of Key Idea of Kmeans++](06_kmeanspp_visual_step.py)
-- [Implementation of Kmeans++ from Scratch](C07_kmeanspp.py)
-- [Visualization of Key Idea of WKmeans](09_visualization_wkmeans.py)
-- [Implementation of WKmeans from Scratch](10_wkmeans.py)
+- [Visualization of Decision Boundaries for Different Classification Algorithms](01_visualization_decision_boundary.py)
+- [Comparison and Visualization of Decision Boundaries of Different Classification lgorithms](02_visualization_decision_boundary.py)
+- [Visualization of Decision Boundary Comparison of Logistic regression and SVM](03_visualization_decision_boundary.py)
+- [Visualization of Functional Margin](04_functional_margin.py)
+- [Visualization of Geometric Margin](05_geometric_margin.py)
+- [Linear SVM](06_linear_svm.py)
+- [Visualization of Kernel Function](07_visualization_projection.py)
+- [Visualization of Soft Margin Support Vector](08_visualization_soft_margin_svm.py)
+- [Comparison and Visualization of Decision Boundaries for Different Penalty Terms](09_visualization_soft_margin_c.py)
+- [SVM Soft Margin Classification](10_soft_margin_svm.py)
+- [Visualization of Hard Margin Decision Boundaries](11_visualization_decision_hard_boundary.py)
+- [Visualization of Soft Margin Decision Boundaries](12_visualization_decision_soft_boundary.py)
+- [Visualization of Gradient Descent and Coordinate Descent](13_visualization_gradient_coordinate.py)
+- [Implementation of SMO Algorithm](C14_svm_smo.py)
+- [Pseudeo-Code of SMO](15_smo_pseudeo-code.py)
 
-### [Introduction of Three Common Clustering Internal Evaluation (in Chinese)](https://mp.weixin.qq.com/s/MlG2zv_2W-Myu0S2Ilu1qA)
+### [Introduction of Implementation of SVM from Scratch](https://mp.weixin.qq.com/s/2n_ihwJTZWhieYd6KXFpuw)
 
-- [Implementation of Clustering Internal Evaluation](C11_internal_evaluation.py)
-
-### [Introduction of Four Common Clustering External Evaluation (in Chinese)](https://mp.weixin.qq.com/s/Yh11rPHn1tvomKDS5CgJEg)
-
-- [Implementation of Clustering External Evaluation](08_metrics.py)
-
-### [Two Kinds of Method for K Value Selection](https://mp.weixin.qq.com/s/Ia2ZB1rCPDK5yHM0m4CKag)
-
-- [Elbow Method](C12_elbow_analysis.py)
-- [Visualization of Disadvantage of Elbow Method](C13_elbow_analysis_examples.py)
-- [Silhouette Method](C14_silhouette_analysis.py)
-- [Elbow and Silhouette Methods](C15_elbow_sihouette_analysis.py)
-
-### [Introduction of Density-Based Spatial Clustering of Applications with Noise（DBSCAN) (in Chinese)](https://mp.weixin.qq.com/s/WwYMJVuUXkRzEZoGuP6qRg)
-
-- [Visualization of Disadvantage of Kmeans-type Algorithms](C16_kmeans_disadvantage.py)
-- [Implementation of DBSCAN](C17_DBSCAN.py)
-
-### [Introduction of Three Strategies for Hierarchical Clustering (in Chinese)](https://mp.weixin.qq.com/s/BO7_z9RSMJG3SG8xtrlyuA)
-
-- [Implementation of Hierarchical Clustering by Single-Link,Complete-Link, and Ward](C18_hierarchical_clustering.py)
+- [Implementation of SVM from Scratch](C16_svm_impl.py)
 
 ### [Home](../../README.md)&nbsp;&nbsp;&nbsp;&nbsp;[Back to KnowledgeIndex](../Index.md)
