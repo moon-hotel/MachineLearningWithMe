@@ -25,7 +25,7 @@ def plot_countour():
     J = cost(W1, W2)
     CS = plt.contour(W1, W2, J, 16)
     plt.clabel(CS, inline=2, fontsize=10)
-    plt.annotate(r'$(0.14,-0.71)$', xy=(-2, -0.8), fontsize=15)
+    plt.annotate(r'$(0.26,-0.41)$', xy=(-0.6, -0.9), fontsize=15)
     plt.xlabel(r'$w_1$', fontsize=18)
     plt.ylabel(r'$w_2$', fontsize=18)
 
