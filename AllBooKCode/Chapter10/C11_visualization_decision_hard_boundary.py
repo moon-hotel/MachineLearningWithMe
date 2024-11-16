@@ -47,7 +47,7 @@ def decision_boundary():
     # plot support vectors
     plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=130,
                 linewidth=1, facecolors='none', edgecolors='k')
-    plt.xlim(0, 4)
+    plt.xlim(0.5, 4)
     plt.ylim(-1, 8)
     plt.show()
 

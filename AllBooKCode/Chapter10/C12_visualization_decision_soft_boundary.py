@@ -12,8 +12,8 @@ def decision_boundary():
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.annotate(r'$x^{(1)}$', xy=(0.8, 1.3), fontsize=12,)
     plt.annotate(r'$x^{(2)}$', xy=(3, 1.2), fontsize=12,)
-    plt.annotate(r'$x^{(3)}$', xy=(1.1, 5), fontsize=12,)
-    plt.annotate(r'$x^{(5)}$', xy=(3.1, 4.9), fontsize=12,)
+    plt.annotate(r'$x^{(5)}$', xy=(1.1, 5), fontsize=12,)
+    plt.annotate(r'$x^{(3)}$', xy=(3.1, 4.9), fontsize=12,)
     plt.annotate(r'$x^{(4)}$', xy=(1.6, 6.2), fontsize=12,)
 
     xlim = [np.min(X[:, 0]), np.max(X[:, 0])]

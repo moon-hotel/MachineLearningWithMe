@@ -33,6 +33,7 @@ def plot_countour():
     p = np.array([-3.8, 2.])  # 起始位置
     q = np.array([0., 0.])  # 初始化
     plt.scatter(p[0], p[1])
+    print(f"坐标下降：")
     for i in range(50):
         q[0] = 0.5 * (p[1] + 1)
         plt.arrow(p[0], p[1], q[0] - p[0], 0., head_width=0.1, head_length=0.1, )
@@ -41,10 +42,10 @@ def plot_countour():
         q[1] = (1 / 9.) * (p[0] - 4.)
         plt.arrow(p[0], p[1], 0., q[1] - p[1], head_width=0.1, head_length=0.1, )
         p[1] = q[1]
-
-        # print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
+        print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
     #
     # # ------------  梯度下降算法
+    print(f"梯度下降：")
     p = np.array([-3.8, 2.])  # 起始位置
     plt.scatter(p[0], p[1])
     for i in range(50):  #
