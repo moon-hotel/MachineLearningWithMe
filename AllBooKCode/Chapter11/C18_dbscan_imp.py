@@ -216,7 +216,7 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_moon()
-    test_query_radius()
-    test_circle_dbscan()
-    # test_moon_dbscan()
+    test_moon() # KMeans
+    test_query_radius() # 测试寻找圆域内的样本点
+    test_circle_dbscan() #
+    test_moon_dbscan()
