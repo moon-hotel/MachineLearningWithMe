@@ -36,7 +36,7 @@ class MyKernelPCA(object):
         self.degree = degree
         self.coef0 = coef0
 
-    def _get_kernel(self, X, Y=None):
+    def _get_center_kernel(self, X, Y=None):
         """
         计算得到核矩阵，当Y为None时则是计算X中两两样本之间的结果
         :param X: shape: [n_samples,n_features]
@@ -46,9 +46,19 @@ class MyKernelPCA(object):
         params = {"gamma": self.gamma,
                   "degree": self.degree,
                   "coef0": self.coef0}
-        return pairwise_kernels(X, Y, metric=self.kernel,
-                                filter_params=True,
-                                **params)
+        K = pairwise_kernels(X, Y, metric=self.kernel,
+                             filter_params=True,
+                             **params)  # [n_samples,n_samples]
+
+        if Y is None:  # 方阵,训练集上的时候
+            l_mat = np.ones(K.shape) / K.shape[0]
+            KM = K - (l_mat @ K) - (K @ l_mat) + ((l_mat @ K) @ l_mat)
+        else:  # 非方阵测试集上，  其实只用下面这种计算方式可以兼容两种情况
+            row_mean = (np.sum(K, axis=1) / K.shape[0])[:, None]  # 行上求平均
+            col_mean = np.sum(K, axis=0) / K.shape[0]  # 列上求平均
+            all_mean = np.sum(row_mean) / K.shape[0]  # 所有值的平均
+            KM = K - col_mean - row_mean + all_mean  # 这里会用到广播机制
+        return KM
 
     def fit(self, X):
         """
@@ -57,16 +67,13 @@ class MyKernelPCA(object):
         :return:
         """
         self._X = X
-        self.K = self._get_kernel(X)  # [n_samples,n_samples]
-        l_mat = np.ones(self.K.shape)
-        self.KM = self.K - np.matmul(l_mat, self.K) - np.matmul(self.K, l_mat) + \
-                  np.matmul(np.matmul(l_mat, self.K), l_mat)  # self.KM: [n_samples,n_samples]
+        self.KM = self._get_center_kernel(X)  # self.KM: [n_samples,n_samples]
         # 计算特征值和特征向量
         w, v = np.linalg.eigh(self.KM)
         # v[:,i] 是特征值w[i]所对应的特征向量
         idx = np.argsort(w)[::-1]  # 获取特征值降序排序的索引
         self.lambdas_ = w[idx]  # [k,]  进行降序排列
-        self.alphas_ = v[:, idx][:, :self.n_components]  # [n_features,n_components]，  排序
+        self.alphas_ = v[:, idx][:, :self.n_components]  # [n_samples,n_components]，  排序
         return self
 
     def fit_transform(self, X):
@@ -76,7 +83,7 @@ class MyKernelPCA(object):
         """
         self.fit(X)
         # [n_samples,n_samples] @ [n_samples,n_components]
-        return np.matmul(self.K, self.alphas_)
+        return np.matmul(self.KM, self.alphas_)
 
     def transform(self, X):
         """
@@ -84,9 +91,11 @@ class MyKernelPCA(object):
         :return:
         """
         # 降维
-        K = self._get_kernel(self._X, X)
-        # K: [n_train_samples, n_test_samples]
-        return np.matmul(K.T, self.alphas_)
+        print("_X: ", self._X.shape)
+        print("self.alphas_: ", self.alphas_.shape)
+        KM = self._get_center_kernel(X, self._X)
+        print("KM: ", KM.shape)
+        return np.matmul(KM, self.alphas_)
 
 
 def make_nonlinear_cla_data():
