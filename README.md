@@ -10,7 +10,7 @@
 
 ### 电子专栏：[微信专栏](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzAwNjU0NjA3Ng==&action=getalbum&album_id=3528901067872075781)
 
-<div align=center><img width="500" src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/202412291647256.png"/> 
+<div align=center><img width="480" src="https://moonhotel.oss-cn-shanghai.aliyuncs.com/images/202412291647256.png"/> </div>
 
 # 目录
 
