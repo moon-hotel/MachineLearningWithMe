@@ -91,10 +91,8 @@ class MyKernelPCA(object):
         :return:
         """
         # 降维
-        print("_X: ", self._X.shape)
-        print("self.alphas_: ", self.alphas_.shape)
         KM = self._get_center_kernel(X, self._X)
-        print("KM: ", KM.shape)
+        print(KM.shape)
         return np.matmul(KM, self.alphas_)
 
 
