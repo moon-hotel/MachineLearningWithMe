@@ -52,7 +52,7 @@ class MyKernelPCA(object):
 
         if Y is None:  # 方阵,训练集上的时候
             l_mat = np.ones(K.shape) / K.shape[0]
-            KM = K - (l_mat @ K) - (K @ l_mat) + ((l_mat @ K) @ l_mat)
+            KM = K - (K @ l_mat) - (l_mat @ K) + ((l_mat @ K) @ l_mat)
         else:  # 非方阵测试集上，  其实只用下面这种计算方式可以兼容两种情况
             row_mean = (np.sum(K, axis=1) / K.shape[0])[:, None]  # 行上求平均
             col_mean = np.sum(K, axis=0) / K.shape[0]  # 列上求平均
