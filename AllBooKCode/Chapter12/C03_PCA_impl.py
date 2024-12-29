@@ -19,8 +19,8 @@ class MyPCA(object):
         self.n_components = n_components
 
     def fit(self, X):
-        self.standar_scaler = StandardScaler()
-        X = self.standar_scaler.fit_transform(X)
+        self.mean_ = np.mean(X, axis=0)
+        X = X - self.mean_
         # 计算特征值和特征向量
         w, v = np.linalg.eig(np.matmul(X.T, X) / len(X))
         # v[:,i] 是特征值w[i]所对应的特征向量
@@ -35,7 +35,7 @@ class MyPCA(object):
 
     def transform(self, X):
         # 降维
-        X = self.standar_scaler.transform(X)
+        X = X - self.mean_
         return np.matmul(X, self.v)  # [m,n] @ [n,k] = [m,k]
 
 
@@ -59,14 +59,14 @@ def test_PCA():
     model = DecisionTreeClassifier()
     model.fit(x_train, y_train)
     acc = model.score(x_test, y_test)
-    print(f"MyPCA降维后的准确率为：{acc}，形状为{x_train.shape}")
+    print(f"MyPCA降维后的准确率为：{acc}，形状为{x_test.shape}")
 
     x_train, x_test, y_train, y_test = load_data(reduction_method="sklearn",
                                                  n_components=3)
     model = DecisionTreeClassifier()
     model.fit(x_train, y_train)
     acc = model.score(x_test, y_test)
-    print(f"PCA降维后的准确率为：{acc}，形状为{x_train.shape}")
+    print(f"PCA降维后的准确率为：{acc}，形状为{x_test.shape}")
 
 
 if __name__ == '__main__':
