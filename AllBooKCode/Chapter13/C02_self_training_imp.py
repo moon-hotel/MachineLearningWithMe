@@ -75,9 +75,11 @@ class SelfTrainingClassifier(object):
             max_proba = np.max(prob, axis=1)  # 取每个样本类别预测中的最大概率 [n_samples,]
             # ③选择预测概率超过阈值的样本索引
             selected = max_proba > self.threshold  # 通过阈值来进行确定哪些标签的预测结果是可信的
-            selected_full = np.nonzero(~has_label)[0][selected]
+            selected_full = np.nonzero(~has_label)[0][selected]  # 得到预测概率大于阈值的样本的索引id
+            # e.g. has_label = [ True  True  True False False False]
+            #      np.nonzero(~has_label) 则为 (array([3, 4, 5]),)
             # ④将样本预测概率最大值对应的标签且概率同时大于阈值的预测结果更新到标签结果中
-            self.transduction_[selected_full] = pred[selected]  # 更新标签
+            self.transduction_[selected_full] = pred[selected]  # 更新标签, 即把对应满足条件的标签给替换掉
             has_label[selected_full] = True  # 设定原本无标签的对应样本为有标签状态
             self.labeled_iter_[selected_full] = self.n_iter_
             # labeled_iter_记录样本被拟合的次数，因为存在概率小于阈值的情况，所以可能需要拟合多次
@@ -87,8 +89,8 @@ class SelfTrainingClassifier(object):
                 self.termination_condition_ = "no_change"  # 结束标志：没有变化
                 break
 
-            print(f"第 {self.n_iter_} 次迭代结束后,"
-                  f"有 {selected_full.shape[0]} 个未标记样本增加了新标签.")
+            logging.debug(f"第 {self.n_iter_} 次迭代结束后,"
+                          f"有 {selected_full.shape[0]} 个未标记样本增加了新标签.")
 
         if self.n_iter_ == self.max_iter:
             self.termination_condition_ = "max_iter"  # 结束标志：达到最大迭代次数
