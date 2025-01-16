@@ -7,7 +7,6 @@
 """
 
 import logging
-from scipy.sparse import csgraph
 from sklearn.metrics import accuracy_score
 from sklearn.metrics.pairwise import euclidean_distances
 import numpy as np
@@ -20,6 +19,10 @@ def kernel(X, y=None, gamma=None):
     K = euclidean_distances(X, y, squared=True)
     K *= -gamma
     np.exp(K, K)  # <==> K = np.exp(K)
+    # np.fill_diagonal(K, 0)  # 因为在实际情况中，若某些样本点之间相隔太远（或是异常点），
+                              # 则会导致除了自己与自己的权重距离（即W_{ii} ）不为0以为，其它位置都为0
+                              # 如果此时再把对角线也置为0，则会导致后面计算 D^(-1/2)WD^(-1/2) 时出现除以0的情况
+                              # 所以在此时我们会进行取舍，即不做这一步操作
     return K
 
 
@@ -39,11 +42,14 @@ class LabelSpreading():
 
     def _build_graph(self):
         # 计算标准化后的拉普拉斯矩阵
-        n_samples = self.X_.shape[0]
-        affinity_matrix = self._get_kernel(self.X_)
+        W = self._get_kernel(self.X_)
+        # 计算 D
+        D = np.diag(np.sum(W, axis=1))
+        # 计算 D^(-1/2)
+        D_inv_sqrt = np.linalg.inv(np.sqrt(D))
         # D^{-1/2}WD^{-1/2}
-        laplacian = -csgraph.laplacian(affinity_matrix, normed=True)
-        laplacian.flat[::n_samples + 1] = 0.0  # 设置对角线原始全为0
+        # 计算规范化拉普拉斯矩阵 S
+        laplacian = np.matmul(np.matmul(D_inv_sqrt, W), D_inv_sqrt)
         return laplacian
 
     def fit(self, X, y):
@@ -138,8 +144,8 @@ def test_label_spreading():
 
     logging.info(f"模型在训练集上的准确率为: {model.score(x_train, y_train)}")
     logging.info(f"模型在测试集上的准确率为: {model.score(x_test, y_test)}")
-    #- INFO: 模型在训练集上的准确率为: 0.863961813842482
-    #- INFO: 模型在测试集上的准确率为: 0.8444444444444444
+    #- INFO: 模型在训练集上的准确率为: 0.841686555290374
+    #- INFO: 模型在测试集上的准确率为: 0.825925925925926
 
 
 if __name__ == '__main__':
