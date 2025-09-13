@@ -18,10 +18,10 @@ def visualization_normal_dis():
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.rcParams['axes.unicode_minus'] = False
     # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.tick_params(axis='x', labelsize=14)  # x轴刻度数字大小
-    plt.tick_params(axis='y', labelsize=14)  # y轴刻度数字大小
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
 
-    plt.legend(fontsize=15)
+    plt.legend(fontsize=16)
     plt.tight_layout()  # 调整子图间距
     plt.show()
 
