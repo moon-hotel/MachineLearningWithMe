@@ -26,7 +26,7 @@ def R2(y, y_pre):
 
 
 def load_data():
-    data = fetch_california_housing()
+    data = fetch_california_housing(data_home='../data/')
     x = data.data
     y = data.target
     return x, y
