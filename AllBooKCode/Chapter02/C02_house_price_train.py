@@ -19,13 +19,15 @@ def main(x, y):
     y_pre = model.predict(x)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.scatter(x, y, c='black')
     print("参数w={},b={}".format(model.coef_,model.intercept_))
     print("面积50的房价为：",model.predict([[50]]))
     plt.plot(x, y_pre, c='black')
-    plt.xlabel('面积', fontsize=15)
-    plt.ylabel('房价', fontsize=15)
+    plt.xlabel('面积', fontsize=16)
+    plt.ylabel('房价', fontsize=16)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()  # 调整子图间距
     plt.show()
