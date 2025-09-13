@@ -11,7 +11,7 @@ def feature_scalling(X):
 
 
 def load_data():
-    data = fetch_california_housing()
+    data = fetch_california_housing(data_home='../data/')
     X = data.data  # [20640, 8]
     y = data.target.reshape(-1, 1)
     X = feature_scalling(X)
@@ -71,9 +71,11 @@ if __name__ == '__main__':
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.plot(range(len(costs)), costs, label='损失值', c='black')
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.legend(fontsize=15)
-    plt.xlabel('迭代次数', fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.xlabel('迭代次数', fontsize=16)
     plt.tight_layout()  # 调整子图间距
     plt.show()
