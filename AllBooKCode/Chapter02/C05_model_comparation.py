@@ -15,17 +15,18 @@ def make_data():
 def visualization(x, y):
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
-    plt.xlabel('面积', fontsize=15)
-    plt.ylabel('房价', fontsize=15)
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.xlabel('面积', fontsize=16)
+    plt.ylabel('房价', fontsize=16)
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.tight_layout()  # 调整子图间距
     plt.scatter(x, y,c='black')
     x1, y1 = [50, 78], [253, 467]
     x2, y2 = [51, 78], [246, 486]
     plt.plot(x1, y1, c='black', label=r'$h_1(x)$')
     plt.plot(x2, y2,'--', c='black', label=r'$h_2(x)$')
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()  # 调整子图间距
     plt.legend(fontsize=15)
     plt.show()
