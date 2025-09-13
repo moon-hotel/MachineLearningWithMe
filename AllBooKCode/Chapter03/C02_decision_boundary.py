@@ -12,13 +12,14 @@ def make_data():
     index_pos, index_neg = (y == 1), (y == 0)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS'] # Macos
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     x_pos, x_neg = x[index_pos], x[index_neg]
     plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本', c='black', s=50)
     plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本', c='black', s=50)
-
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
     return x, y
@@ -37,7 +38,8 @@ def decision_boundary(x, y):
     y_min, y_max = x[:, 1].min() - .5, x[:, 1].max() + .5
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     h = .02  # step size in the mesh
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
     x_new = np.hstack([xx.reshape(-1, 1), yy.reshape(-1, 1)])
@@ -50,9 +52,10 @@ def decision_boundary(x, y):
     x_pos, x_neg = x[index_pos], x[index_neg]
     plt.scatter(x_pos[:, 0], x_pos[:, 1], marker='o', label='正样本', c='black', s=50)
     plt.scatter(x_neg[:, 0], x_neg[:, 1], marker='s', label='负样本', c='black', s=50)
-
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

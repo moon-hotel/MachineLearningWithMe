@@ -12,11 +12,13 @@ def visualization():
     c0, c1, c2 = x[index_c0], x[index_c1], x[index_c2]
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.scatter(c0[:, 0], c0[:, 1], marker='s', label='类别0', s=50)
     plt.scatter(c1[:, 0], c1[:, 1], marker='x', label='类别1', s=50)
     plt.scatter(c2[:, 0], c2[:, 1], marker='v', label='类别2', s=50)
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.legend(fontsize=15)
     plt.tight_layout()
     plt.show()
@@ -33,13 +35,15 @@ def visualization_ova():
     c0, c1, c2 = x[index_c0], x[index_c1], x[index_c2]
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.scatter(c0[:, 0], c0[:, 1], marker='s',  label='类别0', s=50)
     plt.scatter(c1[:, 0], c1[:, 1], marker='o',  label='类别1', s=50)
     plt.scatter(c2[:, 0], c2[:, 1], marker='o',  label='类别1', s=50)
     plt.plot([0.65, 2.0], [2.6, 0.85], c='black')
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-    plt.legend(fontsize=14)
+    plt.legend(fontsize=15)
 
     plt.subplot(1, 3, 2)
     num_points = 200
@@ -50,13 +54,15 @@ def visualization_ova():
     c0, c1, c2 = x[index_c0], x[index_c1], x[index_c2]
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.scatter(c0[:, 0], c0[:, 1], marker='o',  label='类别1', s=50)
     plt.scatter(c1[:, 0], c1[:, 1], marker='x',  label='类别0', s=50)
     plt.scatter(c2[:, 0], c2[:, 1], marker='o',  label='类别1', s=50)
     plt.plot([1.45, 1.55], [0.2, 3.5], c='black')
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-    plt.legend(fontsize=14)
+    plt.legend(fontsize=15)
 
     plt.subplot(1, 3, 3)
     num_points = 200
@@ -67,13 +73,15 @@ def visualization_ova():
     c0, c1, c2 = x[index_c0], x[index_c1], x[index_c2]
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.scatter(c0[:, 0], c0[:, 1], marker='o',  label='类别1', s=50)
     plt.scatter(c1[:, 0], c1[:, 1], marker='o',  label='类别1', s=50)
     plt.scatter(c2[:, 0], c2[:, 1], marker='v',  label='类别0', s=50)
     plt.plot([0.66, 2.2], [1, 3.1], c='black')
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-    plt.legend(fontsize=14)
+    plt.legend(fontsize=15)
     plt.tight_layout()  # 调整子图间距
     plt.show()
 

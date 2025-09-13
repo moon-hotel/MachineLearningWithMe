@@ -104,9 +104,11 @@ if __name__ == '__main__':
     train_by_sklearn(x, y)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.plot(range(len(costs)), costs, label='损失值', c='black')
     plt.legend(fontsize=15)
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()  # 调整子图间距
     plt.show()
