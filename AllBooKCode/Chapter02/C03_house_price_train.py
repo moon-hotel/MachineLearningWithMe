@@ -3,7 +3,7 @@ from sklearn.linear_model import LinearRegression
 
 
 def load_data():
-    data = fetch_california_housing()
+    data = fetch_california_housing(data_home='../data/')
     x = data.data
     y = data.target
     return x, y
