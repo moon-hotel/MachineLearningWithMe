@@ -26,7 +26,7 @@ def main(x, y):
     plt.plot(x, y_pre, c='black')
     plt.xlabel('面积', fontsize=15)
     plt.ylabel('房价', fontsize=15)
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()  # 调整子图间距
     plt.show()
 
