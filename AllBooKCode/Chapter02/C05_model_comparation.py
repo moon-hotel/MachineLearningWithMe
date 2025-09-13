@@ -25,6 +25,7 @@ def visualization(x, y):
     x2, y2 = [51, 78], [246, 486]
     plt.plot(x1, y1, c='black', label=r'$h_1(x)$')
     plt.plot(x2, y2,'--', c='black', label=r'$h_2(x)$')
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()  # 调整子图间距
     plt.legend(fontsize=15)
     plt.show()
