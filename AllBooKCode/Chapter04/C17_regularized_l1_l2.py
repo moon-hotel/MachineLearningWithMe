@@ -34,5 +34,5 @@ def classification_penalty():
 
 
 if __name__ == '__main__':
-    # regression_penalty()
+    regression_penalty()
     classification_penalty()

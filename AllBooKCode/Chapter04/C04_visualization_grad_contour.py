@@ -26,6 +26,8 @@ def visualization():
     plt.figure(figsize=(7, 3.5))
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.plot(x, y, label=r'$(x-2)^2+y^2=1$', c='black')
     plt.scatter(2.5, f(2.5), c='black')
     line1 = kx_plus_b(2.5, f(2.5), f_prime(2.5), 0.5, 0.5)

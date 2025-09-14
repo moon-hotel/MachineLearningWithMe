@@ -10,7 +10,9 @@ def model_space():
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.plot(x, y1, linestyle='--', label=r'$y_1=1.0x^2+0.5x^3+0.2x^4-0.1x^5$', c='black')
     plt.plot(x, y2, label=r'$y_1=0.1x^2+0.05x^3+0.02x^4-0.01x^5$', c='black')
-    plt.legend(fontsize=12)
+    plt.legend(fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.show()
 
 

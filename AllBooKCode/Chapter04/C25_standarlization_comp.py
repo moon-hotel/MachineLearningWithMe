@@ -39,16 +39,24 @@ def visualization():
     plt.scatter(x[:, 0], x[:, 1], label='原始数据')
     plt.scatter(x_standarlized[:, 0], x_standarlized[:, 1], label='标准化后数据')
 
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.title('去均值标准化')
-    plt.legend()
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.title('去均值标准化',fontsize=15)
+    plt.legend(fontsize=15)
 
     plt.subplot(1, 2, 2)
     plt.scatter(x[:, 0], x[:, 1], label='原始数据')
     plt.scatter(x_standarlized_minmax[:, 0], x_standarlized_minmax[:, 1], label='标准化后数据')
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.title('最小-最大值标准化')
-    plt.legend()
+    plt.title('最小-最大值标准化',fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.legend(fontsize=15)
     plt.show()
 
 

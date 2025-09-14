@@ -23,10 +23,12 @@ def plot_countour():
     plt.subplot(1, 3, 1)
 
     plt.plot(W, J, c='black')
-    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=80, label=r'$\alpha= 0.02,ite = 20$')  # 非实际计算
+    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=90, label=r'$\alpha= 0.02,ite = 20$')  # 非实际计算
     p = np.array([-4.8, f_non_convex(-4.8)])  # 起始位置
-    plt.scatter(p[0], p[1], c='black')
-    plt.legend(fontsize=15, loc='upper center')
+    plt.scatter(p[0], p[1], c='black',s=90)
+    plt.legend(fontsize=20, loc='upper center')
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
 
     for i in range(20):
         g, q = f_non_convex_grad(p[0], learning_rate=0.02)
@@ -34,17 +36,17 @@ def plot_countour():
         plt.arrow(p[0], p[1], q[0] - p[0], q[1] - p[1], head_width=0.1,
                   head_length=0.1, linewidth=2, color='black')
         p = q
-        plt.scatter(p[0], p[1], c='black')
-    plt.ylabel('J(w)', fontsize=15)
-    plt.xlabel('w', fontsize=15)
+        plt.scatter(p[0], p[1], c='black',s=90)
+    plt.ylabel('J(w)', fontsize=20)
+    plt.xlabel('w', fontsize=20)
 
     plt.subplot(1, 3, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.plot(W, J, c='black')
-    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=80, label=r'$\alpha= 0.4,ite = 4$')  # 非实际计算
+    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=90, label=r'$\alpha= 0.4,ite = 4$')  # 非实际计算
     p = np.array([-4.8, f_non_convex(-4.8)])  # 起始位置
-    plt.scatter(p[0], p[1], c='black')
+    plt.scatter(p[0], p[1], c='black',s=90)
     for i in range(4):
         g, q = f_non_convex_grad(p[0], learning_rate=0.4)
         print("P{}:{},grad = {}".format(i, p, g))
@@ -52,29 +54,32 @@ def plot_countour():
         plt.arrow(p[0], p[1], q[0] - p[0], q[1] - p[1], head_width=0.1,
                   head_length=0.1, linewidth=2, color='black')
         p = q
-        plt.scatter(p[0], p[1], c='black')
-    plt.ylabel('J(w)', fontsize=15)
-    plt.xlabel('w', fontsize=15)
-    plt.legend(fontsize=15, loc='upper center')
+        plt.scatter(p[0], p[1], c='black',s=90)
+    plt.ylabel('J(w)', fontsize=20)
+    plt.xlabel('w', fontsize=20)
+    plt.legend(fontsize=20, loc='upper center')
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
 
     plt.subplot(1, 3, 3)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.plot(W, J, c='black')
-    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=80, label=r'$\alpha= 0.6,ite = 20$')  # 非实际计算
+    plt.scatter(-0.7584, -1.8747, marker='*', c='black', s=90, label=r'$\alpha= 0.6,ite = 20$')  # 非实际计算
     p = np.array([-4.8, f_non_convex(-4.8)])  # 起始位置
-    plt.scatter(p[0], p[1], c='black')
+    plt.scatter(p[0], p[1], c='black',s=90)
     for i in range(20):
         g, q = f_non_convex_grad(p[0], learning_rate=0.6)
         print("P{}:{},grad = {}".format(i, p, g))
         plt.arrow(p[0], p[1], q[0] - p[0], q[1] - p[1], head_width=0.1,
                   head_length=0.1, linewidth=2, color='black')
         p = q
-        plt.scatter(p[0], p[1], c='black')
-    plt.ylabel('J(w)', fontsize=15)
-    plt.xlabel('w', fontsize=15)
-    plt.legend(fontsize=15, loc='upper center')
-
+        plt.scatter(p[0], p[1], c='black',s=90)
+    plt.ylabel('J(w)', fontsize=20)
+    plt.xlabel('w', fontsize=20)
+    plt.legend(fontsize=20, loc='upper center')
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

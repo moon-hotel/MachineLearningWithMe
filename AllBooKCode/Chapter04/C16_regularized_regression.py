@@ -55,13 +55,13 @@ def train(x_train, x_test, y_train, y_test, ite=300, alpha=0.2, lam=0):
 
 
 if __name__ == '__main__':
-    # make_data()
     x_train, x_test, y_train, y_test = make_data()
     iterations = 200
     plt.figure(figsize=(8, 4))
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+
+
     plt.subplot(1, 2, 1)
     costs_train, costs_test = train(x_train, x_test, y_train, y_test, ite=iterations, alpha=0.12, lam=0)
     plt.plot(range(iterations), costs_train, label='训练误差', c='black')
@@ -69,6 +69,10 @@ if __name__ == '__main__':
     plt.legend(fontsize=15)
     plt.ylim(-1, 30)
     plt.xlabel('迭代次数', fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
 
     plt.subplot(1, 2, 2)
     costs_train, costs_test = train(x_train, x_test, y_train, y_test, ite=iterations, alpha=0.12, lam=20)
@@ -78,6 +82,9 @@ if __name__ == '__main__':
     plt.legend(fontsize=15)
     plt.ylim(-1, 30)
     plt.xlabel('迭代次数', fontsize=15)
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()
     plt.show()

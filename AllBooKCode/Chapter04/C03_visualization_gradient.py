@@ -25,7 +25,6 @@ def plot_countour():
     plt.figure(figsize=(10, 5), dpi=80)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 1)
     J = W1 ** 2 + W2 ** 2
     CS = plt.contour(W1, W2, J, 10, colors='black')
@@ -43,7 +42,6 @@ def plot_countour():
         p += q  # 上一次的位置加上本次的梯度
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 2)
     J = (1 / 6) * W1 ** 2 + W2 ** 2
     CS = plt.contour(W1, W2, J, 16, colors='black')
@@ -59,7 +57,8 @@ def plot_countour():
         print("P{}:{}".format(i, p))
         plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, fc='black', ec='black')
         p += q  # 上一次的位置加上本次的梯度
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()  # 调整子图间距
     plt.show()
 

@@ -19,9 +19,6 @@ def plot_countour():
     W2 = np.arange(-5, 5, 0.1)
     W1, W2 = np.meshgrid(W1, W2)
     J = f(W1, W2)
-    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     fig, ax = plt.subplots(figsize=(6, 6))
     CS = ax.contour(W1, W2, J, 9, colors='black')
     ax.scatter(0, 0, c='black')
@@ -41,9 +38,14 @@ def plot_countour():
         p += q  # 上一次的位置加上本次的梯度
     plt.annotate("梯度方向,最速上升曲线", xy=(0.5, -0.5), fontsize=14, c='black')
     ax.clabel(CS, inline=2, fontsize=10)
-    ax.set_xlabel(r'$w_1$', fontsize=15)
-    ax.set_ylabel(r'$w_2$', fontsize=15)
-    # plt.rcParams['font.sans-serif'] = ['SimSun']  # 用来  正常显示中文标签
+    ax.set_xlabel(r'$w_1$', fontsize=16)
+    ax.set_ylabel(r'$w_2$', fontsize=16)
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.show()
 
 

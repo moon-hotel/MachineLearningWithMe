@@ -23,10 +23,11 @@ def visualization():
     plt.figure(figsize=(12, 5))
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.subplot(1, 2, 1)
     x, y = make_nonlinear_reg_data()
-    plt.scatter(x, y, s=30)
+    plt.scatter(x, y, s=50)
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
     plt.subplot(1, 2, 2)
     x, y = make_nonlinear_cla_data()
     neg, pos = [], []
@@ -36,9 +37,11 @@ def visualization():
         else:
             pos.append(x[i, :])
     neg, pos = np.vstack(neg), np.vstack(pos)
-    plt.scatter(neg[:, 0], neg[:, 1], marker='s', s=30)
-    plt.scatter(pos[:, 0], pos[:, 1], marker='o', s=30)
+    plt.scatter(neg[:, 0], neg[:, 1], marker='s', s=50)
+    plt.scatter(pos[:, 0], pos[:, 1], marker='o', s=50)
     plt.tight_layout()
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
     plt.show()
 
 

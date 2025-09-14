@@ -34,7 +34,7 @@ def decision_boundary(x, y, pol):
     plt.figure(1, figsize=(6, 5))
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.pcolormesh(xx, yy, Z, cmap='gray', alpha=0.1, shading='auto')
 
     neg, pos = [], []
@@ -45,8 +45,11 @@ def decision_boundary(x, y, pol):
             pos.append(x[i, :])
     neg, pos = np.vstack(neg), np.vstack(pos)
 
-    plt.scatter(neg[:, 0], neg[:, 1], c='black', marker='s', s=40)
-    plt.scatter(pos[:, 0], pos[:, 1], c='black', marker='o', s=40)
+    plt.scatter(neg[:, 0], neg[:, 1], c='black', marker='s', s=45)
+    plt.scatter(pos[:, 0], pos[:, 1], c='black', marker='o', s=45)
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

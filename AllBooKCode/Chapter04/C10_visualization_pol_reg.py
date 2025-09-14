@@ -65,10 +65,12 @@ if __name__ == '__main__':
     plt.figure(1, figsize=(6, 5))
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
-    plt.scatter(x, y, label='训练数据', c='black')
-    plt.plot(x, y_pre, linewidth=2, label='拟合曲线')
-    # plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体 # windows
-    plt.legend(fontsize=15)
+    plt.scatter(x, y, s=50, label='训练数据', c='black')
+    plt.plot(x, y_pre, linewidth=2, label='拟合曲线',color='black')
     plt.tight_layout()  # 调整子图间距
+    plt.tick_params(axis='x', labelsize=20)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=20)  # y轴刻度数字大小
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体 # windows
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.legend(fontsize=15)
     plt.show()

@@ -10,9 +10,6 @@ def visualization():
     x = np.linspace(-10, 10, 100)
     y = g(x)
     y_prime = g(x) * (1 - g(x))
-    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     a = plt.gca()
     a.spines['right'].set_visible(False)
     a.spines['top'].set_visible(False)
@@ -23,6 +20,13 @@ def visualization():
     plt.hlines(1, -10, 10, linestyles='--', colors='black')
     plt.hlines(0, -10, 10, linestyles='--', colors='black')
     plt.legend(fontsize=13, loc='center left')
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['axes.unicode_minus'] = False
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.show()
 
 
