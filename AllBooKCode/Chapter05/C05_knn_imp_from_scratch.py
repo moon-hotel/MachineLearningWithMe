@@ -629,7 +629,7 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://mp.weixin.qq.com/s/cvO6hCiHMJqC4-4AuUlydw
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # Step 1. 构建书中第5.4.1节中的示例kd树
+    # Step 1. 构建书中第5.3.1节中的示例kd树
     # test_kd_tree_build_in_book()
 
     # Step 2. 构建书中第5.4.3节的最近邻搜索
@@ -640,14 +640,14 @@ if __name__ == '__main__':
 
     # Step 4. 构建书中第5.5节的KNN示例
     # 测试KNN
-    # x_train, x_test, y_train, y_test = load_data()
-    # k = 5
-    # my_model = MyKNN(n_neighbors=k)
-    # my_model.fit(x_train, y_train)
-    # y_pred = my_model.predict(x_test)
-    # logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
-    #
-    # model = KNeighborsClassifier(n_neighbors=k)
-    # model.fit(x_train, y_train)
-    # y_pred = model.predict(x_test)
-    # logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
+    x_train, x_test, y_train, y_test = load_data()
+    k = 5
+    my_model = MyKNN(n_neighbors=k)
+    my_model.fit(x_train, y_train)
+    y_pred = my_model.predict(x_test)
+    logging.info(f"impl_by_ours 准确率：{accuracy_score(y_test, y_pred)}")
+
+    model = KNeighborsClassifier(n_neighbors=k)
+    model.fit(x_train, y_train)
+    y_pred = model.predict(x_test)
+    logging.info(f"impl_by_sklearn 准确率：{accuracy_score(y_test, y_pred)}")
