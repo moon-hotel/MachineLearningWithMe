@@ -25,11 +25,11 @@ def visualization():
                       cluster_std=0.2, random_state=np.random.seed(3))
     index_c0, index_c1, index_c2 = (y == 0), (y == 1), (y == 2)
     c0, c1, c2 = x[index_c0], x[index_c1], x[index_c2]
-    plt.scatter(c0[:, 0], c0[:, 1], marker='s', label='class 0', s=50)
-    plt.scatter(c1[:, 0], c1[:, 1], marker='o', label='class 1', s=50)
-    plt.scatter(c2[:, 0], c2[:, 1], marker='*', label='class 2', s=50)
+    plt.scatter(c0[:, 0], c0[:, 1], marker='s', label='class 0', s=50, c='black')
+    plt.scatter(c1[:, 0], c1[:, 1], marker='o', label='class 1', s=50, c='black')
+    plt.scatter(c2[:, 0], c2[:, 1], marker='*', label='class 2', s=50, c='black')
     plt.scatter(new_point[0], new_point[1], marker='v', s=60, c='black')
-    plt.annotate("Who am i ? which class do I belong to ?", xy=(1.56, 1.15), fontsize=13,
+    plt.annotate("我是谁？我属于哪个类别？", xy=(1.56, 1.15), fontsize=13,
                  xytext=(0.4, 1.5), arrowprops=dict(arrowstyle="<-", connectionstyle="arc3"))
     plt.xticks([])
     plt.yticks([])

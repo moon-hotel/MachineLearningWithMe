@@ -45,5 +45,5 @@ def train(x_train, x_test, y_train, y_test):
 
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data()
-    # model_selection(x_train, y_train)
+    model_selection(x_train, y_train)
     train(x_train, x_test, y_train, y_test)
