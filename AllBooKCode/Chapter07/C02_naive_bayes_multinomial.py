@@ -199,5 +199,5 @@ if __name__ == '__main__':
                         handlers=[logging.StreamHandler(sys.stdout)]
                         )
     test_count()
-    # test_naive_bayes()
-    # test_spam_classification()
+    # test_naive_bayes() # 7.4.4节
+    # test_spam_classification() # 7.4.5节 基于Multinomial的垃圾邮件分类
