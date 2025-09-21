@@ -422,7 +422,12 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章 https://mp.weixin.qq.com/s/cvO6hCiHMJqC4-4AuUlydw
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_compute()
+    test_compute()
+    # 信息熵0.9182958340544896
+    # 条件熵为0.7496741665224355
+    # 条件熵为0.8094472966717527
+    # 条件熵为0.909031468226648
+
     test_decision_tree()
-    # test_spam_classification()  # Accuracy:  id3:0.977  c45 0.975
-    # test_decision_tree_pruning()
+    test_spam_classification()  # Accuracy:  id3:0.977  c45 0.975
+    test_decision_tree_pruning()

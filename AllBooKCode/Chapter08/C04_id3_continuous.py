@@ -399,6 +399,6 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_decision_tree()
+    test_decision_tree()
     test_iris_classification()
-    # test_decision_tree_pruning()
+    test_decision_tree_pruning()
