@@ -6,8 +6,8 @@
 知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
 """
 
-from C22_manual_gradient_boost_cla import negative_gradient
-from C22_manual_gradient_boost_cla import objective_function
+from C18_manual_gradient_boost_cla import negative_gradient
+from C18_manual_gradient_boost_cla import objective_function
 import numpy as np
 
 

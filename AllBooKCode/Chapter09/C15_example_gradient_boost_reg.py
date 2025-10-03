@@ -5,8 +5,8 @@
 公众号: @月来客栈
 知 乎: @月来客栈 https://www.zhihu.com/people/the_lastest
 """
-from C21_manual_gradient_boost_reg import objective_function
-from C21_manual_gradient_boost_reg import negative_gradient
+from C17_manual_gradient_boost_reg import objective_function
+from C17_manual_gradient_boost_reg import negative_gradient
 import numpy as np
 
 
