@@ -25,6 +25,8 @@ def model_selection(x_train, y_train):
     gs.fit(x_train, y_train)
     print('best score:', gs.best_score_)
     print('best parameters:', gs.best_params_)
+    # best score: 0.9856801909307875
+    # best parameters: {'C': 6, 'coef0': -10, 'degree': 1, 'gamma': 'scale', 'kernel': 'rbf'}
 
 
 def train(x_train, x_test, y_train, y_test):
@@ -37,5 +39,5 @@ def train(x_train, x_test, y_train, y_test):
 
 if __name__ == '__main__':
     x_train, x_test, y_train, y_test = load_data()
-    # model_selection(x_train, y_train)
+    model_selection(x_train, y_train)
     train(x_train, x_test, y_train, y_test)
