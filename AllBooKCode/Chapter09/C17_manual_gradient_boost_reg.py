@@ -117,9 +117,16 @@ if __name__ == '__main__':
                                          base_estimator=base_estimator,
                                          learning_rate=0.1)
     my_boost.fit(x_train, y_train)
-    plt.plot(range(n_estimators), my_boost.loss_)
-    plt.xlabel("boosting steps", fontsize=13)
-    plt.ylabel("loss on training data", fontsize=13)
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.plot(range(n_estimators), my_boost.loss_, label='损失值', c='black')
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.legend(fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.xlabel('提升次数', fontsize=16)
+
     plt.show()
     loss = np.sum(objective_function(y_test, my_boost.predict(x_test)))
     print(f"loss in test by MyGradientBoostRegression {loss}")

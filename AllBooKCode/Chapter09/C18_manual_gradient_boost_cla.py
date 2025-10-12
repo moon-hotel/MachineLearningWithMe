@@ -135,9 +135,15 @@ if __name__ == '__main__':
     y_hat = my_boost.predict(x_test)
     print(f"MyGradientBoostClassifier accuracy on testing data {accuracy_score(y_test, y_hat)}")
 
-    plt.plot(range(my_boost.n_estimators), my_boost.loss_)
-    plt.xlabel("boosting steps", fontsize=13)
-    plt.ylabel("loss on training data", fontsize=13)
+    plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
+    plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
+    plt.plot(range(my_boost.n_estimators), my_boost.loss_, label='损失值', c='black')
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    # plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.legend(fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.xlabel('提升次数', fontsize=16)
     plt.show()
 
     print("===========")
