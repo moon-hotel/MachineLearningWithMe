@@ -28,8 +28,9 @@ def elbow_analysis(X, range_n_clusters, all_cluster_labels, all_centers):
     plt.xlim(range_n_clusters[0] - 0.5, range_n_clusters[-1] + 0.8)
     plt.ylim(all_dist[-1] * 0.9, all_dist[0] + all_dist[-1] * 0.1)
     plt.yticks([])
-    plt.xlabel("K", fontsize=12)
-    plt.ylabel("distance", fontsize=12)
+    plt.xlabel("K", fontsize=16)
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.ylabel("簇内距离", fontsize=16)
 
 
 if __name__ == '__main__':
@@ -53,7 +54,7 @@ if __name__ == '__main__':
             all_centers.append(centers)
         plt.subplot(row_plot, len(datasets) // row_plot, i + 1)
         title = dataname + " K = " + str(len(np.unique(data[1])))
-        plt.title(title)
+        plt.title(title,fontsize=16)
         elbow_analysis(X, range_n_clusters, all_cluster_labels, all_centers)
     plt.tight_layout()
     plt.show()
