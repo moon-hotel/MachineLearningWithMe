@@ -9,7 +9,8 @@ import numpy as np
 if __name__ == '__main__':
     X, y = make_blobs(n_samples=500, n_features=2, centers=4, cluster_std=1,
                       center_box=(-10.0, 10.0), shuffle=True, random_state=1)
-    range_n_clusters = [2, 3, 4, 5, 6]
+    # range_n_clusters = [2, 3, 4, 5, 6]
+    range_n_clusters = [3, 4, 5]
     for n_clusters in range_n_clusters:
         fig, (ax1, ax2) = plt.subplots(1, 2)  # 创建一个1行2列的子图
         fig.set_size_inches(12, 5)  # 画布大小
@@ -38,9 +39,9 @@ if __name__ == '__main__':
             y_lower = y_upper + 10  # 10 for the 0 samples
         fm.fontManager.addfont('../data/SimHei.ttf')
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来  正常显示中文标签
-        ax1.set_title("不同簇对应的轮廓系数图", fontsize=12)
-        ax1.set_xlabel("轮廓系数", fontsize=12)
-        ax1.set_ylabel("聚类簇序号", fontsize=12)
+        ax1.set_title("不同簇对应的轮廓系数图", fontsize=16)
+        ax1.set_xlabel("轮廓系数", fontsize=16)
+        ax1.set_ylabel("聚类簇序号", fontsize=16)
 
         # 以x=silhouette_avg 画一条平行于y轴的线
         ax1.axvline(x=silhouette_avg, color="red", linestyle="--")
@@ -56,12 +57,12 @@ if __name__ == '__main__':
         for i, c in enumerate(centers):  # 给每个簇标记序号
             ax2.scatter(c[0], c[1], marker="$%d$" % i, alpha=1, s=50, edgecolor="k")
 
-        ax2.set_title("数据集可视化结果", fontsize=12)
-        ax2.set_xlabel("特征维度 1", fontsize=12)
-        ax2.set_ylabel("特征维度 2", fontsize=12)
+        ax2.set_title("数据集可视化结果", fontsize=16)
+        ax2.set_xlabel("特征维度 1", fontsize=16)
+        ax2.set_ylabel("特征维度 2", fontsize=16)
         plt.suptitle("轮廓分析法 K = %d"
-                     % n_clusters, fontsize=12, fontweight="bold", )
-        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+                     % n_clusters, fontsize=16, fontweight="bold", )
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+        plt.rcParams['axes.unicode_minus'] = False
         plt.tight_layout()
-
     plt.show()
