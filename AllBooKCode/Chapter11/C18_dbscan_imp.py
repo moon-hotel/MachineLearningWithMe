@@ -11,7 +11,7 @@ import logging
 import time
 
 sys.path.append('../')
-from Chapter05.C05_knn_imp import MyKDTree
+from Chapter05.C05_knn_imp_from_scratch import MyKDTree
 
 
 def my_dbscan_inner(is_core, neighborhoods, labels):
@@ -182,10 +182,15 @@ def test_circle_dbscan():
 
     plt.subplot(1, 2, 1)
     plt.scatter(X[:, 0], X[:, 1], c=db.labels_, alpha=0.7)
-    plt.title("Clustered by DBSCAN")
+    plt.xticks([])
+    plt.yticks([])
+    plt.title("使用 DBSCAN 聚类", fontsize=15)
     plt.subplot(1, 2, 2)
     plt.scatter(X[:, 0], X[:, 1], c=my_db.labels_, alpha=0.7)
-    plt.title("Clustered by MyDBSCAN")
+    plt.title("使用 MyDBSCAN 聚类", fontsize=15)
+    plt.xticks([])
+    plt.yticks([])
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
     plt.tight_layout()
     plt.show()
 
@@ -218,5 +223,5 @@ if __name__ == '__main__':
                         handlers=[logging.StreamHandler(sys.stdout)])
     test_moon() # KMeans
     test_query_radius() # 测试寻找圆域内的样本点
-    test_circle_dbscan() #
+    test_circle_dbscan()  #
     test_moon_dbscan()
