@@ -17,7 +17,7 @@ def silhouette_elbow__analysis(X, range_n_clusters, all_cluster_labels, all_cent
     """
     assert len(all_cluster_labels) == len(all_centers) == len(range_n_clusters)
     plt.figure(figsize=(10, 8))
-    row_plot = 3  # 子图的行数
+    row_plot = (len(all_centers)+1)//2  # 子图的行数
     all_dist = []
     for n, n_clusters in enumerate(range_n_clusters):
         # ================= 轮廓分析法 ============================
@@ -44,9 +44,9 @@ def silhouette_elbow__analysis(X, range_n_clusters, all_cluster_labels, all_cent
             y_lower = y_upper + 10  # 10 for the 0 samples
         fm.fontManager.addfont('../data/SimHei.ttf')
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来  正常显示中文标签
-        plt.title(f"K = {n_clusters} 时的轮廓系数图", fontsize=12)
-        plt.xlabel("轮廓系数", fontsize=12)
-        plt.ylabel("聚类簇序号", fontsize=12)
+        plt.title(f"K = {n_clusters} 时的轮廓系数图", fontsize=15)
+        plt.xlabel("轮廓系数", fontsize=15)
+        plt.ylabel("聚类簇序号", fontsize=15)
         # 以x=silhouette_avg 画一条平行于y轴的线
         plt.axvline(x=silhouette_avg, color="red", linestyle="--")
         plt.yticks([])  # 去掉y轴的刻度
@@ -61,7 +61,7 @@ def silhouette_elbow__analysis(X, range_n_clusters, all_cluster_labels, all_cent
             dist += np.sum(np.sqrt(tmp))  # 累计当前聚类结果下所有簇的簇内距离和
         all_dist.append(dist)
     plt.subplot(row_plot, (len(range_n_clusters) + 1) // row_plot, len(range_n_clusters) + 1)
-    plt.title("肘部法结果")
+    plt.title("肘部法结果",fontsize=15)
     plt.plot(range_n_clusters, all_dist)  # 绘制肘部曲线
     plt.scatter(range_n_clusters, all_dist)  # 绘制各个点
     for i in range(len(range_n_clusters)):  # 在图上进行K值标记
@@ -73,15 +73,17 @@ def silhouette_elbow__analysis(X, range_n_clusters, all_cluster_labels, all_cent
     plt.xlim(range_n_clusters[0] - 0.5, range_n_clusters[-1] + 0.8)  # 调整范围
     plt.ylim(all_dist[-1] * 0.9, all_dist[0] + all_dist[-1] * 0.1)
     plt.yticks([])  # 去掉y轴上的刻度显示
-    plt.xlabel("K", fontsize=12)
-    plt.ylabel("distance", fontsize=12)
-    plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
+    plt.xlabel("K", fontsize=16)
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.ylabel("簇内距离", fontsize=16)
+    plt.rcParams['axes.unicode_minus'] = False
     plt.tight_layout()
     plt.show()
 
 
 if __name__ == '__main__':
-    range_n_clusters = [2, 3, 4, 5, 6]
+    # range_n_clusters = [2, 3, 4, 5, 6]
+    range_n_clusters = [3, 4, 5]
     all_centers, all_cluster_labels = [], []
     X, y = load_digits(return_X_y=True, n_class=4)
     for n_clusters in range_n_clusters:
