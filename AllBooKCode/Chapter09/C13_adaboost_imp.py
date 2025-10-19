@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.datasets import load_iris
 
 np.random.seed(1009)  # 固定结果
 
@@ -111,7 +112,7 @@ if __name__ == '__main__':
     # print(clf.estimator_weights_)
     # print(clf.estimator_errors_)
 
-    clf = AdaBoostClassifier(estimator=MultinomialNB(), n_estimators=10, algorithm='SAMME')
+    clf = AdaBoostClassifier(estimator=MultinomialNB(), n_estimators=10)
     clf.fit(x_train, y_train)
     print(accuracy_score(y_test, clf.predict(x_test)))
     # print(clf.estimator_weights_)

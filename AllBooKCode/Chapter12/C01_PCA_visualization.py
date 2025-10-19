@@ -163,7 +163,7 @@ def visualization_3d():
 
 
 if __name__ == '__main__':
-    # visualization1()
-    # visualization2()
+    visualization1()
+    visualization2()
     visualization_3d()
     # eigenvalue_vs_singular()

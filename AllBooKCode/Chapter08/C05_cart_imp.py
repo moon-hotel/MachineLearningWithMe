@@ -468,10 +468,10 @@ if __name__ == '__main__':
                         format=formatter,  # 关于Logging模块的详细使用可参加文章https://www.ylkz.life/tools/p10958151/
                         datefmt='%Y-%m-%d %H:%M:%S',
                         handlers=[logging.StreamHandler(sys.stdout)])
-    # test_gini()
-    # test_cart()
+    test_gini()
+    test_cart()
     test_get_subtree()
-    # test_wine_classification()
+    test_wine_classification()
 
     # ================ test_cart()函数的运行中间过程如下：
     # [2022-11-10 20:19:03] - INFO: 标签[1 1 1 0 0 0 0 1 1 1 1 1 1 0 1]的GINI指数为: 0.4444444444444444

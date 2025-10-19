@@ -12,9 +12,10 @@ def visualization():
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     for i in range(num_points):
+        # color = 'red' if y[i] == 0 else 'black'
         color = 'black' if y[i] == 0 else 'black'
         mark = 'o' if y[i] == 0 else 's'  # 形状
-        plt.scatter(x[i, 0], x[i, 1], c=color, marker=mark, alpha=0.83, cmap='hsv', s=size, )  # alpha 控制透明度
+        plt.scatter(x[i, 0], x[i, 1], c=color, marker=mark, alpha=0.83, s=size, )  # alpha 控制透明度
     plt.xticks([])
     plt.yticks([])
     plt.tight_layout()  # 调整子图间距
