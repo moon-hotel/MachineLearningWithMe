@@ -128,6 +128,8 @@ def comp():
     plt.subplot(1, 2, 1)
     plt.title("MyKernelPCA on test data")
     plt.scatter(x_d[:, 0], x_d[:, 1], c=y_test)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
 
     kernel_pca = KernelPCA(n_components=2, kernel='rbf', gamma=11.)
     kernel_pca.fit(x_train)
@@ -135,6 +137,8 @@ def comp():
     plt.subplot(1, 2, 2)
     plt.title("KernelPCA on test data")
     plt.scatter(x_d[:, 0], x_d[:, 1], c=y_test)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

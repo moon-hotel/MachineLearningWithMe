@@ -36,6 +36,9 @@ def visualization3D():
     plt.title('Mapped Projection', fontsize=12)
     X, Y, Z = featuere_map(x_orig)
     ax.scatter(X, Y, Z, s=30, c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.tick_params(axis='z', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
@@ -52,10 +55,13 @@ def visualization():
     plt.subplot(1, 2, 1)
     plt.title('Projection with two components', fontsize=15)
     plt.scatter(x[:, 0], x[:, 1], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 2, 2)
     plt.title('Projection with one component', fontsize=15)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

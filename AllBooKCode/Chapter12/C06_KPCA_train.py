@@ -25,15 +25,23 @@ def visualization():
     pca = KernelPCA(n_components=2, kernel='rbf', gamma=2.)
     plt.figure(figsize=(12, 4))
     plt.subplot(1, 3, 1)
-    plt.title('Original', fontsize=15)
+    plt.title('原始样本', fontsize=15)
     plt.scatter(x[:, 0], x[:, 1], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     x = pca.fit_transform(x)
     plt.subplot(1, 3, 2)
-    plt.title('Projection with two components', fontsize=15)
+    plt.title('2个主成分表示', fontsize=15)
     plt.scatter(x[:, 0], x[:, 1], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 3, 3)
-    plt.title('Projection with one component', fontsize=15)
+    plt.title('1个主成分表示', fontsize=15)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+    plt.rcParams['axes.unicode_minus'] = False
     plt.tight_layout()
     plt.show()
 

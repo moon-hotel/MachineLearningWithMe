@@ -27,18 +27,24 @@ def visualization():
     plt.title('Original Projection', fontsize=15)
     x_orig, y = make_nonlinear_cla_data()
     plt.scatter(x_orig[:, 0], x_orig[:, 1], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
 
     plt.subplot(1, 3, 2)
     plt.title('Projection via PCA', fontsize=15)
     pca = PCA(n_components=1)
     x = pca.fit_transform(x_orig)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
 
     plt.subplot(1, 3, 3)
     plt.title('Projection via KernelPCA', fontsize=15)
     pca = KernelPCA(n_components=1, kernel='rbf', gamma=10)
     x = pca.fit_transform(x_orig)
     plt.scatter(x[:, 0], [0] * len(x), c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

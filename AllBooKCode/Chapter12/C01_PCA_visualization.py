@@ -23,8 +23,8 @@ def visualization1():
     plt.scatter(X[:, 0], X[:, 1], alpha=1., c='black')
     plt.xlim(-3.5, 3.5)
     plt.ylim(-3.5, 3.5)
-    plt.xlabel(r"$x$")
-    plt.ylabel(r"$y$")
+    plt.xlabel(r"$x$", fontsize=16)
+    plt.ylabel(r"$y$", fontsize=16)
 
     plt.subplot(1, 3, 2)
     pca = PCA(n_components=2).fit(X)
@@ -36,10 +36,10 @@ def visualization1():
     plt.plot([comp[0], -comp[0]], [comp[1], -comp[1]], c='r', linestyle='--', label=r"$z_2$")
     plt.xlim(-3.5, 3.5)
     plt.ylim(-3.5, 3.5)
-    plt.xlabel(r"$x$")
-    plt.ylabel(r"$y$")
+    plt.xlabel(r"$x$", fontsize=16)
+    plt.ylabel(r"$y$", fontsize=16)
     plt.gca().set(aspect="equal")  # x,y轴按等比例进行展示
-    plt.legend()
+    plt.legend(fontsize=16)
 
     plt.subplot(1, 3, 3)
     pca = PCA(n_components=1).fit(X)
@@ -50,7 +50,7 @@ def visualization1():
     # a.spines['top'].set_visible(False)
     # a.spines['bottom'].set_position('center')
     # a.spines['left'].set_position('center')
-    plt.xlabel(f"$z_1$")
+    plt.xlabel(f"$z_1$", fontsize=16)
     plt.xlim(-3.5, 3.5)
     plt.ylim(-3.5, 3.5)
     plt.yticks([])
@@ -77,7 +77,7 @@ def visualization2():
         plt.arrow(0, 0, comp[0], comp[1], head_width=0.1,
                   head_length=0.1, linewidth=2, color=f"C{i + 2}", label=f"Component {i}")
     plt.gca().set(aspect="equal")  # x,y轴按等比例进行展示
-    plt.legend()
+    plt.legend(loc='upper left', fontsize=14)
     plt.tight_layout()
     plt.show()
 
@@ -145,7 +145,7 @@ def visualization_3d():
     ax = Axes3D(fig)
     fig.add_axes(ax)
     pca = PCA(n_components=3).fit(X)
-    ax.scatter3D(X[:, 0], X[:, 1], X[:, 2], alpha=0.5, label="samples")
+    ax.scatter3D(X[:, 0], X[:, 1], X[:, 2], alpha=0.5)
     for i, (comp, var) in enumerate(zip(pca.components_, pca.explained_variance_)):
         comp = comp * 2.3  # scale component by its variance explanation power
         ax.quiver(0, 0, 0, comp[0], comp[1], comp[2], color=f"C{i + 2}",
@@ -153,17 +153,17 @@ def visualization_3d():
     ax.set_xlim(-2.5, 2.5)
     ax.set_ylim(-2.5, 2.5)
     ax.set_zlim(-2.5, 2.5)
-    plt.legend()
+    plt.legend(fontsize=14)
     plt.figure()
     X_new = pca.transform(X)
     plt.scatter(X_new[:, 0], X_new[:, 1])
-    plt.xlabel(f"$z_0$")
-    plt.ylabel(f"$z_1$")
+    plt.xlabel(f"$z_0$", fontsize=16)
+    plt.ylabel(f"$z_1$", fontsize=16)
     plt.show()
 
 
 if __name__ == '__main__':
-    visualization1()
+    # visualization1()
     # visualization2()
-    # visualization_3d()
+    visualization_3d()
     # eigenvalue_vs_singular()
