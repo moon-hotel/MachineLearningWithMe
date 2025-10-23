@@ -35,7 +35,8 @@ def decision_boundary():
     plt.contour(XX, YY, Z, colors='black', levels=[-1, 0, 1], alpha=0.8,
                 linestyles=['-', '-', '--'])
     plt.xlabel('(a)', fontsize=15)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(2, 2, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
@@ -50,7 +51,8 @@ def decision_boundary():
     plt.contour(XX, YY, Z, colors='black', levels=[-1, 0, 1], alpha=0.8,
                 linestyles=['-', '-', '--'])
     plt.xlabel('(b)', fontsize=15)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(2, 2, 3)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
@@ -62,7 +64,8 @@ def decision_boundary():
     plt.contour(XX, YY, Z, colors='black', levels=[-1, 0, 1], alpha=0.8,
                 linestyles=['-', '-', '--'])
     plt.xlabel('(c)', fontsize=15)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(2, 2, 4)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
@@ -77,6 +80,8 @@ def decision_boundary():
     plt.contour(XX, YY, Z, colors='black', levels=[-1, 0, 1], alpha=0.8,
                 linestyles=['-', '-', '--'])
     plt.xlabel('(d)', fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     # plot support vectors
     # plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
     #            linewidth=1, facecolors='none', edgecolors='k')

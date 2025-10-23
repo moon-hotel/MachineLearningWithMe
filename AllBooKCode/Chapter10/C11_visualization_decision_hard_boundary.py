@@ -13,10 +13,10 @@ def decision_boundary():
     # y = np.array([1, 1, 0, 0])
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.annotate(r'$x^{(1)}$', xy=(0.8, 2.2), fontsize=12)
-    plt.annotate(r'$x^{(2)}$', xy=(2.7, 0), fontsize=12)
-    plt.annotate(r'$x^{(3)}$', xy=(3, 5.5), fontsize=12)
-    plt.annotate(r'$x^{(4)}$', xy=(2.2, 6.5), fontsize=12)
+    plt.annotate(r'$x^{(1)}$', xy=(0.8, 2.2), fontsize=15)
+    plt.annotate(r'$x^{(2)}$', xy=(2.7, 0), fontsize=15)
+    plt.annotate(r'$x^{(3)}$', xy=(3, 5.5), fontsize=15)
+    plt.annotate(r'$x^{(4)}$', xy=(2.2, 6.5), fontsize=15)
 
     xlim = [np.min(X[:, 0]), np.max(X[:, 0])]
     ylim = [np.min(X[:, 1]), np.max(X[:, 1])]
@@ -47,6 +47,8 @@ def decision_boundary():
     # plot support vectors
     plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=130,
                 linewidth=1, facecolors='none', edgecolors='k')
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.xlim(0.5, 4)
     plt.ylim(-1, 8)
     plt.show()

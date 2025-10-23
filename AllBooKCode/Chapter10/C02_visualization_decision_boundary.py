@@ -53,6 +53,8 @@ def decision_boundary():
     # plot support vectors
     # plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=100,
     #            linewidth=1, facecolors='none', edgecolors='k')
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

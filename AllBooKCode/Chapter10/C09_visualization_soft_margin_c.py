@@ -28,8 +28,8 @@ def decision_boundary():
     y = np.hstack([y, noise_y])
 
     # plt.scatter(X[:, 0], X[:, 1], c=y, s=40)
-    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=40)
-    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=40)
+    plt.scatter(data[0][:, 0], data[0][:, 1], marker='o', s=70)
+    plt.scatter(data[1][:, 0], data[1][:, 1], marker='s', s=70)
 
     clf = svm.SVC(kernel='linear', C=1000)
     clf.fit(X, y)
@@ -40,7 +40,8 @@ def decision_boundary():
     clf.fit(X, y)
     Z = clf.decision_function(xy).reshape(XX.shape)
     plt.contour(XX, YY, Z, colors='black', levels=[-1, 0, 1], alpha=0.8, linestyles=['--', '-', '--'])
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

@@ -26,8 +26,8 @@ def plot_countour():
     CS = plt.contour(W1, W2, J, 16)
     plt.clabel(CS, inline=2, fontsize=10)
     plt.annotate(r'$(0.26,-0.41)$', xy=(-0.6, -0.9), fontsize=15)
-    plt.xlabel(r'$w_1$', fontsize=18)
-    plt.ylabel(r'$w_2$', fontsize=18)
+    plt.xlabel(r'$w_1$', fontsize=20)
+    plt.ylabel(r'$w_2$', fontsize=20)
 
     # --------------  坐标下降算法
     p = np.array([-3.8, 2.])  # 起始位置
@@ -56,6 +56,8 @@ def plot_countour():
         plt.arrow(p[0], p[1], q[0], q[1], head_width=0.1, head_length=0.1, )
         p += q  # 上一次的位置加上本次的梯度
         print("P{}:{}, J={}".format(i, p, cost(p[0], p[1])))
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.show()
 
 

@@ -10,11 +10,11 @@ def decision_boundary():
     y = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0])
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
-    plt.annotate(r'$x^{(1)}$', xy=(0.8, 1.3), fontsize=12,)
-    plt.annotate(r'$x^{(2)}$', xy=(3, 1.2), fontsize=12,)
-    plt.annotate(r'$x^{(5)}$', xy=(1.1, 5), fontsize=12,)
-    plt.annotate(r'$x^{(3)}$', xy=(3.1, 4.9), fontsize=12,)
-    plt.annotate(r'$x^{(4)}$', xy=(1.6, 6.2), fontsize=12,)
+    plt.annotate(r'$x^{(1)}$', xy=(0.8, 1.3), fontsize=15)
+    plt.annotate(r'$x^{(2)}$', xy=(3, 1.2), fontsize=15)
+    plt.annotate(r'$x^{(5)}$', xy=(1.1, 5), fontsize=15)
+    plt.annotate(r'$x^{(3)}$', xy=(3.1, 4.9), fontsize=15)
+    plt.annotate(r'$x^{(4)}$', xy=(1.6, 6.2), fontsize=15)
 
     xlim = [np.min(X[:, 0]), np.max(X[:, 0])]
     ylim = [np.min(X[:, 1]), np.max(X[:, 1])]
@@ -47,6 +47,8 @@ def decision_boundary():
                 linewidth=1, facecolors='none', edgecolors='k')
     plt.xlim(0.5, 4)
     plt.ylim(-1, 8)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.show()
 
 

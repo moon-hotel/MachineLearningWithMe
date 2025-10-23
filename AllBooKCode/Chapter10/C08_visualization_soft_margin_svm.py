@@ -48,7 +48,8 @@ def decision_boundary():
     for i in range(len(X)):
         index = np.where(y == i)[0]
         data.append(X[index, :])
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 3, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
@@ -62,6 +63,8 @@ def decision_boundary():
     plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=140,
                 linewidth=1, facecolors='none', edgecolors='k')
     plt.xlabel('(b)', fontsize=15)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     # -------------------soft margin-------------------------
     plt.subplot(1, 3, 3)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
@@ -76,7 +79,8 @@ def decision_boundary():
     plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=140,
                 linewidth=1, facecolors='none', edgecolors='k')
     plt.xlabel('(c)', fontsize=15)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

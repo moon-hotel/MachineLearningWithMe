@@ -15,11 +15,12 @@ if __name__ == '__main__':
         data = x[idx, :]
         X, Y = data[:, 0], data[:, 1]
         plt.scatter(X, Y, marker=marker[i])
+    plt.tick_params(axis='x', labelsize=14)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=14)  # y轴刻度数字大小
     plt.show()
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-
     marker = ['o', 's']
     for i in range(2):
         idx = np.where(y == i)[0]
@@ -31,6 +32,8 @@ if __name__ == '__main__':
     xx, yy = np.meshgrid(x, y)
     zz = 0. * (xx + yy) + 0.2
     ax.plot_surface(xx, yy, zz, color='black', alpha=0.7)
-
+    plt.tick_params(axis='x', labelsize=14)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=14)  # y轴刻度数字大小
+    plt.tick_params(axis='z', labelsize=14)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()

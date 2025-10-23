@@ -33,7 +33,8 @@ def decision_boundary():
     Z1 = clf.decision_function(xy).reshape(XX.shape)
     plt.contour(XX, YY, Z1, colors='black', levels=[-2.2, 0, 1.8], alpha=0.8, linestyles=['--', '-', '--'])
     plt.xlabel('(a)', fontsize=15)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 2, 2)
     plt.rcParams['ytick.direction'] = 'in'  # 刻度向内
     plt.rcParams['xtick.direction'] = 'in'  # 刻度向内
@@ -49,6 +50,8 @@ def decision_boundary():
     # plot support vectors
     plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=130,
                 linewidth=1, facecolors='none', edgecolors='k')
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
