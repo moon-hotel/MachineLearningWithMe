@@ -27,8 +27,14 @@ def visualization(x, y, x_noise):
     fig = plt.figure(figsize=(10, 5), dpi=80)
     ax = fig.add_subplot(121, projection='3d')
     ax.scatter(x_noise[:, 0], x_noise[:, 1], x_noise[:, 2], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.tick_params(axis='z', labelsize=15)  # y轴刻度数字大小
     ax = fig.add_subplot(122, projection='3d')
     ax.scatter(x_noise[:, 0], x_noise[:, 1], x_noise[:, 2], c=y)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
+    plt.tick_params(axis='z', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 

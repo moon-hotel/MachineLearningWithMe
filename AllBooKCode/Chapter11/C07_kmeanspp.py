@@ -82,10 +82,12 @@ def kmeanspp_visual(X, idx, K):
             plt.scatter(centroids[0, 0], centroids[0, 1], c='black', s=50)
             plt.scatter(centroids[1, 0], centroids[1, 1], c='black', s=50)
             plt.scatter(centroids[2, 0], centroids[2, 1], c='black', s=50)
-            plt.xlabel("iter = {}".format(fig_idx - 1), fontsize=15)
+            plt.xlabel("iter = {}".format(fig_idx - 1), fontsize=16)
             fig_idx += 1
             plt.xticks([])
             plt.yticks([])
+            plt.tick_params(axis='x', labelsize=18)  # x轴刻度数字大小
+            plt.tick_params(axis='y', labelsize=18)  # y轴刻度数字大小
         idx = findClostestCentroids(X, centroids)
         centroids = computeCentroids(X, idx, K)
     plt.tight_layout()
@@ -97,7 +99,7 @@ if __name__ == '__main__':
     x, y = make_data()
     K = len(np.unique(y))
     y_pred, centroids = kmeanspp(x, K)
-    # y_pred = kmeanspp_visual(x, y, K)
+    y_pred = kmeanspp_visual(x, y, K)
     nmi = normalized_mutual_info_score(y, y_pred)
     print("NMI by ours: ", nmi)
     print("centroids: ", centroids)

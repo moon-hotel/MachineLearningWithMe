@@ -25,7 +25,8 @@ def visualization1():
     plt.ylim(-3.5, 3.5)
     plt.xlabel(r"$x$", fontsize=16)
     plt.ylabel(r"$y$", fontsize=16)
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 3, 2)
     pca = PCA(n_components=2).fit(X)
     plt.scatter(X[:, 0], X[:, 1], alpha=1., c='black')
@@ -38,6 +39,8 @@ def visualization1():
     plt.ylim(-3.5, 3.5)
     plt.xlabel(r"$x$", fontsize=16)
     plt.ylabel(r"$y$", fontsize=16)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.gca().set(aspect="equal")  # x,y轴按等比例进行展示
     plt.legend(fontsize=16)
 
@@ -54,7 +57,8 @@ def visualization1():
     plt.xlim(-3.5, 3.5)
     plt.ylim(-3.5, 3.5)
     plt.yticks([])
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
@@ -68,7 +72,8 @@ def visualization2():
     plt.subplot(1, 2, 1)
     plt.scatter(X[:, 0], X[:, 1], alpha=0.6, label="samples")
     plt.gca().set(aspect="equal")  # x,y轴按等比例进行展示
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 2, 2)
     pca = PCA(n_components=2).fit(X)
     plt.scatter(X[:, 0], X[:, 1], alpha=0.5, label="samples")
@@ -78,6 +83,8 @@ def visualization2():
                   head_length=0.1, linewidth=2, color=f"C{i + 2}", label=f"Component {i}")
     plt.gca().set(aspect="equal")  # x,y轴按等比例进行展示
     plt.legend(loc='upper left', fontsize=14)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
@@ -99,7 +106,8 @@ def eigenvalue_vs_singular():
     plt.gca().set(aspect="equal", title="2-dimensional dataset with principal components",
                   xlabel="first feature", ylabel="second feature", )  # x,y轴按等比例进行展示
     plt.legend()
-
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.subplot(1, 2, 2)
     w, v = np.linalg.eig(np.matmul(X.T, X) / len(X))
     # v[:,i] 是特征值w[i]所对应的特征向量
@@ -111,6 +119,8 @@ def eigenvalue_vs_singular():
     plt.gca().set(aspect="equal", title="2-dimensional dataset with principal components",
                   xlabel="first feature", ylabel="second feature", )  # x,y轴按等比例进行展示
     plt.legend()
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
@@ -126,7 +136,6 @@ def visualization_3d():
     y = np.random.normal(scale=0.5, size=(500))
     x = np.random.normal(scale=0.5, size=(500))
     z = np.random.normal(scale=0.1, size=len(x))
-
     density = pdf(x) * pdf(y)
     pdf_z = pdf(5 * z)
 
@@ -153,12 +162,17 @@ def visualization_3d():
     ax.set_xlim(-2.5, 2.5)
     ax.set_ylim(-2.5, 2.5)
     ax.set_zlim(-2.5, 2.5)
+    plt.tick_params(axis='x', labelsize=16)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=16)  # y轴刻度数字大小
+    plt.tick_params(axis='z', labelsize=16)  # y轴刻度数字大小
     plt.legend(fontsize=14)
     plt.figure()
     X_new = pca.transform(X)
     plt.scatter(X_new[:, 0], X_new[:, 1])
     plt.xlabel(f"$z_0$", fontsize=16)
     plt.ylabel(f"$z_1$", fontsize=16)
+    plt.tick_params(axis='x', labelsize=16)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=16)  # y轴刻度数字大小
     plt.show()
 
 

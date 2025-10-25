@@ -18,6 +18,8 @@ def make_data():
                      xy=(x[i, 0] - 0.1, x[i, 1] - 0.4), fontsize=12, c='r')
     plt.xlim(-1, 5)
     plt.ylim(-1, 5)
+    plt.tick_params(axis='x', labelsize=15)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=15)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
     return x, idx
@@ -37,7 +39,8 @@ def InitialCentroid(x, K, idx=None):
         data = x[index]
         plt.scatter(data[:, 0], data[:, 1], s=80)
     plt.scatter(centroid[:, 0], centroid[:, 1], c='black', s=80)
-
+    plt.tick_params(axis='x', labelsize=18)  # x轴刻度数字大小
+    plt.tick_params(axis='y', labelsize=18)  # y轴刻度数字大小
     while k < K:  # 依次得到K个簇
         d2 = []
         for i in range(n):
@@ -57,6 +60,8 @@ def InitialCentroid(x, K, idx=None):
         plt.scatter(centroid[:, 0], centroid[:, 1], c='black', s=80)  # 可视化簇中心
         k += 1
         print("当前簇中心:", centroid)
+        plt.tick_params(axis='x', labelsize=18)  # x轴刻度数字大小
+        plt.tick_params(axis='y', labelsize=18)  # y轴刻度数字大小
     plt.tight_layout()
     plt.show()
 
